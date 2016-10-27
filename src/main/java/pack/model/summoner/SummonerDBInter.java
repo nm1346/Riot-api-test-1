@@ -1,16 +1,10 @@
 package pack.model.summoner;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
-
-import net.rithms.riot.dto.League.League;
 import net.rithms.riot.dto.League.LeagueEntry;
-import net.rithms.riot.dto.Summoner.Summoner;
 import pack.Controller.SummonerBean;
 
 public interface SummonerDBInter {

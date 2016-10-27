@@ -1,6 +1,6 @@
 package pack.model;
 
-import org.aspectj.lang.annotation.Aspect;
+
 import org.springframework.stereotype.Component;
 
 import net.rithms.riot.api.RiotApi;
@@ -10,7 +10,7 @@ import net.rithms.riot.constant.Region;
 public class RiotApiKeyRotate extends RiotApi{
 	private String[] key={
 			"RGAPI-405a98fb-22c7-4afc-8718-77a577111c33",
-			"RGAPI-405a98fb-22c7-4afc-8718-77a577111c33",
+			"RGAPI-318533dd-c968-4019-8f0b-7d9ead363547",
 			"RGAPI-405a98fb-22c7-4afc-8718-77a577111c33",
 			"RGAPI-405a98fb-22c7-4afc-8718-77a577111c33",
 			"RGAPI-405a98fb-22c7-4afc-8718-77a577111c33"};

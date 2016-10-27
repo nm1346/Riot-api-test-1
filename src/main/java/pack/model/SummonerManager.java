@@ -1,19 +1,11 @@
 package pack.model;
-
-
-import java.sql.Timestamp;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.TimeZone;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import net.rithms.riot.dto.Summoner.Summoner;
 import pack.Controller.SummonerBean;
 import pack.model.summoner.LeagueDto;
 import pack.model.summoner.SummonerApiDao;
@@ -63,7 +55,6 @@ public class SummonerManager {
 				summoner=apiDao.ApigetSummonerByName(bean.getName());
 				dto=apiDao.ApigetLeagueData(summoner.getId());
 				summonerDao.insertSummoner(dto, summoner);
-				
 				map.put("summonerData", summoner);
 				map.put("leagueData", summonerDao.selectLeagueData(summoner.getId()));
 				map.put("success", "true");
@@ -71,8 +62,11 @@ public class SummonerManager {
 				map.put("success", "false");
 				map.put("error", e.getMessage());
 			}
-			
 		}
 		return map;
 	}
+	
+	
+	
+	
 }
