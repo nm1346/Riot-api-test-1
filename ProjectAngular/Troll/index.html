@@ -25,33 +25,33 @@
 	 .ngFade{
 	 transition: all linear 0.5s;
 	 background-color:blue;
-	} 
+	}
 	 .ngFade.ng-enter{
 	 	 transition: all linear 0.5s;
 		background-color: blue;
-	} 
+	}
 	 .ngFade.ng-enter-active{
 	 	 transition: all linear 0.5s;
 	background-color: red;
 
-	} 
+	}
 	.ngFade.ng-leave{
 		 transition: all linear 0.5s;
 			background-color: blue;
-			
-		} 
+
+		}
 	.ngFade.ng-leave-active{
 		 transition: all linear 0.5s;
 		background-color: red;
-		}  
+		}
 </style>
 <!-- static데이터 불러오기 -->
-<script src="resources/static/angular.js"></script>
-<script src="resources/static/angular-animate.js"></script>
-<script src="resources/static/angular-route.js"></script>
-<script src="resources/static/angular-resource.js"></script>
-<script src="resources/static/jquery.fullPage.js"></script>
-<script src="resources/static/angular-fullpage.js"></script>
+<script type="text/javascript" src="/resources/static/angular.js"></script>
+<script type="text/javascript" src="/resources/static/angular-animate.js"></script>
+<script type="text/javascript" src="/resources/static/angular-route.js"></script>
+<script type="text/javascript" src="/resources/static/angular-resource.js"></script>
+<script type="text/javascript" src="/resources/static/jquery.fullPage.js"></script>
+<script type="text/javascript" src="/resources/static/angular-fullpage.js"></script>
 <script>
 var myApp=angular.module("exampleApp",["ngRoute","fullPage.js","ngResource","ngAnimate"]);
 //config
@@ -97,11 +97,11 @@ myApp.run(function($rootScope){
 });
 </script>
 <!-- 사용자 정의 서비스 컨트롤러 디렉티브들 ...-->
-<script src="/resources/controller/pagectrl.js"></script>
-<script src="/resources/directive/indexdirective.js"></script>
-<script src="/resources/directive/searchdirective1.js"></script>
-<script src="/resources/filter/filter.js"></script>
-<script src="/resources/service/service.js"></script>
+<script type="text/javascript" src="/resources/controller/pagectrl.js"></script>
+<script type="text/javascript" src="/resources/directive/indexdirective.js"></script>
+<script type="text/javascript" src="/resources/directive/searchdirective1.js"></script>
+<script type="text/javascript" src="/resources/filter/filter.js"></script>
+<script type="text/javascript" src="/resources/service/service.js"></script>
 </head>
 <body>
 <nav-bar></nav-bar>

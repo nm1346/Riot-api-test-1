@@ -7,13 +7,17 @@ var server = http.createServer(app).listen(5000, function () {
 	console.log('server on !');
 	console.log(__dirname);
 });
-app.use('resources' ,express.static(__dirname + "/views/resources"));
+
+app.use('/resources' , express.static(__dirname + '/resources'));
+/*app.use('/resources', function (req , res , next) {
+	res.end();
+})*/
 
 app.get('*',function (req , res ) {
-	console.log(__dirname);
-	fs.readFile('views/index.html', function (error , data) {
-		
-		res.writeHead(200 ,{'content-type' : 'text/html; charset="utf-8"'});
-		res.end(data);
+	res.sendfile(__dirname + '/index.html', function (html) {
+		if (html) {
+			res.send(html);
+			res.end();
+		}
 	});
 });
