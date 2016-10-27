@@ -1,7 +1,5 @@
 ﻿var express = require('express'),
-	http = require('http'),
-    path = require("path"),
-    fs = require('fs');
+	http = require('http');
 var app = express();
 var server = http.createServer(app).listen(5000, function () {
 	console.log('server on !');

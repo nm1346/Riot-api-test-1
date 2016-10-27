@@ -11,11 +11,7 @@ import pack.model.RiotApiKeyRotate;
 public class RecentApiDao {
 	@Autowired
 	RiotApiKeyRotate api;
-	
-	public RecentGames getRecentGame(Long id) throws RiotApiException{
+	public RecentGames ApigetRecentGame(Long id) throws RiotApiException{
 		return api.getRecentGames(id);
 	}
-	
-	
-	
 }
