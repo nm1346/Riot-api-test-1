@@ -13,6 +13,7 @@ import java.util.TimeZone;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import net.rithms.riot.api.RiotApiException;
 import net.rithms.riot.dto.Summoner.Summoner;
 import pack.Controller.SummonerBean;
 import pack.model.summoner.LeagueDto;
@@ -27,6 +28,9 @@ public class SummonerManager {
 	SummonerApiDao apiDao;
 	@Autowired
 	SummonerDao summonerDao;
+	
+	//성공했을시 success=true,leagueData,summonerData
+	//에러시 success=false,error,errorCode
 	public Map<String,Object> getSummonerAndLeague(SummonerBean bean){
 		HashMap<String,Object> map=new HashMap<>();
 		SummonerDto summoner =summonerDao.selectSummoner(bean);
@@ -38,7 +42,7 @@ public class SummonerManager {
 				date=format.parse(summoner.getSearchDate());
 				summoner.setSearchDate(format.format(date));
 			} catch (Exception e) {
-				System.out.println("parsing err"+e);
+				
 			}
 			Calendar searchDate=Calendar.getInstance();
 			searchDate.setTime(date);
@@ -47,11 +51,13 @@ public class SummonerManager {
 				try {
 					summoner=apiDao.ApigetSummonerByName(bean.getName());
 					dto=apiDao.ApigetLeagueData(summoner.getId());
+					
 					summonerDao.updateSummoner(dto, summoner);
-				} catch (Exception e) {
+				} catch (RiotApiException e) {
 					System.out.println("getSummonerAndLeague ApiGetUpdate Error"+e);
 					map.put("success", "false");
 					map.put("error", e.getMessage());
+					map.put("errorCode", e.getErrorCode());
 					return map;
 				}
 			}
@@ -67,9 +73,10 @@ public class SummonerManager {
 				map.put("summonerData", summoner);
 				map.put("leagueData", summonerDao.selectLeagueData(summoner.getId()));
 				map.put("success", "true");
-			} catch (Exception e) {
+			} catch (RiotApiException e) {
 				map.put("success", "false");
 				map.put("error", e.getMessage());
+				map.put("errorCode", e.getErrorCode());
 			}
 			
 		}
