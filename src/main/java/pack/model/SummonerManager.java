@@ -28,6 +28,9 @@ public class SummonerManager {
 	SummonerApiDao apiDao;
 	@Autowired
 	SummonerDao summonerDao;
+	
+	//성공했을시 success=true,leagueData,summonerData
+	//에러시 success=false,error,errorCode
 	public Map<String,Object> getSummonerAndLeague(SummonerBean bean){
 		HashMap<String,Object> map=new HashMap<>();
 		SummonerDto summoner =summonerDao.selectSummoner(bean);
@@ -48,6 +51,7 @@ public class SummonerManager {
 				try {
 					summoner=apiDao.ApigetSummonerByName(bean.getName());
 					dto=apiDao.ApigetLeagueData(summoner.getId());
+					
 					summonerDao.updateSummoner(dto, summoner);
 				} catch (RiotApiException e) {
 					System.out.println("getSummonerAndLeague ApiGetUpdate Error"+e);

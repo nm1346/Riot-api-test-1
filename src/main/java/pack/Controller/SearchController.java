@@ -26,11 +26,8 @@ import pack.model.summoner.SummonerDao;
 
 @CrossOrigin(origins="*")
 @Controller
-public class TestController {
-	//aggregatedStats
-//	RiotApi api = new RiotApi("RGAPI-318533dd-c968-4019-8f0b-7d9ead363547", Region.KR);
-//	PlayerStatsSummaryList summary = api.getPlayerStatsSummary(1315619);
-//	
+public class SearchController {
+	
 	@Autowired
 	SummonerManager summonerManager;
 	
