@@ -1,5 +1,7 @@
 package pack.model.recentgame;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -14,4 +16,8 @@ public class RecentApiDao {
 	public RecentGames ApigetRecentGame(Long id) throws RiotApiException{
 		return api.getRecentGames(id);
 	}
+
+	/*public Map<String,String> ApigetSummnerName(String[] summonerIds) throws RiotApiException{
+		return api.getSummonerNames(summonerIds);
+	}*/
 }

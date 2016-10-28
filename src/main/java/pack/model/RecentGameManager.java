@@ -7,8 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import net.rithms.riot.api.RiotApiException;
 import net.rithms.riot.dto.Game.Game;
+import net.rithms.riot.dto.Game.RawStat;
+import net.rithms.riot.dto.Game.RawStats;
 import net.rithms.riot.dto.Game.RecentGames;
 import pack.Controller.SummonerBean;
+import pack.model.recentgame.GameDto;
 import pack.model.recentgame.RecentApiDao;
 import pack.model.recentgame.RecentGameDao;
 import pack.model.summoner.SummonerApiDao;
@@ -29,12 +32,17 @@ public class RecentGameManager {
 		RecentGames games = null;
 		List<Game> game;
 		try {
-			SummonerDto dto = summonerApiDao.ApigetSummonerByName(bean.getName());
-			System.out.println(dto.getId());
-			games = apiDao.ApigetRecentGame(dto.getId());
+			SummonerDto summoner = summonerApiDao.ApigetSummonerByName(bean.getName());
+			System.out.println(summoner.getId());
+			/*games = apiDao.ApigetRecentGame(dto.getId());
 			game = new ArrayList<>(games.getGames());
-			map.put("RecentGames", games);
-			System.out.println(game.size());
+			gameDao.insertRecentGame(dto.getId(), game);*/
+			List<GameDto> gamelist = gameDao.selectRecentGames(summoner.getId());
+			for (int i = 0; i < gamelist.size(); i++) {
+				gamelist.get(i).setFellowPlayers(gameDao.selectFellowPlayer(gamelist.get(i).getGameId()));
+				gamelist.get(i).setRawstats(gameDao.selectRawstats(gamelist.get(i).getGameId()));
+			}
+			map.put("recentgamelist", gamelist);
 		} catch (RiotApiException e) {
 			map.put("error Code : ", e.getErrorCode());
 			map.put("error Message : ", e.getMessage());
