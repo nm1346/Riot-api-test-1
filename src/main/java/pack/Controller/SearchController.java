@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import net.rithms.riot.api.RiotApi;
 import net.rithms.riot.api.RiotApiException;
@@ -25,7 +26,7 @@ import pack.model.SummonerManager;
 import pack.model.summoner.SummonerDao;
 
 @CrossOrigin(origins="*")
-@Controller
+@RestController
 public class SearchController {
 	
 	@Autowired
