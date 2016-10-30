@@ -11,6 +11,9 @@ import net.rithms.riot.constant.Region;
 import net.rithms.riot.constant.staticdata.ChampData;
 import net.rithms.riot.dto.Static.Champion;
 import net.rithms.riot.dto.Static.ChampionList;
+import net.rithms.riot.dto.Static.LanguageStrings;
+import net.rithms.riot.dto.Static.LanguageStringsData;
+import net.rithms.riot.dto.Static.Realm;
 import pack.model.RiotApiKeyRotate;
 
 @Repository
@@ -19,6 +22,7 @@ public class StaticApiDao {
 	@Autowired
 	RiotApiKeyRotate api;
 	
+	//버전리스트 반환
 	public List<String> getStaticVersion(){
 		List<String> list=null;
 		try {
@@ -28,27 +32,38 @@ public class StaticApiDao {
 		}
 		return list;
 	}
-	public ChampionList getStaticChampionlist(){
-		ChampionList list=null;
+	//각 지역의 언어locale문자값 반환 api
+		public List<String> getStaticLaguageList(){
+			List<String> list=null;
+			try {
+				list=api.getDataLanguages();
+			} catch (Exception e) {
+				return null;
+			}
+			return list;
+		}
+	//해당지역의 언어에 따른 key=영어값 value=지역에 맞춘 값들
+	public LanguageStrings getStaticLanguages(String locale,String version){
+		LanguageStrings list=null;
 		try {
-			list=api.getDataChampionList();
+			list=api.getDataLanguageStrings(locale, version);
 		} catch (Exception e) {
-			System.out.println(e);
+			return null;
 		}
 		return list;
-
 	}
-	public Champion getStaticChampion(int id,String version){
-		List<String> list=getStaticVersion();
-		Champion dto=null;
+	
+	public Realm getStaticRealm(){
+		Realm realm=null;
 		try {
-			dto=api.getDataChampion(id,"ko_KR",list.get(0), ChampData.ALL);
-		} catch (RiotApiException e) {
-			System.out.println(e);
+			realm=api.getDataRealm();
+		} catch (Exception e) {
+			return null;
 		}
-		return dto;
-
+		return realm;
 	}
+	
+	
 	
 	
 }

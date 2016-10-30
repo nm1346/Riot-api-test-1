@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import net.rithms.riot.dto.Static.Champion;
 import net.rithms.riot.dto.Static.ChampionList;
+import pack.model.StaticManager;
 import pack.model.staticdata.StaticApiDao;
 
 
@@ -24,19 +25,28 @@ import pack.model.staticdata.StaticApiDao;
 public class DetailController {
 	
 	@Autowired
-	StaticApiDao apiDao;
+	StaticManager staticManager;
+	
+	
+	@RequestMapping("/static/locale/{locale}")
+	@ResponseBody
+	public Object getlocalelist(@PathVariable String locale){
+		
+		return staticManager.getLocaleList(locale);
+	}
+	
 	
 	@RequestMapping("/static/champion")
 	@ResponseBody
 	public Object getChampionList(){
-		ChampionList dto=apiDao.getStaticChampionlist();
+		ChampionList dto=null;
 		return dto;
 	}
 	@RequestMapping("/static/champion/{id}")
 	@ResponseBody
 	public Object getChampion(@PathVariable("id")int id){
 		
-		Champion dto=apiDao.getStaticChampion(id);
+		Champion dto=null;
 		return dto;
 	}
 }
