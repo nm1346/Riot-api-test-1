@@ -16,8 +16,4 @@ public class RecentApiDao {
 	public RecentGames ApigetRecentGame(Long id) throws RiotApiException{
 		return api.getRecentGames(id);
 	}
-
-	/*public Map<String,String> ApigetSummnerName(String[] summonerIds) throws RiotApiException{
-		return api.getSummonerNames(summonerIds);
-	}*/
 }

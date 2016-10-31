@@ -7,6 +7,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pack.Controller.SummonerBean;
+import pack.model.recentgame.RecentApiDao;
+import pack.model.recentgame.RecentGameDao;
 import pack.model.summoner.LeagueDto;
 import pack.model.summoner.SummonerApiDao;
 import pack.model.summoner.SummonerDao;
@@ -16,9 +18,13 @@ import pack.model.summoner.SummonerDto;
 public class SummonerManager {
 	
 	@Autowired
-	SummonerApiDao apiDao;
+	SummonerApiDao summonerapiDao;
 	@Autowired
 	SummonerDao summonerDao;
+	
+
+	
+	
 	public Map<String,Object> getSummonerAndLeague(SummonerBean bean){
 		HashMap<String,Object> map=new HashMap<>();
 		SummonerDto summoner =summonerDao.selectSummoner(bean);
@@ -37,8 +43,8 @@ public class SummonerManager {
 			searchDate.add(Calendar.MINUTE, 2);
 			if(searchDate.getTime().before(new Date())){
 				try {
-					summoner=apiDao.ApigetSummonerByName(bean.getName());
-					dto=apiDao.ApigetLeagueData(summoner.getId());
+					summoner=summonerapiDao.ApigetSummonerByName(bean.getName());
+					dto=summonerapiDao.ApigetLeagueData(summoner.getId());
 					summonerDao.updateSummoner(dto, summoner);
 				} catch (Exception e) {
 					System.out.println("getSummonerAndLeague ApiGetUpdate Error"+e);
@@ -52,8 +58,8 @@ public class SummonerManager {
 			map.put("success", "true");
 		}else{
 			try {
-				summoner=apiDao.ApigetSummonerByName(bean.getName());
-				dto=apiDao.ApigetLeagueData(summoner.getId());
+				summoner=summonerapiDao.ApigetSummonerByName(bean.getName());
+				dto=summonerapiDao.ApigetLeagueData(summoner.getId());
 				summonerDao.insertSummoner(dto, summoner);
 				map.put("summonerData", summoner);
 				map.put("leagueData", summonerDao.selectLeagueData(summoner.getId()));
