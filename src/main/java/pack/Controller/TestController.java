@@ -30,12 +30,12 @@ public class TestController {
 		bean.setName(username);
 		return summonerManager.getSummonerAndLeague(bean);
 	}
-	@RequestMapping("game/{username}")
+	/*@RequestMapping("game/{username}")
 	@ResponseBody
 	public Object getRecentgames(@PathVariable("username")String username) {
 		SummonerBean bean = new SummonerBean();
 		bean.setName(username);
 		return gameManager.getRecentGames(bean);
-	}
+	}*/
 	
 }

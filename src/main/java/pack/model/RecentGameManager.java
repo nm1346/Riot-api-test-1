@@ -20,7 +20,7 @@ import pack.model.summoner.SummonerDto;
 @Service
 public class RecentGameManager {
 	
-	@Autowired
+	/*@Autowired
 	RecentApiDao apiDao;
 	@Autowired
 	RecentGameDao gameDao;
@@ -30,13 +30,13 @@ public class RecentGameManager {
 	public HashMap<String, Object> getRecentGames(SummonerBean bean){
 		HashMap<String, Object> map = new HashMap<>();
 		RecentGames games = null;
-		List<Game> game;
+		List<Game> game = null;
 		try {
 			SummonerDto summoner = summonerApiDao.ApigetSummonerByName(bean.getName());
 			System.out.println(summoner.getId());
-			/*games = apiDao.ApigetRecentGame(dto.getId());
+			games = apiDao.ApigetRecentGame(summoner.getId());
 			game = new ArrayList<>(games.getGames());
-			gameDao.insertRecentGame(dto.getId(), game);*/
+			gameDao.insertRecentGame(summoner.getId(), game);
 			List<GameDto> gamelist = gameDao.selectRecentGames(summoner.getId());
 			for (int i = 0; i < gamelist.size(); i++) {
 				gamelist.get(i).setFellowPlayers(gameDao.selectFellowPlayer(gamelist.get(i).getGameId()));
@@ -49,8 +49,8 @@ public class RecentGameManager {
 		} 
 			return map;
 	}
-	
-	
+	이제 필요없음
+	*/
 	
 	
 	

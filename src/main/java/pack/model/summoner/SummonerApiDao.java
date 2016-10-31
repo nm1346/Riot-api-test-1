@@ -29,7 +29,7 @@ public class SummonerApiDao {
 		dto.setSummonerLevel(summoner.getSummonerLevel());
 		return dto;
 	}
-	public LeagueDto ApigetLeagueData(Long id){
+	public LeagueDto ApigetLeagueData(Long id) throws RiotApiException{
 		LeagueDto leagueDto=new LeagueDto();
 		try {
 			List<League> leaguedata = api.getLeagueEntryBySummoner(id);
@@ -40,7 +40,7 @@ public class SummonerApiDao {
 			leagueDto.setEntries(leaguedata.get(0).getEntries().get(0).getPlayerOrTeamId());
 			leagueDto.setEntrylist(leaguedata.get(0).getEntries());
 		} catch (RiotApiException e) {
-			return null;
+			return leagueDto;
 		}
 		return leagueDto;
 	}

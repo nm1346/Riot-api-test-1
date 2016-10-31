@@ -5,6 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
 import net.rithms.riot.dto.Game.Game;
 import net.rithms.riot.dto.Game.Player;
 import net.rithms.riot.dto.Game.RawStats;
@@ -18,6 +22,7 @@ public class RecentGameDao {
 	 * Long.toString(playerlist.get(i).getSummonerId()); summonerIds = new
 	 * String[game.size() * game.get(0).getFellowPlayers().size()]; 이름 뽑기 보류.
 	 */
+	@Transactional(isolation=Isolation.DEFAULT, propagation=Propagation.REQUIRES_NEW)
 	public boolean insertRecentGame(Long summonerId, List<Game> game) {
 		boolean b = false;
 		try {
@@ -37,16 +42,14 @@ public class RecentGameDao {
 		}
 		return b;
 	}
-	
-	
-	
+	@Transactional(isolation=Isolation.DEFAULT, propagation=Propagation.REQUIRES_NEW)
 	public void insertPlayer(Long gameId, List<Player> playerlist) throws DataAccessException {
 		for (int i = 0; i < playerlist.size(); i++) {
 			gameDBInter.insertFellowPlayers(gameId, playerlist.get(i));
 		}
 	}
 	
-	
+	@Transactional(isolation=Isolation.DEFAULT, propagation=Propagation.REQUIRES_NEW)
 	public void insertRawstats(Long gameId, RawStats rawStats) throws DataAccessException {
 		gameDBInter.insertRawStats(gameId, rawStats);
 	}
@@ -55,7 +58,6 @@ public class RecentGameDao {
 	public List<GameDto> selectRecentGames(Long summonerId) throws DataAccessException {
 		return gameDBInter.selectRecentGames(summonerId);
 	}
-	
 	
 	public List<PlayerDto> selectFellowPlayer(Long gameId) throws DataAccessException {
 		return gameDBInter.selectFellowPlayers(gameId);
