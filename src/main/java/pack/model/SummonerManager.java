@@ -110,6 +110,10 @@ public class SummonerManager {
 			}
 		}
 		return map;
+		
+		
+		
+		
 	}
 	
 	
