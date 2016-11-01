@@ -53,6 +53,7 @@ public class StaticApiDao {
 		return list;
 	}
 	
+	//static 데이터 cdn주소및 데이터의 버전 반환
 	public Realm getStaticRealm(){
 		Realm realm=null;
 		try {

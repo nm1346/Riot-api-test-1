@@ -16,20 +16,20 @@ public class StaticChampionApiDao {
 	@Autowired
 	RiotApiKeyRotate api;
 	
-	public ChampionList getStaticChampionlist(){
+	public ChampionList getStaticChampionlist(String locale,String version){
 		ChampionList list=null;
 		try {
-			list=api.getDataChampionList();
+			list=api.getDataChampionList(locale,version,false,ChampData.ALTIMAGES);
 		} catch (Exception e) {
 			System.out.println(e);
 		}
 		return list;
 
 	}
-	public Champion getStaticChampion(int id,String version){
+	public Champion getStaticChampion(int id,String locale,String version){
 		Champion dto=null;
 		try {
-			dto=api.getDataChampion(id,"en_US",version, ChampData.ALL);
+			dto=api.getDataChampion(id,locale,version, ChampData.ALL);
 		} catch (RiotApiException e) {
 			System.out.println(e);
 		}

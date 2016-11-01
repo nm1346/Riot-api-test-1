@@ -22,7 +22,7 @@ import pack.model.staticdata.StaticApiDao;
 
 @CrossOrigin("*")
 @RestController
-public class DetailController {
+public class StaticController {
 	
 	@Autowired
 	StaticManager staticManager;
@@ -31,22 +31,33 @@ public class DetailController {
 	@RequestMapping("/static/locale/{locale}")
 	@ResponseBody
 	public Object getlocalelist(@PathVariable String locale){
-		
+		return staticManager.getLocaleList(locale);
+	}
+	@RequestMapping("/static/locale/{locale}/champion")
+	@ResponseBody
+	public Object getlocaleChampionlist(@PathVariable("locale")String locale){
+		return staticManager.getChampionList(locale);
+	}
+	
+	@RequestMapping("/static/locale/{locale}/champion/{id}")
+	@ResponseBody
+	public Object getlocaleChampionById(@PathVariable String locale,
+			@PathVariable("id") int id){
+		return staticManager.getChampion(locale,id);
+	}
+	
+	@RequestMapping("/static/locale/{locale}/item")
+	@ResponseBody
+	public Object getlocalecategorylist(@PathVariable("locale")String locale){
+		return staticManager.getItemList(locale);
+	}
+	@RequestMapping("/static/locale/{locale}/item/{id}")
+	@ResponseBody
+	public Object getlocalecategoryById(@PathVariable String locale,
+			@PathVariable("id") String id){
 		return staticManager.getLocaleList(locale);
 	}
 	
 	
-	@RequestMapping("/static/champion")
-	@ResponseBody
-	public Object getChampionList(){
-		ChampionList dto=null;
-		return dto;
-	}
-	@RequestMapping("/static/champion/{id}")
-	@ResponseBody
-	public Object getChampion(@PathVariable("id")int id){
-		
-		Champion dto=null;
-		return dto;
-	}
+	
 }
