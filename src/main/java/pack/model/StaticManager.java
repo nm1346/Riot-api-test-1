@@ -10,8 +10,7 @@ import org.springframework.stereotype.Component;
 import net.rithms.riot.api.RiotApiException;
 import net.rithms.riot.constant.staticdata.ChampData;
 import net.rithms.riot.constant.staticdata.ItemListData;
-import pack.model.staticdata.StaticApiDao;
-import pack.model.staticdata.StaticChampionApiDao;
+
 
 @Component
 public class StaticManager {

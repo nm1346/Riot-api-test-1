@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 import net.rithms.riot.dto.Static.Champion;
 import net.rithms.riot.dto.Static.ChampionList;
 import pack.model.StaticManager;
-import pack.model.staticdata.StaticApiDao;
 
 
 
