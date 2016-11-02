@@ -10,6 +10,8 @@ import org.springframework.stereotype.Component;
 import net.rithms.riot.api.RiotApiException;
 import net.rithms.riot.constant.staticdata.ChampData;
 import net.rithms.riot.constant.staticdata.ItemListData;
+import net.rithms.riot.constant.staticdata.MasteryListData;
+import net.rithms.riot.constant.staticdata.RuneListData;
 
 
 @Component
@@ -59,10 +61,20 @@ public class StaticManager {
 		}
 		return map;
 	}
-	public Map<String,Object> getMastery(String locale){
+	public Map<String,Object> getMasterylist(String locale){
 		Map<String, Object> map=new HashMap<>();
 		try {
-			map.put("itemlist", api.getDataItemList(locale,api.getDataRealm().getV(),ItemListData.ALL));
+			map.put("masterylist", api.getDataMasteryList(locale, api.getDataRealm().getV(), MasteryListData.ALL));
+		} catch (RiotApiException e) {
+			map.put("errorCode", e.getErrorCode());
+			map.put("errorMessage", e.getMessage());
+		}
+		return map;
+	}
+	public Map<String,Object> getRunelist(String locale){
+		Map<String, Object> map=new HashMap<>();
+		try {
+			map.put("runelist", api.getDataRuneList(locale, api.getDataRealm().getV(), RuneListData.ALL));
 		} catch (RiotApiException e) {
 			map.put("errorCode", e.getErrorCode());
 			map.put("errorMessage", e.getMessage());
