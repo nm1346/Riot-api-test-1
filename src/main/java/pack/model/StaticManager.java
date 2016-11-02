@@ -59,4 +59,15 @@ public class StaticManager {
 		}
 		return map;
 	}
+	public Map<String,Object> getMastery(String locale){
+		Map<String, Object> map=new HashMap<>();
+		try {
+			map.put("itemlist", api.getDataItemList(locale,api.getDataRealm().getV(),ItemListData.ALL));
+		} catch (RiotApiException e) {
+			map.put("errorCode", e.getErrorCode());
+			map.put("errorMessage", e.getMessage());
+		}
+		return map;
+	}
+	
 }
