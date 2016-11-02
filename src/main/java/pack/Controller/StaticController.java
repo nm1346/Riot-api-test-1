@@ -68,6 +68,12 @@ public class StaticController {
 		return staticManager.getRunelist(locale);
 	}
 	
+	@RequestMapping("/static/locale/{locale}/summoner")
+	@ResponseBody
+	public Object getlocalespell(@PathVariable("locale")String locale){
+		return staticManager.getSummonerSpell(locale);
+	}
+	
 	
 	
 	

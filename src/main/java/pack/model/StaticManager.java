@@ -12,6 +12,7 @@ import net.rithms.riot.constant.staticdata.ChampData;
 import net.rithms.riot.constant.staticdata.ItemListData;
 import net.rithms.riot.constant.staticdata.MasteryListData;
 import net.rithms.riot.constant.staticdata.RuneListData;
+import net.rithms.riot.constant.staticdata.SpellData;
 
 
 @Component
@@ -75,6 +76,16 @@ public class StaticManager {
 		Map<String, Object> map=new HashMap<>();
 		try {
 			map.put("runelist", api.getDataRuneList(locale, api.getDataRealm().getV(), RuneListData.ALL));
+		} catch (RiotApiException e) {
+			map.put("errorCode", e.getErrorCode());
+			map.put("errorMessage", e.getMessage());
+		}
+		return map;
+	}
+	public Map<String,Object> getSummonerSpell(String locale){
+		Map<String, Object> map=new HashMap<>();
+		try {
+			map.put("spell", api.getDataSummonerSpellList(locale, api.getDataRealm().getV(),false,SpellData.ALL));
 		} catch (RiotApiException e) {
 			map.put("errorCode", e.getErrorCode());
 			map.put("errorMessage", e.getMessage());
