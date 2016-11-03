@@ -65,9 +65,9 @@ public class SummonerManager {
 					gameDao.insertRecentGame(summoner.getId(), game);
 				} catch (RiotApiException e) {
 					System.out.println("getSummonerAndLeague ApiGetUpdate Error"+e);
-					map.put("success", "false");
-					map.put("error", e.getMessage());
-					map.put("error code", e.getErrorCode());
+					map.put("success", "0");
+					map.put("errormsg", e.getMessage());
+					map.put("errorcode", e.getErrorCode());
 					return map;
 				}
 			}
@@ -81,7 +81,7 @@ public class SummonerManager {
 				gamelist.get(i).setRawstats(gameDao.selectRawstats(gamelist.get(i).getGameId()));
 			}
 			map.put("recentgamelist", gamelist);
-			map.put("success", "true");
+			map.put("success", "1");
 		}else{
 			try {
 				summoner=summonerapiDao.ApigetSummonerByName(bean.getName());
@@ -102,11 +102,11 @@ public class SummonerManager {
 					gamelist.get(i).setRawstats(gameDao.selectRawstats(gamelist.get(i).getGameId()));
 				}
 				map.put("recentgamelist", gamelist);
-				map.put("success", "true");
+				map.put("success", "1");
 			} catch (RiotApiException e) {
-				map.put("success", "false");
-				map.put("error", e.getMessage());
-				map.put("error code", e.getErrorCode());
+				map.put("success", "0");
+				map.put("errormsg", e.getMessage());
+				map.put("errorcode", e.getErrorCode());
 			}
 		}
 		return map;

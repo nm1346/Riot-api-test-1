@@ -19,8 +19,7 @@ public class TestController {
 //	
 	@Autowired
 	SummonerManager summonerManager;
-	@Autowired
-	RecentGameManager gameManager;
+
 	
 
 	@RequestMapping("user/{username}")
