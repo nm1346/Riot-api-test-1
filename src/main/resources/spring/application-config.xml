@@ -31,6 +31,16 @@
 		<property name="sqlSessionFactory" ref="sqlSessionFactoryBean" />
 	</bean>
 	
+	<bean class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="pack.model.challenger.ChallengerDBInter" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactoryBean" />
+	</bean>
+	
+	<bean class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="pack.model.match.MatchDBInter" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactoryBean" />
+	</bean>
+	
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource"></property>
 	</bean>
