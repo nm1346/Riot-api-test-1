@@ -18,11 +18,11 @@ public interface RecentGameDBInter {
 	public RawStats selectRawstats(@Param("gameId")Long gameId);
 	
 	@Select("select gameId, summonerId, teamId , championId ,"
-			+ "name as chamName from fellowplayers inner join champion on championId = id where gameId=#{gameId};")
+			+ "kee as chamName from fellowplayers inner join champion on championId = id where gameId=#{gameId};")
 	public List<PlayerDto> selectFellowPlayers(@Param("gameId")Long gameId);
 
 	@Select("select summonerId , gameId, gameMode , gameType , invalid, ipEarned , createDate, "
-			+ "championId , mapId , spell1 , spell2 , subType , teamId, name as chamName " 
+			+ "championId , mapId , spell1 , spell2 , subType , teamId, kee as chamName " 
 			+ "from recentgames inner join champion on championId = id "
 			+ "where summonerId = #{summonerId} ORDER by gameId desc LIMIT 0 ,10;")
 	public List<GameDto> selectRecentGames(@Param("summonerId")Long summonerId);

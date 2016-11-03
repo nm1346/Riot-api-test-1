@@ -31,7 +31,6 @@ public class SummonerManager {
 	RecentApiDao RecentapiDao;
 	@Autowired
 	RecentGameDao gameDao;
-
 	public Map<String,Object> getSummonerAndLeague(SummonerBean bean){
 		HashMap<String,Object> map=new HashMap<>();
 		RecentGames games = null;
@@ -71,6 +70,7 @@ public class SummonerManager {
 					return map;
 				}
 			}
+			
 			map.put("summonerData", summoner);
 			LeagueDto leaguedata = summonerDao.selectLeagueData(summoner.getId());
 			if (leaguedata != null) {map.put("leagueData", leaguedata);
@@ -80,6 +80,7 @@ public class SummonerManager {
 				gamelist.get(i).setFellowPlayers(gameDao.selectFellowPlayer(gamelist.get(i).getGameId()));
 				gamelist.get(i).setRawstats(gameDao.selectRawstats(gamelist.get(i).getGameId()));
 			}
+			
 			map.put("recentgamelist", gamelist);
 			map.put("success", "1");
 		}else{

@@ -1,6 +1,6 @@
 package pack.model.recentgame;
 
-import net.rithms.riot.dto.Game.Player;
+
 
 public class PlayerDto {
 	private Long gameId,summonerId;
