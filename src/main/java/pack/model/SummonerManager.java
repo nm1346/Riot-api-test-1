@@ -61,7 +61,7 @@ public class SummonerManager {
 				summoner=apiDao.ApigetSummonerByName(bean.getName());
 				dto=apiDao.ApigetLeagueData(summoner.getId());
 				summonerDao.insertSummoner(dto, summoner);
-				
+
 				map.put("summonerData", summoner);
 				map.put("leagueData", summonerDao.selectLeagueData(summoner.getId()));
 				map.put("success", "true");
