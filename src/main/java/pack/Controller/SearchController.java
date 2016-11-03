@@ -6,13 +6,14 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import pack.model.ChallengerManager;
 import pack.model.MatchManager;
 import pack.model.SummonerManager;
 
 @CrossOrigin(origins="*")
-@Controller
+@RestController
 public class SearchController {
 	
 	@Autowired
