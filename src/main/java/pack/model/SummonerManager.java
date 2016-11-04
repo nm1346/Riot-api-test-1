@@ -1,4 +1,5 @@
 package pack.model;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -31,72 +32,85 @@ public class SummonerManager {
 	RecentApiDao RecentapiDao;
 	@Autowired
 	RecentGameDao gameDao;
-	public Map<String,Object> getSummonerAndLeague(SummonerBean bean){
-		HashMap<String,Object> map=new HashMap<>();
+
+	public Map<String, Object> getSummonerAndLeague(SummonerBean bean) {
+		HashMap<String, Object> map = new HashMap<>();
 		RecentGames games = null;
 		List<Game> game = null;
 		LeagueDto dto = null;
 		SummonerDto summoner = summonerDao.selectSummoner(bean);
-		System.out.println("초기 db 검색 "  + summoner);
-		if(summoner!=null){
-			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm");
-			Date date=null;
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+		if (summoner != null) {
+			Date date = null;
 			try {
-				date=format.parse(summoner.getSearchDate());
+				date = format.parse(summoner.getSearchDate());
 				summoner.setSearchDate(format.format(date));
+				System.out.println(summoner.getSearchDate());
 			} catch (Exception e) {
-				System.out.println("parsing err"+e);
+				System.out.println("parsing err" + e);
 			}
-			Calendar searchDate=Calendar.getInstance();
+			Calendar searchDate = Calendar.getInstance();
 			searchDate.setTime(date);
 			searchDate.add(Calendar.MINUTE, 2);
-			if(searchDate.getTime().before(new Date())){
+			System.out.println(new Date());
+			System.out.println(searchDate.getTime());
+			if (searchDate.getTime().before(new Date())) {
+				System.out.println("들어옴");
 				try {
-					summoner=summonerapiDao.ApigetSummonerByName(bean.getName());
-					dto=summonerapiDao.ApigetLeagueData(summoner.getId());
+					summoner = summonerapiDao.ApigetSummonerByName(bean.getName());
+					dto = summonerapiDao.ApigetLeagueData(summoner.getId());
 					summonerDao.updateSummoner(summoner);
+					summoner.setSearchDate(format.format(new Date()));
 					LeagueDto leaguecheck = summonerDao.selectLeagueData(summoner.getId());
-					if(dto != null && leaguecheck != null){
-						summonerDao.updateLeague(dto);						
-					}else if(dto != null){summonerDao.insertLeague(dto);}
+					if (dto != null && leaguecheck != null) {
+						summonerDao.updateLeague(dto);
+					} else if (dto != null) {
+						summonerDao.insertLeague(dto);
+					}
 					games = RecentapiDao.ApigetRecentGame(summoner.getId());
 					game = new ArrayList<>(games.getGames());
 					gameDao.insertRecentGame(summoner.getId(), game);
 				} catch (RiotApiException e) {
-					System.out.println("getSummonerAndLeague ApiGetUpdate Error"+e);
+					System.out.println("getSummonerAndLeague ApiGetUpdate Error" + e);
 					map.put("success", "0");
 					map.put("errormsg", e.getMessage());
 					map.put("errorcode", e.getErrorCode());
 					return map;
 				}
 			}
-			
 			map.put("summonerData", summoner);
 			LeagueDto leaguedata = summonerDao.selectLeagueData(summoner.getId());
-			if (leaguedata != null) {map.put("leagueData", leaguedata);
-			}else{map.put("leagueData", "집계된 리그데이터는 존재하지않습니다.");}
+			if (leaguedata != null) {
+				map.put("leagueData", leaguedata);
+			} else {
+				map.put("leagueData", "집계된 리그데이터는 존재하지않습니다.");
+			}
 			List<GameDto> gamelist = gameDao.selectRecentGames(summoner.getId());
 			for (int i = 0; i < gamelist.size(); i++) {
 				gamelist.get(i).setFellowPlayers(gameDao.selectFellowPlayer(gamelist.get(i).getGameId()));
 				gamelist.get(i).setRawstats(gameDao.selectRawstats(gamelist.get(i).getGameId()));
 			}
-			
 			map.put("recentgamelist", gamelist);
 			map.put("success", "1");
-		}else{
+		} else {
 			try {
-				summoner=summonerapiDao.ApigetSummonerByName(bean.getName());
-				System.out.println("없어서 검색함 : " + summoner.getId());
-				dto=summonerapiDao.ApigetLeagueData(summoner.getId());
+				summoner = summonerapiDao.ApigetSummonerByName(bean.getName());
+				dto = summonerapiDao.ApigetLeagueData(summoner.getId());
 				summonerDao.insertSummoner(summoner);
-				if (dto != null) {summonerDao.insertLeague(dto);}
+				summoner.setSearchDate(format.format(new Date()));
+				if (dto != null) {
+					summonerDao.insertLeague(dto);
+				}
 				games = RecentapiDao.ApigetRecentGame(summoner.getId());
 				game = new ArrayList<>(games.getGames());
 				gameDao.insertRecentGame(summoner.getId(), game);
 				map.put("summonerData", summoner);
 				LeagueDto leaguedata = summonerDao.selectLeagueData(summoner.getId());
-				if (leaguedata != null) {map.put("leagueData", leaguedata);
-				}else{map.put("leagueData", "집계된 리그데이터는 존재하지않습니다.");}
+				if (leaguedata != null) {
+					map.put("leagueData", leaguedata);
+				} else {
+					map.put("leagueData", "집계된 리그데이터는 존재하지않습니다.");
+				}
 				List<GameDto> gamelist = gameDao.selectRecentGames(summoner.getId());
 				for (int i = 0; i < gamelist.size(); i++) {
 					gamelist.get(i).setFellowPlayers(gameDao.selectFellowPlayer(gamelist.get(i).getGameId()));
@@ -111,12 +125,7 @@ public class SummonerManager {
 			}
 		}
 		return map;
-		
-		
-		
-		
+
 	}
-	
-	
-	
+
 }

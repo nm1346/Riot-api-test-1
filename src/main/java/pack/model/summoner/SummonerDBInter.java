@@ -11,7 +11,8 @@ public interface SummonerDBInter {
 	@Select("select * from summoner")
 	public List<SummonerDto> selectSummoner();
 	
-	@Select("select * from summoner where name=#{name}")
+	@Select("select id , revisionDate , summonerLevel , profileIconId , name , DATE_FORMAT(searchDate, '%Y-%m-%d %H:%i') as searchDate from "
+			+ " summoner where name=#{name}")
 	public SummonerDto selectsearchData(SummonerBean bean);
 	
 	@Select("select * from league where id=#{id}")

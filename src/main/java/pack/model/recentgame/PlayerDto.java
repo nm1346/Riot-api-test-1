@@ -1,16 +1,20 @@
 package pack.model.recentgame;
 
-
-
 public class PlayerDto {
 	private Long gameId,summonerId;
 	private int teamId,championId;
-	private String chamName;
-	public String getChamName() {
-		return chamName;
+	private String chamName1,chamName2;
+	public String getChamName1() {
+		return chamName1;
 	}
-	public void setChamName(String chamName) {
-		this.chamName = chamName;
+	public void setChamName1(String chamName1) {
+		this.chamName1 = chamName1;
+	}
+	public String getChamName2() {
+		return chamName2;
+	}
+	public void setChamName2(String chamName2) {
+		this.chamName2 = chamName2;
 	}
 	public Long getGameId() {
 		return gameId;

@@ -6,18 +6,24 @@ import net.rithms.riot.dto.Game.RawStats;
 
 
 public class GameDto {
-	private String summonerId, subType, gameMode ,gameType,chamName;
+	private String summonerId, subType, gameMode ,gameType,chamName1 ,chamName2;
 	private boolean invalid;
 	private long createDate, gameId;
 	private int championId ,teamId , spell1,spell2,level ,mapId,ipEarned;
 	private RawStats rawstats;
 	private List<PlayerDto> fellowPlayers;
-	
-	public String getChamName() {
-		return chamName;
+
+	public String getChamName1() {
+		return chamName1;
 	}
-	public void setChamName(String chamName) {
-		this.chamName = chamName;
+	public void setChamName1(String chamName1) {
+		this.chamName1 = chamName1;
+	}
+	public String getChamName2() {
+		return chamName2;
+	}
+	public void setChamName2(String chamName2) {
+		this.chamName2 = chamName2;
 	}
 	public String getSummonerId() {
 		return summonerId;
