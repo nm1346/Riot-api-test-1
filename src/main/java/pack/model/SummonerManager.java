@@ -45,15 +45,12 @@ public class SummonerManager {
 			try {
 				date = format.parse(summoner.getSearchDate());
 				summoner.setSearchDate(format.format(date));
-				System.out.println(summoner.getSearchDate());
 			} catch (Exception e) {
 				System.out.println("parsing err" + e);
 			}
 			Calendar searchDate = Calendar.getInstance();
 			searchDate.setTime(date);
 			searchDate.add(Calendar.MINUTE, 2);
-			System.out.println(new Date());
-			System.out.println(searchDate.getTime());
 			if (searchDate.getTime().before(new Date())) {
 				System.out.println("들어옴");
 				try {
