@@ -103,7 +103,7 @@ public class InGameManager {
 			map.put("summonerName_list2", summonerName_list2);
 			map.put("mastery1", mastery1);
 			map.put("mastery2", mastery2);
-
+			map.put("success", true);
 		} catch (RiotApiException e) {
 			map.put("success", false);
 			map.put("errorCode", e.getErrorCode());
