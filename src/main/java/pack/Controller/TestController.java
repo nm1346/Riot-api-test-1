@@ -19,9 +19,7 @@ public class TestController {
 //	
 	@Autowired
 	SummonerManager summonerManager;
-
 	
-
 	@RequestMapping("user/{username}")
 	@ResponseBody
 	public Object getlist1(@PathVariable("username")String username) {
@@ -29,6 +27,8 @@ public class TestController {
 		bean.setName(username);
 		return summonerManager.getSummonerAndLeague(bean);
 	}
+	
+	
 	/*@RequestMapping("game/{username}")
 	@ResponseBody
 	public Object getRecentgames(@PathVariable("username")String username) {
