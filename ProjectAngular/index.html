@@ -44,6 +44,9 @@ myApp.controller('sangcontoller', function($scope , sangResource){
 		$scope.userdata = data['userData'];
 		$scope.leaguedata = data['leagueData'];
 		$scope.entry = data['leagueData'].entrylist[0];
+
+		$scope.match = data['match'];
+		console.log($scope.match);
 		console.log($scope.leaguedata);
 		console.log($scope.entry);
 	 } , function(err){console.log(err)});
@@ -56,6 +59,7 @@ myApp.controller('sangcontoller', function($scope , sangResource){
 </script>
 </head>
 <body ng-controller="sangcontoller">
+<a href="user/challenger"></a>
 <div class="row">
 	<div class="col s10">
 		<input type="text" data-ng-model="searchinput">
@@ -68,7 +72,7 @@ myApp.controller('sangcontoller', function($scope , sangResource){
 
 <br>
 <br>
-<img src="http://ddragon.leagueoflegends.com/cdn/6.21.1/img/profileicon/{{userdata.profileIconId}}.png" /><br>
+<!-- <img src="http://ddragon.leagueoflegends.com/cdn/6.21.1/img/profileicon/{{userdata.profileIconId}}.png" /><br> -->
 이름 : {{userdata.name}}
 <br>
 레벨 : {{userdata.summonerLevel}}
@@ -79,7 +83,8 @@ myApp.controller('sangcontoller', function($scope , sangResource){
 <br> LP : {{entry.leaguePoints}}
 <br>
 승 : {{entry.wins}} &nbsp;&nbsp;&nbsp; 패 : {{entry.losses}}
-
+<a href="user/challenger"></a>
 <div id="footer">asd</div>
+
 </body>
 </html>
