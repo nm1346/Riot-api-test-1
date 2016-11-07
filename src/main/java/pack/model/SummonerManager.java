@@ -1,20 +1,13 @@
 package pack.model;
 
-
-import java.sql.Timestamp;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.TimeZone;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import net.rithms.riot.api.RiotApiException;
-import net.rithms.riot.dto.Summoner.Summoner;
 import pack.Controller.SummonerBean;
 import pack.model.summoner.LeagueDto;
 import pack.model.summoner.SummonerApiDao;
@@ -25,9 +18,9 @@ import pack.model.summoner.SummonerDto;
 public class SummonerManager {
 	
 	@Autowired
-	SummonerApiDao apiDao;
+	SummonerApiDao apiDao;		//api
 	@Autowired
-	SummonerDao summonerDao;
+	SummonerDao summonerDao;	//db
 	
 	//성공했을시 success=true,leagueData,summonerData
 	//에러시 success=false,error,errorCode
@@ -51,7 +44,6 @@ public class SummonerManager {
 				try {
 					summoner=apiDao.ApigetSummonerByName(bean.getName());
 					dto=apiDao.ApigetLeagueData(summoner.getId());
-					
 					summonerDao.updateSummoner(dto, summoner);
 				} catch (RiotApiException e) {
 					System.out.println("getSummonerAndLeague ApiGetUpdate Error"+e);
@@ -69,7 +61,7 @@ public class SummonerManager {
 				summoner=apiDao.ApigetSummonerByName(bean.getName());
 				dto=apiDao.ApigetLeagueData(summoner.getId());
 				summonerDao.insertSummoner(dto, summoner);
-				
+
 				map.put("summonerData", summoner);
 				map.put("leagueData", summonerDao.selectLeagueData(summoner.getId()));
 				map.put("success", "true");

@@ -1,30 +1,30 @@
-summoner Å×ÀÌºí 
-id - api id °ª primarykey 
-revisionDate - ¸¶Áö¸·È°µ¿ ½Ã°£ timestampeÅ¸ÀÔ (Á¤È®ÇÏÁö¾ÊÀ½)
-summonerLevel - À¯Àú·¹º§
-name - °ÔÀÓ»ó ´Ğ³×ÀÓ
+ï»¿summoner í…Œì´ë¸” 
+id - api id ê°’ primarykey 
+revisionDate - ë§ˆì§€ë§‰í™œë™ ì‹œê°„ timestampeíƒ€ì… (ì •í™•í•˜ì§€ì•ŠìŒ)
+summonerLevel - ìœ ì €ë ˆë²¨
+name - ê²Œì„ìƒ ë‹‰ë„¤ì„
 
 
-league Å×ÀÌºí
-id - summoner id ¿Í °°À½ ÂüÁ¶°ª 
-name - Æ¼¾î¿Ü¿¡ »ó¼¼µî±Ş (ÇÑ±Û¹ø¿ªÇÊ¿ä)
-tier - °ÔÀÓ³»¿¡ ·Ñµî±Ş (ºê,½Ç,°ñ,ÇÃ,´Ù,¸¶,Ã§)
-queue - ÁÖ·Î ÇÏ´Â Å¥ (È®½ÇÇÏÁö¾ÊÀ½)
-entries - entries Å×ÀÌºíÀÇ ÂüÁ¶°ª id °ª°ú °°À½
+league í…Œì´ë¸”
+id - summoner id ì™€ ê°™ìŒ ì°¸ì¡°ê°’ 
+name - í‹°ì–´ì™¸ì— ìƒì„¸ë“±ê¸‰ (í•œê¸€ë²ˆì—­í•„ìš”)
+tier - ê²Œì„ë‚´ì— ë¡¤ë“±ê¸‰ (ë¸Œ,ì‹¤,ê³¨,í”Œ,ë‹¤,ë§ˆ,ì±Œ)
+queue - ì£¼ë¡œ í•˜ëŠ” í (í™•ì‹¤í•˜ì§€ì•ŠìŒ)
+entries - entries í…Œì´ë¸”ì˜ ì°¸ì¡°ê°’ id ê°’ê³¼ ê°™ìŒ
 
-entries Å×ÀÌºí 
+entries í…Œì´ë¸” 
 
 playerORTeamID playOrTeamName - 
-À§¿¡ summoner  Å×ÀÌºí id,name °°À½ 
-´Ü entries Á¶È¸¿Ü¿¡ league Á¤º¸¸¦ Á¶È¸ÇÒ¶§´Â ÆÀ ¾ÆÀÌµğ·Î ³ª¿È.
+ìœ„ì— summoner  í…Œì´ë¸” id,name ê°™ìŒ 
+ë‹¨ entries ì¡°íšŒì™¸ì— league ì •ë³´ë¥¼ ì¡°íšŒí• ë•ŒëŠ” íŒ€ ì•„ì´ë””ë¡œ ë‚˜ì˜´.
 
-division - Æ¼¾î¿¡ µû¸¥ µî±Ş (1,2,3,4,5)
-wins - ÀüÀû (½Â)
-losses - ÀüÀû (ÆĞ)
-playstyle - ÇÃ·¹ÀÌ ½ºÅ¸ÀÏ (¹Ì±¸ÇöÀÎµí) Ç×»ó"NONE"ÀÓ
+division - í‹°ì–´ì— ë”°ë¥¸ ë“±ê¸‰ (1,2,3,4,5)
+wins - ì „ì  (ìŠ¹)
+losses - ì „ì  (íŒ¨)
+playstyle - í”Œë ˆì´ ìŠ¤íƒ€ì¼ (ë¯¸êµ¬í˜„ì¸ë“¯) í•­ìƒ"NONE"ì„
 
-isHotStreak - 3¿¬½ÂÀÌ»óÁßÀÎÁö ¿©ºÎ (ÇÊ¿ä¾øÀ½)
-isVeteran - ¸®±×¿¡ ¿À·¡¸Ó¹«¸¥»ç¶÷Àº true(1) ¾Æ´Ï¸é false(0)
-isFreshBlood - ¸ğ¸£°ÚÀ½..
-isInactive - ¸ğ¸£°ÚÀ½..
+isHotStreak - 3ì—°ìŠ¹ì´ìƒì¤‘ì¸ì§€ ì—¬ë¶€ (í•„ìš”ì—†ìŒ)
+isVeteran - ë¦¬ê·¸ì— ì˜¤ë˜ë¨¸ë¬´ë¥¸ì‚¬ëŒì€ true(1) ì•„ë‹ˆë©´ false(0)
+isFreshBlood - ëª¨ë¥´ê² ìŒ..
+isInactive - ëª¨ë¥´ê² ìŒ..
   
