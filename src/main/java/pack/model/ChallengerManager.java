@@ -22,8 +22,23 @@ public class ChallengerManager {
 	ChallengerDao challengerDao; // db
 
 	public Map<String, Object> getChallenger() {
-		HashMap<String, Object> map = new HashMap<>();
-
+		HashMap<String, Object> map = new HashMap<>();		
+		
+		//처음할때만사용하고 삭제
+		try {
+			List<ChallengerDto> list = apiDao.apigetChallenger();
+			challengerDao.insertChallenger(list);
+			map.put("entry", list);
+			map.put("success", "true");
+		} catch (RiotApiException e) {
+			System.out.println("getChallenger" + e);
+			map.put("success", "false");
+			map.put("error", e.getMessage());
+			map.put("errorCode", e.getErrorCode());
+		}
+		
+		//두번째부터
+		/*
 		ChallengerDto challenger = challengerDao.getChallenger().get(0);
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm");
 		Date date = null;
@@ -35,7 +50,8 @@ public class ChallengerManager {
 		}
 		Calendar searchDate = Calendar.getInstance();
 		searchDate.setTime(date);
-		searchDate.add(Calendar.HOUR_OF_DAY, 1);
+		searchDate.add(Calendar.HOUR_OF_DAY, 1); 
+		 
 		if (searchDate.getTime().before(new Date())) {
 			// 갱신용
 			try {
@@ -55,12 +71,30 @@ public class ChallengerManager {
 			map.put("entry", list);
 			map.put("success", "true");
 		}
+		*/
+		
+		
 		return map;
 	}
 
 	public Map<String, Object> getMaster() {
 		HashMap<String, Object> map = new HashMap<>();
-
+		
+		//처음할때만 사용하고 삭제
+		try {
+			List<ChallengerDto> list = apiDao.apigetMaster();
+			challengerDao.insertMaster(list);
+			map.put("entry", list);
+			map.put("success", "true");
+		} catch (RiotApiException e) {
+			System.out.println("getChallenger" + e);
+			map.put("success", "false");
+			map.put("error", e.getMessage());
+			map.put("errorCode", e.getErrorCode());
+		}
+		
+		//두번째부터
+		/*
 		ChallengerDto master = challengerDao.getMaster().get(0);
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm");
 		Date date = null;
@@ -92,6 +126,7 @@ public class ChallengerManager {
 			map.put("entry", list);
 			map.put("success", "true");
 		}
+		*/
 		
 		return map;
 	}

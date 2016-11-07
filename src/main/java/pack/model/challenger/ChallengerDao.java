@@ -17,6 +17,14 @@ public class ChallengerDao {
 	public boolean insertChallenger(List<ChallengerDto> list) {
 		boolean success = false;
 		try {
+			//처음할때만 사용하고 삭제
+			for (int i = 0; i < list.size(); i++) {
+				challengerDBInter.insertChallenger(list.get(i));
+			}
+			success = true;
+			
+			//두번째부터
+			/*
 			//기존 리스트 지우고 삽입
 			if (challengerDBInter.deleteChallenger() > 0) {
 				for (int i = 0; i < list.size(); i++) {
@@ -24,6 +32,7 @@ public class ChallengerDao {
 				}
 				success = true;
 			}
+			*/
 		} catch (Exception e) {
 			return success;
 		}
@@ -34,6 +43,14 @@ public class ChallengerDao {
 	public boolean insertMaster(List<ChallengerDto> list) {
 		boolean success = false;
 		try {
+			//처음할때만 사용하고 삭제
+			for (int i = 0; i < list.size(); i++) {
+				challengerDBInter.insertChallenger(list.get(i));
+			}
+			success = true;
+			
+			//두번째부터
+			/*
 			//기존 리스트 지우고 삽입
 			if (challengerDBInter.deleteMaster() > 0){
 				for (int i = 0; i < list.size(); i++) {
@@ -41,6 +58,7 @@ public class ChallengerDao {
 				}
 				success = true;				
 			}
+			*/
 		} catch (Exception e) {
 			return success;
 		}

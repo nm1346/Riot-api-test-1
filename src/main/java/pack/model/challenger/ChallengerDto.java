@@ -1,13 +1,9 @@
 package pack.model.challenger;
 
-import java.util.List;
-
-import net.rithms.riot.dto.League.League;
-import net.rithms.riot.dto.League.LeagueEntry;
-
 public class ChallengerDto {
 	private String tier, playerOrTeamName, searchDate;
-
+	private int wins, losses, leaguePoints;
+	
 	public String getSearchDate() {
 		return searchDate;
 	}
@@ -15,8 +11,6 @@ public class ChallengerDto {
 	public void setSearchDate(String searchDate) {
 		this.searchDate = searchDate;
 	}
-
-	private int wins, losses, leaguePoints;
 
 	public int getLeaguePoints() {
 		return leaguePoints;
