@@ -35,7 +35,6 @@ public class SummonerManager {
 	RecentApiDao RecentapiDao;
 	@Autowired
 	RecentGameDao gameDao;
-	
 	public Map<String, Object> getSummonerAndLeague(SummonerBean bean) {
 		HashMap<String, Object> map = new HashMap<>();
 		RecentGames games = null;
@@ -55,7 +54,6 @@ public class SummonerManager {
 			searchDate.setTime(date);
 			searchDate.add(Calendar.MINUTE, 2);
 			if (searchDate.getTime().before(new Date())) {
-				System.out.println("들어옴");
 				try {
 					summoner = summonerapiDao.ApigetSummonerByName(bean.getName());
 					dto = summonerapiDao.ApigetLeagueData(summoner.getId());

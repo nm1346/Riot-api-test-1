@@ -22,5 +22,4 @@ public class TestController {
 		bean.setName(username);
 		return summonerManager.getSummonerAndLeague(bean);
 	}
-	
 }
