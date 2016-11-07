@@ -6,8 +6,20 @@ import net.rithms.riot.dto.Game.RawStats;
 
 
 public class GameDto {
-	private String summonerId, subType, gameMode ,gameType,chamName1 ,chamName2;
+	private String summonerId, subType, gameMode ,gameType,chamName1 ,chamName2, spellName1,spellName2;
 	private boolean invalid;
+	public String getSpellName1() {
+		return spellName1;
+	}
+	public void setSpellName1(String spellName1) {
+		this.spellName1 = spellName1;
+	}
+	public String getSpellName2() {
+		return spellName2;
+	}
+	public void setSpellName2(String spellName2) {
+		this.spellName2 = spellName2;
+	}
 	private long createDate, gameId;
 	private int championId ,teamId , spell1,spell2,level ,mapId,ipEarned;
 	private RawStats rawstats;

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,8 @@ import org.springframework.stereotype.Service;
 import net.rithms.riot.api.RiotApiException;
 import net.rithms.riot.dto.Game.Game;
 import net.rithms.riot.dto.Game.RecentGames;
+import net.rithms.riot.dto.Static.SummonerSpell;
+import net.rithms.riot.dto.Static.SummonerSpellList;
 import pack.Controller.SummonerBean;
 import pack.model.recentgame.GameDto;
 import pack.model.recentgame.RecentApiDao;
@@ -32,7 +35,7 @@ public class SummonerManager {
 	RecentApiDao RecentapiDao;
 	@Autowired
 	RecentGameDao gameDao;
-
+	
 	public Map<String, Object> getSummonerAndLeague(SummonerBean bean) {
 		HashMap<String, Object> map = new HashMap<>();
 		RecentGames games = null;
@@ -82,6 +85,7 @@ public class SummonerManager {
 			} else {
 				map.put("leagueData", "집계된 리그데이터는 존재하지않습니다.");
 			}
+			
 			List<GameDto> gamelist = gameDao.selectRecentGames(summoner.getId());
 			for (int i = 0; i < gamelist.size(); i++) {
 				gamelist.get(i).setFellowPlayers(gameDao.selectFellowPlayer(gamelist.get(i).getGameId()));
@@ -122,7 +126,6 @@ public class SummonerManager {
 			}
 		}
 		return map;
-
 	}
 
 }

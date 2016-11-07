@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import net.rithms.riot.dto.Game.Game;
 import net.rithms.riot.dto.Game.Player;
 import net.rithms.riot.dto.Game.RawStats;
+import net.rithms.riot.dto.Static.SummonerSpell;
 
 @Repository
 public class RecentGameDao {
@@ -22,6 +23,7 @@ public class RecentGameDao {
 	 * Long.toString(playerlist.get(i).getSummonerId()); summonerIds = new
 	 * String[game.size() * game.get(0).getFellowPlayers().size()]; 이름 뽑기 보류.
 	 */
+	
 	@Transactional(isolation=Isolation.DEFAULT, propagation=Propagation.REQUIRES_NEW)
 	public boolean insertRecentGame(Long summonerId, List<Game> game) {
 		boolean b = false;
@@ -65,5 +67,9 @@ public class RecentGameDao {
 	
 	public RawStats selectRawstats(Long gameId) throws DataAccessException {
 		return gameDBInter.selectRawstats(gameId);
+	}
+	
+	public boolean insertspell(SummonerSpell spell){
+		return gameDBInter.insertSummonerSpell(spell);
 	}
 }

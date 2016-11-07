@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Select;
 import net.rithms.riot.dto.Game.Game;
 import net.rithms.riot.dto.Game.Player;
 import net.rithms.riot.dto.Game.RawStats;
+import net.rithms.riot.dto.Static.SummonerSpell;
 
 public interface RecentGameDBInter {
 	@Select("select gameId from recentgames where gameId=#{gameId} ")
@@ -22,9 +23,12 @@ public interface RecentGameDBInter {
 	public List<PlayerDto> selectFellowPlayers(@Param("gameId")Long gameId);
 
 	@Select("select summonerId , gameId, gameMode , gameType , invalid, ipEarned , createDate, "
-			+ "championId , mapId , spell1 , spell2 , subType , teamId, kee as chamName1, name as chamName2 " 
-			+ "from recentgames inner join champion on championId = id "
-			+ "where summonerId = #{summonerId} ORDER by gameId desc LIMIT 0 ,10;")
+			+"championId , mapId , spell1 , spell2 , subType , teamId, champion.kee as chamName1, "
+			+"name as chamName2, summonerspell.kee as spellName1, "
+			+"(select summonerspell.kee from summonerspell where id = recentgames.spell2) as spellName2 "
+			+"from recentgames inner join champion on recentgames.championId = champion.id "
+			+"inner join summonerspell on recentgames.spell1 = summonerspell.id "
+			+"where summonerId = #{summonerId} ORDER by gameId desc LIMIT 0 ,10;")
 	public List<GameDto> selectRecentGames(@Param("summonerId")Long summonerId);
 	
 	@Insert("insert into RecentGames values(#{summonerId},#{game.gameId},"
@@ -32,11 +36,9 @@ public interface RecentGameDBInter {
 			+ "#{game.createDate},#{game.championId},"
 			+ "#{game.mapId},#{game.spell1},#{game.spell2},#{game.subType},#{game.teamId})")
 	public boolean insertGame(@Param("summonerId")Long summonerId,@Param("game")Game game);
-	
 	@Insert("insert into fellowplayers values(#{gameId},"
 			+ "#{player.summonerId},#{player.teamId},#{player.championId})")
 	public boolean insertFellowPlayers(@Param("gameId")Long gameId,@Param("player")Player player);
-	
 	@Insert("insert into rawstats values(#{gameId},"
 			+ "#{stats.assists},#{stats.barracksKilled},#{stats.championsKilled},"
 			+ "#{stats.combatPlayerScore},#{stats.consumablesPurchased},"
@@ -61,4 +63,7 @@ public interface RecentGameDBInter {
 			+ "#{stats.unrealKills},#{stats.victoryPointTotal},#{stats.visionWardsBought},#{stats.wardKilled},"
 			+ "#{stats.wardPlaced},#{stats.win})")
 	public boolean insertRawStats(@Param("gameId")Long gameId,@Param("stats")RawStats player);
+	
+	@Insert("insert into summonerspell values(#{id}, #{key})")
+	public boolean insertSummonerSpell(SummonerSpell spell);
 }
