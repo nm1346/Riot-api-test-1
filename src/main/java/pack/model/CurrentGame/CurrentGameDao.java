@@ -19,4 +19,8 @@ public class CurrentGameDao  {
 		return summonerDBInter.selectChampionKey(id);
 	}
 	
+	public String selectSummonerSpell(Long id) throws DataAccessException{
+		return summonerDBInter.selectSummonerSpell(id);
+	}
+	
 }

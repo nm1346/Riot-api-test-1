@@ -13,6 +13,7 @@ import net.rithms.riot.constant.PlatformId;
 import net.rithms.riot.constant.Region;
 import net.rithms.riot.dto.CurrentGame.CurrentGameInfo;
 import net.rithms.riot.dto.League.League;
+import net.rithms.riot.dto.Static.ChampionList;
 import net.rithms.riot.dto.Static.SummonerSpell;
 import net.rithms.riot.dto.Static.SummonerSpellList;
 import net.rithms.riot.dto.Summoner.Summoner;
@@ -33,18 +34,5 @@ public class RiotApiManager {
 		CurrentGameInfo gameInfo = api.getCurrentGameInfo(PlatformId.KR, id);
 		return gameInfo;
 	}
-	
-	//소환사스펠
-	public String apiSummonerSpell(int id){
-		String s = "";
-		try {
-			s = api.getDataSummonerSpell(id).getKey();
-			
-		} catch (Exception e) {
-			System.out.println(e);
-		}
-		return s;
-	}
-	
-	
+
 }
