@@ -10,5 +10,7 @@ public interface CurrentGameDBInter {
 	
 	@Select("select kee from champion where id=#{id}")
 	public String selectChampionKey(Long id);
-
+	
+	@Select("select kee from summonerspell where id=#{id}")
+	public String selectSummonerSpell(Long id);
 }
