@@ -43,6 +43,7 @@ public class InGameManager {
 			CurrentGameInfo gameInfo = riotApiManager.ApiGameInfo(id);
 			gametype.add(summonerDao.gameName(gameInfo.getGameQueueConfigId()));
 			
+			
 
 
 			
@@ -115,6 +116,7 @@ public class InGameManager {
 			map.put("mastery1", mastery1);
 			map.put("mastery2", mastery2);
 			map.put("gametype", gametype);
+			map.put("success", true);
 		} catch (RiotApiException e) {
 			map.put("success", false);
 			map.put("errorCode", e.getErrorCode());
