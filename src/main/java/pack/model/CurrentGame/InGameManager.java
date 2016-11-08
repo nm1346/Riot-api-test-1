@@ -35,14 +35,12 @@ public class InGameManager {
 		List<String> summonerName_list2 = new ArrayList<>();
 		List<Integer> mastery1 = new ArrayList<>();
 		List<Integer> mastery2 = new ArrayList<>();
-
-		List<String> tier1 = new ArrayList<>();
-		List<String> tier2 = new ArrayList<>();
-		Object object = new Object();
+		List<String> gametype = new ArrayList<>();
 		try {
 			Long id = riotApiManager.apigetSummonerByName(username).getId();
 			CurrentGameInfo gameInfo = riotApiManager.apiGameInfo(id);
-
+			gametype.add(summonerDao.gameName(gameInfo.getGameQueueConfigId()));
+			
 			for (int i = 0; i < gameInfo.getBannedChampions().size(); i++) {
 				Long chamid = gameInfo.getBannedChampions().get(i).getChampionId();
 				championmap.put("ban" + i, summonerDao.selectchampionKey(chamid));
@@ -51,13 +49,9 @@ public class InGameManager {
 
 			for (int i = 0; i < gameInfo.getParticipants().size(); i++) {
 				Long chamid = gameInfo.getParticipants().get(i).getChampionId();
-				// System.out.println(summonerDao.selectTier(chamid));
-				// if(summonerDao.selectTier(chamid) == null){
-				//
-				// }
 				long spell = gameInfo.getParticipants().get(i).getSpell1Id();
 				long spel2 = gameInfo.getParticipants().get(i).getSpell2Id();
-
+				
 				if (gameInfo.getParticipants().get(i).getTeamId() == 100) {
 					list1.add(summonerDao.selectchampionKey(chamid));
 					spell_list1.add(summonerDao.selectSummonerSpell(spell));
@@ -102,7 +96,7 @@ public class InGameManager {
 			map.put("summonerName_list2", summonerName_list2);
 			map.put("mastery1", mastery1);
 			map.put("mastery2", mastery2);
-
+			map.put("gametype", gametype);
 		} catch (Exception e) {
 			System.out.println(e);
 			map.put("data", "데이터를 가져오는데 실패함.");

@@ -23,4 +23,8 @@ public class CurrentGameDao  {
 		return summonerDBInter.selectSummonerSpell(id);
 	}
 	
+	public String gameName(Long queueType) throws DataAccessException{
+		return summonerDBInter.gamename(queueType);
+	}
+	
 }
