@@ -32,3 +32,16 @@ CREATE TABLE `summoner` (
 	`name` VARCHAR(40) NULL DEFAULT NULL,
 	PRIMARY KEY (`id`)
 )
+
+	SummonerSpellList spelllist = null;
+
+			try {
+				spelllist = RecentapiDao.getSpellList();
+			    Iterator<String> keys = spelllist.getData().keySet().iterator();
+		        while( keys.hasNext() ){
+		            String key = keys.next();
+		            gameDao.insertspell(spelllist.getData().get(key));
+		        }
+			} catch (RiotApiException e) {
+				System.out.println("Spell Error err : " + e);
+			}

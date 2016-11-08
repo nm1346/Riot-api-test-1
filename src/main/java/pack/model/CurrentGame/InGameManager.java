@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
+import net.rithms.riot.api.RiotApiException;
 import net.rithms.riot.dto.CurrentGame.CurrentGameInfo;
 
 @Repository
@@ -37,10 +38,17 @@ public class InGameManager {
 		List<Integer> mastery2 = new ArrayList<>();
 		List<String> gametype = new ArrayList<>();
 		try {
-			Long id = riotApiManager.apigetSummonerByName(username).getId();
-			CurrentGameInfo gameInfo = riotApiManager.apiGameInfo(id);
+
+			Long id = riotApiManager.ApigetSummonerByName(username).getId();
+			CurrentGameInfo gameInfo = riotApiManager.ApiGameInfo(id);
 			gametype.add(summonerDao.gameName(gameInfo.getGameQueueConfigId()));
 			
+
+
+			
+
+
+
 			for (int i = 0; i < gameInfo.getBannedChampions().size(); i++) {
 				Long chamid = gameInfo.getBannedChampions().get(i).getChampionId();
 				championmap.put("ban" + i, summonerDao.selectchampionKey(chamid));
@@ -49,6 +57,13 @@ public class InGameManager {
 
 			for (int i = 0; i < gameInfo.getParticipants().size(); i++) {
 				Long chamid = gameInfo.getParticipants().get(i).getChampionId();
+
+				// System.out.println(summonerDao.selectTier(chamid));
+				// if(summonerDao.selectTier(chamid) == null){
+				//
+				// }
+
+
 				long spell = gameInfo.getParticipants().get(i).getSpell1Id();
 				long spel2 = gameInfo.getParticipants().get(i).getSpell2Id();
 				
@@ -56,6 +71,7 @@ public class InGameManager {
 					list1.add(summonerDao.selectchampionKey(chamid));
 					spell_list1.add(summonerDao.selectSummonerSpell(spell));
 					spell_list2.add(summonerDao.selectSummonerSpell(spel2));
+
 					icon_list1.add(gameInfo.getParticipants().get(i).getProfileIconId());
 					summonerName_list1.add(gameInfo.getParticipants().get(i).getSummonerName());
 					for (int i2 = 0; i2 < gameInfo.getParticipants().get(i).getMasteries().size(); i2++) {
@@ -65,10 +81,12 @@ public class InGameManager {
 							mastery1.add(mid);
 						}
 					}
+
 				} else if (gameInfo.getParticipants().get(i).getTeamId() == 200) {
 					list2.add(summonerDao.selectchampionKey(chamid));
 					spell_list3.add(summonerDao.selectSummonerSpell(spell));
 					spell_list4.add(summonerDao.selectSummonerSpell(spel2));
+
 					icon_list2.add(gameInfo.getParticipants().get(i).getProfileIconId());
 					summonerName_list2.add(gameInfo.getParticipants().get(i).getSummonerName());
 					for (int i2 = 0; i2 < gameInfo.getParticipants().get(i).getMasteries().size(); i2++) {
@@ -97,9 +115,10 @@ public class InGameManager {
 			map.put("mastery1", mastery1);
 			map.put("mastery2", mastery2);
 			map.put("gametype", gametype);
-		} catch (Exception e) {
-			System.out.println(e);
-			map.put("data", "데이터를 가져오는데 실패함.");
+		} catch (RiotApiException e) {
+			map.put("success", false);
+			map.put("errorCode", e.getErrorCode());
+			map.put("errorMessage", e.getMessage());
 			return map;
 		}
 		return map;

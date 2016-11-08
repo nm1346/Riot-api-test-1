@@ -25,14 +25,25 @@ public class RiotApiManager {
 	@Autowired
 	RiotApiKeyRotate api;
 	
-	public Summoner apigetSummonerByName(String name) throws RiotApiException{
+	public Summoner ApigetSummonerByName(String name) throws RiotApiException{
 		return api.getSummonerByName(name);
-		
 	}
 	//인게임정보
-	public CurrentGameInfo apiGameInfo(Long id) throws RiotApiException{
+	public CurrentGameInfo ApiGameInfo(Long id) throws RiotApiException{
 		CurrentGameInfo gameInfo = api.getCurrentGameInfo(PlatformId.KR, id);
 		return gameInfo;
+	}
+
+	//소환사스펠
+	public String getSummonerSpell(int id){
+		String s = "";
+		try {
+			s = api.getDataSummonerSpell(id).getKey();
+			
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return s;
 	}
 
 }
