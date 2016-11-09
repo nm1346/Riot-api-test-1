@@ -1,10 +1,38 @@
-package pack.model.board;
+package pack.Controller;
 
-public class BoardDto {
-	private int board_num,board_delete,board_report;
-	private String board_writer,board_password,board_subject,board_content,board_ip,board_wdate,board_category;
+public class BoardBean {
+	private int board_num,board_delete,board_report,page,pagesize;
+	private String board_writer,board_password,
+				board_subject,board_content,board_ip,
+				board_wdate,board_category,
+				search_category,search_value;
 	private long id;
 	
+	
+	public int getPage() {
+		return page;
+	}
+	public void setPage(int page) {
+		this.page = page;
+	}
+	public int getPagesize() {
+		return pagesize;
+	}
+	public void setPagesize(int pagesize) {
+		this.pagesize = pagesize;
+	}
+	public String getSearch_category() {
+		return search_category;
+	}
+	public void setSearch_category(String search_category) {
+		this.search_category = search_category;
+	}
+	public String getSearch_value() {
+		return search_value;
+	}
+	public void setSearch_value(String search_value) {
+		this.search_value = search_value;
+	}
 	public int getBoard_report() {
 		return board_report;
 	}
@@ -71,5 +99,4 @@ public class BoardDto {
 	public void setId(long id) {
 		this.id = id;
 	}
-	
 }
