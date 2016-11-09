@@ -3,6 +3,13 @@ package pack.model.board;
 public class ReplyDto {
 	private int reply_num,reply_delete,board_num,reply_report;
 	private String reply_writer,reply_password,reply_content,reply_ip,reply_wdate,reply_gnum;
+	
+	public int getReply_report() {
+		return reply_report;
+	}
+	public void setReply_report(int reply_report) {
+		this.reply_report = reply_report;
+	}
 	public int getReply_num() {
 		return reply_num;
 	}

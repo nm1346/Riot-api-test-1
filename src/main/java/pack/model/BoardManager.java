@@ -24,6 +24,8 @@ public class BoardManager {
 	
 	public Map<String, Object> getBoardList(BoardBean bean){
 		HashMap<String, Object> map=new HashMap<>();
+		int page=bean.getPage();
+		bean.setPage((page-1)*pagesize);
 		bean.setPagesize(pagesize);
 		try {
 			map.put("board_list", dbinter.getBoardListAll(bean));
@@ -37,6 +39,8 @@ public class BoardManager {
 	}
 	public Map<String,Object> getBoardSearchList(BoardBean bean){
 		HashMap<String,Object> map=new HashMap<>();
+		int page=bean.getPage();
+		bean.setPage((page-1)*pagesize);
 		bean.setPagesize(pagesize);
 		try {
 			map.put("board_list", dbinter.getBoardSearchList(bean));
