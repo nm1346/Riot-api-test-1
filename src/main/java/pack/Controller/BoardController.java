@@ -75,6 +75,7 @@ public class BoardController {
 			@PathVariable("search_category")String search_category,
 			@PathVariable("search_value")String search_value) {
 		BoardBean bean=new BoardBean();
+		System.out.println(search_value);
 		bean.setId(id);
 		bean.setPage(page);
 		bean.setBoard_category(board_category);
