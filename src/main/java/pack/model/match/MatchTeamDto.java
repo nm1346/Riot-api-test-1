@@ -2,7 +2,7 @@ package pack.model.match;
 
 public class MatchTeamDto {
 	private long matchId;
-	private int teamId, baronkills, dragonkills, towerkills, banChampionId1, banChampionId2, banChampionId3;
+	private int teamId, baronkills, dragonkills, banChampionId1, banChampionId2, banChampionId3;
 
 	public long getMatchId() {
 		return matchId;
@@ -58,14 +58,6 @@ public class MatchTeamDto {
 
 	public void setDragonkills(int dragonkills) {
 		this.dragonkills = dragonkills;
-	}
-
-	public int getTowerkills() {
-		return towerkills;
-	}
-
-	public void setTowerkills(int towerkills) {
-		this.towerkills = towerkills;
 	}
 
 }
