@@ -2,8 +2,26 @@ package pack.model.match;
 
 public class MatchParticipantDto {
 	private long matchId, participantId, mastery, item0, item1, item2, item3, item4, item5, totalDamageDealt,
-			totalDamageTaken, wardsPlaced, wardsKilled, minionskilled, neutralMinionsKilled,
+			totalDamageTaken, wardsPlaced, wardsKilled, minionskilled, neutralMinionsKilled, towerkills,
 			neutralMinionsKilledTeamjungle, neutralMinionsKilledEnemyjungle, goldEarned, kills, deaths, assists;
+	private String lane;
+	private int teamId, spell1Id, spell2Id, championId;
+
+	public long getTowerkills() {
+		return towerkills;
+	}
+
+	public void setTowerkills(long towerkills) {
+		this.towerkills = towerkills;
+	}
+
+	public String getLane() {
+		return lane;
+	}
+
+	public void setLane(String lane) {
+		this.lane = lane;
+	}
 
 	public long getNeutralMinionsKilled() {
 		return neutralMinionsKilled;
@@ -28,8 +46,6 @@ public class MatchParticipantDto {
 	public void setNeutralMinionsKilledEnemyjungle(long neutralMinionsKilledEnemyjungle) {
 		this.neutralMinionsKilledEnemyjungle = neutralMinionsKilledEnemyjungle;
 	}
-
-	private int teamId, spell1Id, spell2Id, championId;
 
 	public int getChampionId() {
 		return championId;
