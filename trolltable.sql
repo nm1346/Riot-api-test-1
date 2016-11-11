@@ -20,13 +20,28 @@ CREATE TABLE IF NOT EXISTS `board` (
   `board_content` varchar(500) NOT NULL,
   `board_ip` varchar(15) NOT NULL,
   `board_wdate` date NOT NULL,
-  `id` bigint(20) DEFAULT NULL,
-  `board_delete` int(11) DEFAULT '0',
+  `id` bigint(20) NOT NULL,
+  `board_category` varchar(20) NOT NULL,
+  `board_delete` int(11) NOT NULL DEFAULT '0',
+  `board_report` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`board_num`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
--- 테이블 데이터 test.board:~0 rows (대략적) 내보내기
+-- 테이블 데이터 test.board:~12 rows (대략적) 내보내기
 /*!40000 ALTER TABLE `board` DISABLE KEYS */;
+REPLACE INTO `board` (`board_num`, `board_writer`, `board_password`, `board_subject`, `board_content`, `board_ip`, `board_wdate`, `id`, `board_category`, `board_delete`, `board_report`) VALUES
+	(1, '123', '123', '123', '123', '123', '2016-11-09', 134, 'troll', 0, 0),
+	(2, '티모충연합', '1234', '티모는 사랑입니다', '하하', '127.0.0.1', '2016-11-10', 1471107, '고의트롤', 0, 0),
+	(3, '고수티모', '123', '테스트', 'ㅇㅁㄴㅇ', '127.0.0.1', '2016-11-10', 1471107, '하수', 0, 0),
+	(4, '핵티모', '123', '테스트', 'ㅇㅁㄴㅇ', '127.0.0.1', '2016-11-10', 1471107, '핵사용자', 0, 0),
+	(5, '핵티모', '123', '테스트', 'ㅇㅁㄴㅇ', '127.0.0.1', '2016-11-10', 1471107, '어뷰져', 0, 0),
+	(6, '핵티모', '123', '테스트', 'ㅇㅁㄴㅇ', '127.0.0.1', '2016-11-10', 1471107, '욕설', 0, 0),
+	(7, '핵티모', '123', '테스트', 'ㅇㅁㄴㅇ', '127.0.0.1', '2016-11-10', 1471107, '하수', 0, 0),
+	(8, '핵티모', '123', '테스트', 'ㅇㅁㄴㅇ', '127.0.0.1', '2016-11-10', 1471107, '고의트롤', 0, 0),
+	(9, '핵티모', '123', '테스트', 'ㅇㅁㄴㅇ', '127.0.0.1', '2016-11-10', 1471107, '어뷰져', 0, 0),
+	(10, 'ㅁㄴㅇ', 'asd', 'ㅁㄴㅇ', 'ㅁㄴㅇ', '127.0.0.1', '2016-11-10', 1471107, '욕설', 0, 0),
+	(11, 'ㅁㄴㅇ', 'asd', 'ㅁㄴㅇ', 'ㅁㄴㅇ', '127.0.0.1', '2016-11-10', 1471107, '핵사용자', 0, 0),
+	(12, 'ㅁㄴㅇ', 'asd', 'ㅁㄴㅇ', 'ㅁㄴㅇ', '127.0.0.1', '2016-11-10', 1471107, '고의트롤', 0, 0);
 /*!40000 ALTER TABLE `board` ENABLE KEYS */;
 
 
@@ -1031,31 +1046,33 @@ REPLACE INTO `league` (`id`, `name`, `tier`, `queue`, `entries`) VALUES
 -- 테이블 test.matchparticipant 구조 내보내기
 DROP TABLE IF EXISTS `matchparticipant`;
 CREATE TABLE IF NOT EXISTS `matchparticipant` (
-  `matchId` bigint(20) NOT NULL,
-  `teamId` int(10) NOT NULL,
-  `participantId` bigint(20) NOT NULL,
-  `spell1Id` int(10) NOT NULL,
-  `spell2Id` int(10) NOT NULL,
-  `championId` int(10) NOT NULL,
-  `mastery` bigint(20) NOT NULL,
-  `kills` int(10) NOT NULL,
-  `deaths` int(10) NOT NULL,
-  `assists` int(10) NOT NULL,
-  `item0` bigint(20) NOT NULL,
-  `item1` bigint(20) NOT NULL,
-  `item2` bigint(20) NOT NULL,
-  `item3` bigint(20) NOT NULL,
-  `item4` bigint(20) NOT NULL,
-  `item5` bigint(20) NOT NULL,
-  `totalDamageDealt` bigint(20) NOT NULL,
-  `totalDamageTaken` bigint(20) NOT NULL,
-  `wardsPlaced` bigint(20) NOT NULL,
-  `wardsKilled` bigint(20) NOT NULL,
-  `minionskilled` bigint(20) NOT NULL,
-  `neutralMinionsKilled` bigint(20) NOT NULL,
-  `neutralMinionsKilledTeamjungle` bigint(20) NOT NULL,
-  `neutralMinionsKilledEnemyjungle` bigint(20) NOT NULL,
-  `goldEarned` bigint(20) NOT NULL
+  `matchId` bigint(20) DEFAULT NULL,
+  `lane` varchar(20) DEFAULT NULL,
+  `teamId` int(10) DEFAULT NULL,
+  `participantId` bigint(20) DEFAULT NULL,
+  `spell1Id` int(10) DEFAULT NULL,
+  `spell2Id` int(10) DEFAULT NULL,
+  `championId` int(10) DEFAULT NULL,
+  `mastery` bigint(20) DEFAULT NULL,
+  `kills` int(10) DEFAULT NULL,
+  `deaths` int(10) DEFAULT NULL,
+  `assists` int(10) DEFAULT NULL,
+  `towerkills` int(10) DEFAULT NULL,
+  `item0` bigint(20) DEFAULT NULL,
+  `item1` bigint(20) DEFAULT NULL,
+  `item2` bigint(20) DEFAULT NULL,
+  `item3` bigint(20) DEFAULT NULL,
+  `item4` bigint(20) DEFAULT NULL,
+  `item5` bigint(20) DEFAULT NULL,
+  `totalDamageDealt` bigint(20) DEFAULT NULL,
+  `totalDamageTaken` bigint(20) DEFAULT NULL,
+  `wardsPlaced` bigint(20) DEFAULT NULL,
+  `wardsKilled` bigint(20) DEFAULT NULL,
+  `minionskilled` bigint(20) DEFAULT NULL,
+  `neutralMinionsKilled` bigint(20) DEFAULT NULL,
+  `neutralMinionsKilledTeamjungle` bigint(20) DEFAULT NULL,
+  `neutralMinionsKilledEnemyjungle` bigint(20) DEFAULT NULL,
+  `goldEarned` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- 테이블 데이터 test.matchparticipant:~0 rows (대략적) 내보내기
@@ -1066,10 +1083,10 @@ CREATE TABLE IF NOT EXISTS `matchparticipant` (
 -- 테이블 test.matchparticipantidentities 구조 내보내기
 DROP TABLE IF EXISTS `matchparticipantidentities`;
 CREATE TABLE IF NOT EXISTS `matchparticipantidentities` (
-  `matchId` bigint(20) NOT NULL,
-  `participantId` bigint(20) NOT NULL,
-  `summonerId` bigint(20) NOT NULL,
-  `summonerName` varchar(20) NOT NULL
+  `matchId` bigint(20) DEFAULT NULL,
+  `participantId` bigint(20) DEFAULT NULL,
+  `summonerId` bigint(20) DEFAULT NULL,
+  `summonerName` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- 테이블 데이터 test.matchparticipantidentities:~0 rows (대략적) 내보내기
@@ -1080,14 +1097,13 @@ CREATE TABLE IF NOT EXISTS `matchparticipantidentities` (
 -- 테이블 test.matchteam 구조 내보내기
 DROP TABLE IF EXISTS `matchteam`;
 CREATE TABLE IF NOT EXISTS `matchteam` (
-  `matchId` bigint(20) NOT NULL,
-  `teamId` int(10) NOT NULL,
-  `baronkills` int(10) NOT NULL,
-  `dragonkills` int(10) NOT NULL,
-  `towerkills` int(10) NOT NULL,
-  `banChampionId1` int(10) NOT NULL,
-  `banChampionId2` int(10) NOT NULL,
-  `banChampionId3` int(10) NOT NULL
+  `matchId` bigint(20) DEFAULT NULL,
+  `teamId` int(10) DEFAULT NULL,
+  `baronkills` int(10) DEFAULT NULL,
+  `dragonkills` int(10) DEFAULT NULL,
+  `banChampionId1` int(10) DEFAULT NULL,
+  `banChampionId2` int(10) DEFAULT NULL,
+  `banChampionId3` int(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- 테이블 데이터 test.matchteam:~0 rows (대략적) 내보내기
@@ -1099,8 +1115,6 @@ CREATE TABLE IF NOT EXISTS `matchteam` (
 DROP TABLE IF EXISTS `most`;
 CREATE TABLE IF NOT EXISTS `most` (
   `summonerId` bigint(20) NOT NULL,
-  `championNameK` varchar(20) NOT NULL,
-  `championNameE` varchar(20) NOT NULL,
   `championId` int(10) NOT NULL,
   `played` int(10) NOT NULL,
   `win` int(10) NOT NULL,
@@ -1298,7 +1312,7 @@ CREATE TABLE IF NOT EXISTS `recentgames` (
   CONSTRAINT `FK_recentgames_summoner` FOREIGN KEY (`summonerId`) REFERENCES `summoner` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- 테이블 데이터 test.recentgames:~59 rows (대략적) 내보내기
+-- 테이블 데이터 test.recentgames:~55 rows (대략적) 내보내기
 /*!40000 ALTER TABLE `recentgames` DISABLE KEYS */;
 REPLACE INTO `recentgames` (`summonerId`, `gameId`, `gameMode`, `gameType`, `invalid`, `level`, `ipEarned`, `createDate`, `championId`, `mapId`, `spell1`, `spell2`, `subType`, `teamId`) VALUES
 	(1315619, 2453919481, 'CLASSIC', 'MATCHED_GAME', 0, 30, 51, 1464882934740, 64, 11, 11, 4, 'RANKED_SOLO_5x5', 200),
@@ -1372,9 +1386,10 @@ CREATE TABLE IF NOT EXISTS `reply` (
   `reply_content` varchar(30) NOT NULL,
   `reply_ip` varchar(15) NOT NULL,
   `reply_wdate` date NOT NULL,
-  `board_num` int(11) DEFAULT NULL,
-  `reply_gnum` varchar(6) DEFAULT NULL,
-  `reply_delete` int(11) DEFAULT '0',
+  `board_num` int(11) NOT NULL,
+  `reply_gnum` varchar(6) NOT NULL,
+  `reply_delete` int(11) NOT NULL DEFAULT '0',
+  `reply_report` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`reply_num`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -1400,7 +1415,7 @@ CREATE TABLE IF NOT EXISTS `summoner` (
 REPLACE INTO `summoner` (`id`, `revisionDate`, `summonerLevel`, `profileIconId`, `name`, `searchDate`) VALUES
 	(1180166, 1478480774000, 30, 785, '좋은날', '2016-11-08 18:21:10'),
 	(1315619, 1477495360000, 30, 0, '서폿오알정글', '2016-10-27 18:06:32'),
-	(1471107, 1474297886000, 30, 1167, '위대한수령님', '2016-11-08 20:24:40'),
+	(1471107, 1474297886000, 30, 1167, '위대한수령님', '2016-11-10 18:30:06'),
 	(1561975, 1478587212000, 30, 586, '3년만의휴식', '2016-11-08 16:07:01'),
 	(4063073, 1478593926000, 30, 1374, '형석왕', '2016-11-08 17:51:07'),
 	(30960736, 1475838903000, 30, 1123, '존온망', '2016-10-28 16:48:46');
