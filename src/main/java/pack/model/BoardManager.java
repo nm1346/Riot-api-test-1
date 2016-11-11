@@ -42,6 +42,9 @@ public class BoardManager {
 		int page=bean.getPage();
 		bean.setPage((page-1)*pagesize);
 		bean.setPagesize(pagesize);
+		if(bean.getBoard_category().equals("all")){
+			bean.setBoard_category("");
+		}
 		try {
 			map.put("board_list", dbinter.getBoardSearchList(bean));
 			map.put("board_count", dbinter.getBoardSearchListCount(bean));

@@ -21,13 +21,13 @@ public interface BoardDBInter {
 	public int getBoardAllCount(BoardBean bean);
 	
 	@Select("select * from board"
-			+ " where board_delete=0 and id=#{id} and board_category like #{board_category}"
+			+ " where board_delete=0 and id=#{id} and board_category like CONCAT('%',#{board_category},'%')"
 			+ " and ${search_category} like CONCAT('%',#{search_value},'%')"
 			+ " order by board_num desc"
 			+ " limit #{page},#{pagesize}")
 	public List<BoardDto> getBoardSearchList(BoardBean bean);
 	@Select("select count(*) from board"
-			+ " where board_delete=0 and id=#{id} and board_category=#{board_category}"
+			+ " where board_delete=0 and id=#{id} and board_category like CONCAT('%',#{board_category},'%')"
 			+ " and ${search_category} like CONCAT('%',#{search_value},'%')")
 	public int getBoardSearchListCount(BoardBean bean);
 	
