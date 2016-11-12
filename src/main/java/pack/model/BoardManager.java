@@ -20,7 +20,7 @@ public class BoardManager {
 	BoardDBInter dbinter;
 	@Autowired
 	ReplyDBInter replyInter;
-	private int pagesize=10;
+	private int pagesize=7;
 	
 	public Map<String, Object> getBoardList(BoardBean bean){
 		HashMap<String, Object> map=new HashMap<>();
