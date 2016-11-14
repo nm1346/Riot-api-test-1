@@ -29,6 +29,7 @@ import pack.model.summoner.SummonerDto;
 @Service
 public class SummonerManager {
 	
+	@Autowired
 	SummonerApiDao summonerapiDao;
 	@Autowired
 	SummonerDao summonerDao;
@@ -49,7 +50,6 @@ public class SummonerManager {
 				date = format.parse(summoner.getSearchDate());
 				summoner.setSearchDate(format.format(date));
 			} catch (Exception e) {
-
 				System.out.println("parsing err" + e);
 			}
 			Calendar searchDate = Calendar.getInstance();

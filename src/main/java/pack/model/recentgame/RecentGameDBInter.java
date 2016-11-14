@@ -31,7 +31,7 @@ public interface RecentGameDBInter {
 			+"where summonerId = #{summonerId} ORDER by createDate desc LIMIT 0 ,10;")
 	public List<GameDto> selectRecentGames(@Param("summonerId")Long summonerId);
 	
-	@Insert("insert into RecentGames values(#{summonerId},#{game.gameId},"
+	@Insert("insert into recentgames values(#{summonerId},#{game.gameId},"
 			+ "#{game.gameMode},#{game.gameType},#{game.invalid},#{game.level},#{game.ipEarned},"
 			+ "#{game.createDate},#{game.championId},"
 			+ "#{game.mapId},#{game.spell1},#{game.spell2},#{game.subType},#{game.teamId})")

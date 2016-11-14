@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import net.rithms.riot.api.RiotApiException;
+import pack.model.match.AvgDto;
 import pack.model.match.MatchApiDao;
 import pack.model.match.MatchDao;
 import pack.model.match.MatchDto;
@@ -47,4 +48,38 @@ public class MatchManager {
 		}		
 		return map;
 	}
+	
+	public Map<String, Object> getAvg(long matchId) {
+		HashMap<String, Object> map = new HashMap<>();	
+		
+		try {
+			MatchBean bean = new MatchBean();
+			bean = apiDao.apigetMatch(matchId);
+			//추가 insert 안함~
+			matchDao.insertAvg(bean);
+			List<AvgDto> list = matchDao.selectAvg();
+			map.put("success", "true");
+			map.put("avg", list);
+		} catch (RiotApiException e) {
+			System.out.println("getMatch err " + e);
+			map.put("success", "false");
+			map.put("error", e.getMessage());
+			map.put("errorCode", e.getErrorCode());
+		}		
+		return map;
+	}
+	
+	public Map<String, Object> getRealAvg() {
+		HashMap<String, Object> map = new HashMap<>();
+		try {
+			List<AvgDto> list = matchDao.selectAvg();
+			map.put("success", "true");
+			map.put("avg", list);
+		} catch (Exception e) {
+			map.put("success", "false");
+			map.put("error", e.getMessage());
+		}
+		return map;
+	}
+	
 }
