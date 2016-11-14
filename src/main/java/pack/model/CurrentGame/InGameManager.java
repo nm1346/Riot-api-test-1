@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import net.rithms.riot.api.RiotApiException;
 import net.rithms.riot.dto.CurrentGame.CurrentGameInfo;
+import net.rithms.riot.dto.Static.SummonerSpellList;
 
 @Repository
 public class InGameManager {
@@ -44,6 +45,7 @@ public class InGameManager {
 			CurrentGameInfo gameInfo = riotApiManager.ApiGameInfo(id);
 			gametype.add(summonerDao.gameName(gameInfo.getGameQueueConfigId()));
 			
+			SummonerSpellList spellinfo = riotApiManager.getSummonerSpell();
 
 			for (int i = 0; i < gameInfo.getBannedChampions().size(); i++) {
 				Long chamid = gameInfo.getBannedChampions().get(i).getChampionId();
@@ -101,7 +103,8 @@ public class InGameManager {
 				}
 
 			}
-
+			
+			map.put("spellinfo", spellinfo);
 			map.put("gameInfo", gameInfo);
 			map.put("banChampionName", championmap);
 			map.put("banChampionName2", championmap2);

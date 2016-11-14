@@ -35,10 +35,10 @@ public class RiotApiManager {
 	}
 
 	//소환사스펠
-	public String getSummonerSpell(int id){
-		String s = "";
+	public SummonerSpellList getSummonerSpell(){
+		SummonerSpellList s = null;
 		try {
-			s = api.getDataSummonerSpell(id).getKey();
+			s = api.getDataSummonerSpellList();
 			
 		} catch (Exception e) {
 			System.out.println(e);
@@ -46,6 +46,6 @@ public class RiotApiManager {
 		return s;
 	}
 
-	
+
 	
 }
