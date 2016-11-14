@@ -14,7 +14,7 @@ import pack.model.SummonerManager;
 public class TestController {
 	@Autowired
 	SummonerManager summonerManager;
-	
+		
 	@RequestMapping("user/{username}")
 	@ResponseBody
 	public Object getlist1(@PathVariable("username")String username) {

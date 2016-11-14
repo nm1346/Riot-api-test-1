@@ -28,7 +28,7 @@ public interface RecentGameDBInter {
 			+"(select summonerspell.kee from summonerspell where id = recentgames.spell2) as spellName2 "
 			+"from recentgames inner join champion on recentgames.championId = champion.id "
 			+"inner join summonerspell on recentgames.spell1 = summonerspell.id "
-			+"where summonerId = #{summonerId} ORDER by gameId desc LIMIT 0 ,10;")
+			+"where summonerId = #{summonerId} ORDER by createDate desc LIMIT 0 ,10;")
 	public List<GameDto> selectRecentGames(@Param("summonerId")Long summonerId);
 	
 	@Insert("insert into RecentGames values(#{summonerId},#{game.gameId},"
