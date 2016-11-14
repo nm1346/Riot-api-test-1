@@ -46,4 +46,6 @@ public class RiotApiManager {
 		return s;
 	}
 
+	
+	
 }

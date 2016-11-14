@@ -24,6 +24,7 @@ public class InGameManager {
 	public Object process(String username) {
 		Map<String, Object> map = new HashMap<>();
 		Map<String, String> championmap = new HashMap<>();
+		Map<String, String> championmap2 = new HashMap<>();
 		List<String> list1 = new ArrayList<>();
 		List<String> list2 = new ArrayList<>();
 		List<String> spell_list1 = new ArrayList<>();
@@ -43,17 +44,17 @@ public class InGameManager {
 			CurrentGameInfo gameInfo = riotApiManager.ApiGameInfo(id);
 			gametype.add(summonerDao.gameName(gameInfo.getGameQueueConfigId()));
 			
-			
-
-
-			
-
-
 
 			for (int i = 0; i < gameInfo.getBannedChampions().size(); i++) {
 				Long chamid = gameInfo.getBannedChampions().get(i).getChampionId();
-				championmap.put("ban" + i, summonerDao.selectchampionKey(chamid));
-
+				if(gameInfo.getBannedChampions().get(i).getTeamId() == 100){
+					
+					championmap.put("ban" + i, summonerDao.selectchampionKey(chamid));
+				}else if(gameInfo.getBannedChampions().get(i).getTeamId() == 200){
+					championmap2.put("ban" + i, summonerDao.selectchampionKey(chamid));
+				}
+				
+				
 			}
 
 			for (int i = 0; i < gameInfo.getParticipants().size(); i++) {
@@ -103,6 +104,7 @@ public class InGameManager {
 
 			map.put("gameInfo", gameInfo);
 			map.put("banChampionName", championmap);
+			map.put("banChampionName2", championmap2);
 			map.put("summonerSpell1", spell_list1);
 			map.put("summonerSpell2", spell_list2);
 			map.put("summonerSpell3", spell_list3);
