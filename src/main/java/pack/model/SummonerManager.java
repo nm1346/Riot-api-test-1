@@ -28,6 +28,7 @@ import pack.model.summoner.SummonerDto;
 
 @Service
 public class SummonerManager {
+
 	@Autowired
 	SummonerApiDao summonerapiDao;
 	@Autowired
