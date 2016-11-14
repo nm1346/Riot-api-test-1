@@ -3,6 +3,7 @@ package pack.model;
 import pack.Controller.BoardBean;
 import pack.Controller.ReplyBean;
 import pack.model.board.BoardDBInter;
+import pack.model.board.BoardDto;
 import pack.model.board.ReplyDBInter;
 import pack.model.board.ReplyDto;
 
@@ -121,6 +122,21 @@ public class BoardManager {
 				}
 				bean.setReply_gnum(selectgnum);
 				map.put("success", replyInter.insertReply(bean));
+			}
+		} catch (DataAccessException e) {
+			map.put("success", false);
+			map.put("errorMessage", e.getMessage());
+		}
+		return map;
+	}
+	public Map<String,Object> confirmPassword(BoardBean bean){
+		HashMap<String,Object> map=new HashMap<>();
+		try {
+			BoardDto dto=dbinter.ConfirmPassword(bean);
+			if(dto==null){
+				map.put("success", false);
+			}else{
+				map.put("success", true);
 			}
 		} catch (DataAccessException e) {
 			map.put("success", false);
