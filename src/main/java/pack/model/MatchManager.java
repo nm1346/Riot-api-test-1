@@ -29,17 +29,22 @@ public class MatchManager {
 			System.out.println("DB");
 			map.put("match", list);
 			map.put("success", "true");
+			List<AvgDto> list1 = matchDao.selectAvg();
+			map.put("success", "true");
+			map.put("avg", list1);
 			return map;   
 		}
 		try {
 			System.out.println("API");
 			MatchBean bean = new MatchBean();
 			bean = apiDao.apigetMatch(matchId);
-			//insert 문제임
 			matchDao.insertMatch(bean);
 			list = matchDao.selectMatch(matchId);
 			map.put("success", "true");
 			map.put("match", list);
+			List<AvgDto> list1 = matchDao.selectAvg();
+			map.put("success", "true");
+			map.put("avg", list1);
 		} catch (RiotApiException e) {
 			System.out.println("getMatch err " + e);
 			map.put("success", "false");
@@ -72,9 +77,9 @@ public class MatchManager {
 	public Map<String, Object> getRealAvg() {
 		HashMap<String, Object> map = new HashMap<>();
 		try {
-			List<AvgDto> list = matchDao.selectAvg();
+			List<AvgDto> list1 = matchDao.selectAvg();
 			map.put("success", "true");
-			map.put("avg", list);
+			map.put("avg", list1);
 		} catch (Exception e) {
 			map.put("success", "false");
 			map.put("error", e.getMessage());

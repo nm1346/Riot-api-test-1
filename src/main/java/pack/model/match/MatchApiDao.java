@@ -38,40 +38,6 @@ public class MatchApiDao {
 		System.out.println(detail.getParticipants().size());
 		for (int i = 0; i < detail.getParticipants().size(); i++) {
 			MatchParticipantDto pDto = new MatchParticipantDto();
-			/*
-			System.out.println(matchId);
-			System.out.println(detail.getParticipants().get(i).getStats().getNeutralMinionsKilled());
-			System.out.println(detail.getParticipants().get(i).getStats().getNeutralMinionsKilledTeamJungle());
-			System.out.println(detail.getParticipants().get(i).getStats().getNeutralMinionsKilledEnemyJungle());
-			System.out.println(detail.getParticipants().get(i).getTeamId());
-			System.out.println(detail.getParticipants().get(i).getParticipantId());
-			System.out.println(detail.getParticipants().get(i).getSpell1Id());
-			System.out.println(detail.getParticipants().get(i).getSpell2Id());
-			System.out.println(detail.getParticipants().get(i).getChampionId());
-			System.out.println(detail.getParticipants().get(i).getMasteries().get(9).getMasteryId());
-			System.out.println(detail.getParticipants().get(i).getStats().getKills());
-			System.out.println(detail.getParticipants().get(i).getStats().getDeaths());
-			System.out.println(detail.getParticipants().get(i).getStats().getAssists());
-			System.out.println(detail.getParticipants().get(i).getStats().getItem0());
-			System.out.println(detail.getParticipants().get(i).getStats().getItem1());
-			System.out.println(detail.getParticipants().get(i).getStats().getItem2());
-			System.out.println(detail.getParticipants().get(i).getStats().getItem3());
-			System.out.println(detail.getParticipants().get(i).getStats().getItem4());
-			System.out.println(detail.getParticipants().get(i).getStats().getItem5());
-			System.out.println(detail.getParticipants().get(i).getStats().getTotalDamageDealt());
-			System.out.println(detail.getParticipants().get(i).getStats().getTotalDamageTaken());
-			System.out.println(detail.getParticipants().get(i).getStats().getWardsPlaced());
-			System.out.println(detail.getParticipants().get(i).getStats().getWardsKilled());
-			System.out.println(detail.getParticipants().get(i).getStats().getMinionsKilled());
-			System.out.println(detail.getParticipants().get(i).getStats().getGoldEarned());
-			if(detail.getParticipants().get(i).getTimeline().getLane().equals("BOTTOM")){
-				System.out.println(detail.getParticipants().get(i).getTimeline().getRole());
-			}else{
-				System.out.println(detail.getParticipants().get(i).getTimeline().getLane());				
-			}
-			System.out.println(detail.getParticipants().get(i).getStats().getTowerKills());
-			System.out.println();
-			*/
 			pDto.setMatchId(matchId);
 			pDto.setNeutralMinionsKilled(detail.getParticipants().get(i).getStats().getNeutralMinionsKilled());
 			pDto.setNeutralMinionsKilledTeamjungle(detail.getParticipants().get(i).getStats().getNeutralMinionsKilledTeamJungle());

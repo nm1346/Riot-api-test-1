@@ -5,9 +5,17 @@ public class MatchDto {
 			totalDamageTaken, wardsPlaced, wardsKilled, minionskilled, neutralMinionsKilled,
 			neutralMinionsKilledTeamjungle, neutralMinionsKilledEnemyjungle, goldEarned, kills, deaths, assists,
 			summonerId, towerkills;
-	private String summonerName, championNameK, championNameE;
+	private String summonerName, championNameK, championNameE, tier;
 	private int teamId, baronkills, dragonkills, spell1Id, spell2Id, championId, banChampionId1, banChampionId2,
 			banChampionId3;
+
+	public String getTier() {
+		return tier;
+	}
+
+	public void setTier(String tier) {
+		this.tier = tier;
+	}
 
 	public String getChampionNameK() {
 		return championNameK;
