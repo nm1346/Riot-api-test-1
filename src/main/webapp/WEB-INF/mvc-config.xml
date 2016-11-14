@@ -15,7 +15,8 @@
     <!-- Uncomment and your base-package here:
          <context:component-scan
             base-package="org.springframework.samples.web"/>  -->
-            <context:component-scan base-package="pack.*" />
+    <context:component-scan base-package="pack.*"/>
+    <bean class="net.rithms.riot.api.RiotApi"/>
     <mvc:annotation-driven />
     
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" scope="">

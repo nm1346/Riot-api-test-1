@@ -11,6 +11,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 import net.rithms.riot.api.RiotApiException;
 import net.rithms.riot.dto.Game.Game;
 import net.rithms.riot.dto.Game.RecentGames;
@@ -27,7 +28,7 @@ import pack.model.summoner.SummonerDto;
 
 @Service
 public class SummonerManager {
-	@Autowired
+	
 	SummonerApiDao summonerapiDao;
 	@Autowired
 	SummonerDao summonerDao;
@@ -48,6 +49,7 @@ public class SummonerManager {
 				date = format.parse(summoner.getSearchDate());
 				summoner.setSearchDate(format.format(date));
 			} catch (Exception e) {
+
 				System.out.println("parsing err" + e);
 			}
 			Calendar searchDate = Calendar.getInstance();
@@ -55,6 +57,7 @@ public class SummonerManager {
 			searchDate.add(Calendar.MINUTE, 2);
 			if (searchDate.getTime().before(new Date())) {
 				try {
+
 					summoner = summonerapiDao.ApigetSummonerByName(bean.getName());
 					dto = summonerapiDao.ApigetLeagueData(summoner.getId());
 					summonerDao.updateSummoner(summoner);
