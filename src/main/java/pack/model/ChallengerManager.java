@@ -28,7 +28,10 @@ public class ChallengerManager {
 		try {
 			List<ChallengerDto> list = apiDao.apigetChallenger();
 			challengerDao.insertChallenger(list);
-			map.put("entry", list);
+			map.put("challenger", list);
+			List<ChallengerDto> mlist = apiDao.apigetMaster();
+			challengerDao.insertMaster(mlist);
+			map.put("master", mlist);
 			map.put("success", "true");
 		} catch (RiotApiException e) {
 			System.out.println("getChallenger" + e);
@@ -55,36 +58,12 @@ public class ChallengerManager {
 		if (searchDate.getTime().before(new Date())) {
 			// 갱신용
 			try {
-				List<ChallengerDto> list = apiDao.apigetChallenger();
-				challengerDao.insertChallenger(list);
-				map.put("entry", list);
-				map.put("success", "true");
-			} catch (RiotApiException e) {
-				System.out.println("getChallenger" + e);
-				map.put("success", "false");
-				map.put("error", e.getMessage());
-				map.put("errorCode", e.getErrorCode());
-			}
-		} else {
-			// db
-			List<ChallengerDto> list = challengerDao.getChallenger();
-			map.put("entry", list);
-			map.put("success", "true");
-		}
-		*/
-		
-		
-		return map;
-	}
-
-	public Map<String, Object> getMaster() {
-		HashMap<String, Object> map = new HashMap<>();
-		
-		//처음할때만 사용하고 삭제
-		try {
-			List<ChallengerDto> list = apiDao.apigetMaster();
-			challengerDao.insertMaster(list);
-			map.put("entry", list);
+			List<ChallengerDto> list = apiDao.apigetChallenger();
+			challengerDao.insertChallenger(list);
+			map.put("challenger", list);
+			List<ChallengerDto> mlist = apiDao.apigetMaster();
+			challengerDao.insertMaster(mlist);
+			map.put("master", mlist);
 			map.put("success", "true");
 		} catch (RiotApiException e) {
 			System.out.println("getChallenger" + e);
@@ -92,43 +71,14 @@ public class ChallengerManager {
 			map.put("error", e.getMessage());
 			map.put("errorCode", e.getErrorCode());
 		}
-		
-		//두번째부터
-		/*
-		ChallengerDto master = challengerDao.getMaster().get(0);
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm");
-		Date date = null;
-		try {
-			date = format.parse(master.getSearchDate());
-			master.setSearchDate(format.format(date));
-		} catch (Exception e) {
-
-		}
-		Calendar searchDate = Calendar.getInstance();
-		searchDate.setTime(date);
-		searchDate.add(Calendar.HOUR_OF_DAY, 1);
-		if (searchDate.getTime().before(new Date())) {
-			// 갱신용
-			try {
-				List<ChallengerDto> list = apiDao.apigetMaster();
-				challengerDao.insertMaster(list);
-				map.put("entry", list);
-				map.put("success", "true");
-			} catch (RiotApiException e) {
-				System.out.println("getChallenger" + e);
-				map.put("success", "false");
-				map.put("error", e.getMessage());
-				map.put("errorCode", e.getErrorCode());
-			}
 		} else {
 			// db
-			List<ChallengerDto> list = challengerDao.getMaster();
+			List<ChallengerDto> list = challengerDao.getChallenger();
 			map.put("entry", list);
 			map.put("success", "true");
 		}
 		*/
-		
+			
 		return map;
 	}
-
 }
