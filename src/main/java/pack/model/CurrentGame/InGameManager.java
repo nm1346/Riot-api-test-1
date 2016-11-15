@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import net.rithms.riot.api.RiotApiException;
 import net.rithms.riot.dto.CurrentGame.CurrentGameInfo;
+import net.rithms.riot.dto.Static.MasteryList;
 import net.rithms.riot.dto.Static.SummonerSpellList;
 
 @Repository
@@ -46,7 +47,7 @@ public class InGameManager {
 			gametype.add(summonerDao.gameName(gameInfo.getGameQueueConfigId()));
 			
 			SummonerSpellList spellinfo = riotApiManager.getSummonerSpell();
-
+			MasteryList masteryinfo = riotApiManager.getmastery();
 			for (int i = 0; i < gameInfo.getBannedChampions().size(); i++) {
 				Long chamid = gameInfo.getBannedChampions().get(i).getChampionId();
 				if(gameInfo.getBannedChampions().get(i).getTeamId() == 100){
@@ -104,6 +105,7 @@ public class InGameManager {
 
 			}
 			
+			map.put("masteryinfo", masteryinfo);
 			map.put("spellinfo", spellinfo);
 			map.put("gameInfo", gameInfo);
 			map.put("banChampionName", championmap);
