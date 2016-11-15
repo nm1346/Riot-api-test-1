@@ -9,6 +9,7 @@ public class LeagueDto {
 	private Long id;
 	private String entries;
 	private String name, tier, queue;
+	
 	private List<LeagueEntry> entrylist;
 
 	public Long getId() {

@@ -1,7 +1,7 @@
 package pack.model.recentgame;
 
 public class PlayerDto {
-	private Long gameId,summonerId;
+	private Long gameId,summonerId,summonerName;
 	private int teamId,championId;
 	private String chamName1,chamName2;
 	public String getChamName1() {
@@ -9,6 +9,12 @@ public class PlayerDto {
 	}
 	public void setChamName1(String chamName1) {
 		this.chamName1 = chamName1;
+	}
+	public Long getSummonerName() {
+		return summonerName;
+	}
+	public void setSummonerName(Long summonerName) {
+		this.summonerName = summonerName;
 	}
 	public String getChamName2() {
 		return chamName2;

@@ -20,20 +20,12 @@ public class MostDao {
 	public boolean insertMost(List<MostDto> list) throws DataAccessException {
 		boolean success = false;
 		try {
-			//처음만 사용하고 삭제
+			mostDBInter.deleteMost(list.get(0).getSummonerId());
 			for (int i = 0; i < list.size(); i++) {
 				mostDBInter.insertMost(list.get(i));
 			}
 			success = true;
-			/*
-			//두번째부터
-			if(mostDBInter.deleteMost(list.get(0).getSummonerId()) > 0){
-				for (int i = 0; i < list.size(); i++) {
-					mostDBInter.insertMost(list.get(i));
-				}
-				success = true;
-			}
-			*/
+
 		} catch (Exception e) {
 			return success;
 		}

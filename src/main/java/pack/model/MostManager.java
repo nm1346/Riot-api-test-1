@@ -22,19 +22,8 @@ public class MostManager {
 
 	public Map<String, Object> getMost(long summonerId) {
 		HashMap<String, Object> map = new HashMap<>();
-		// 처음할때만사용하고 삭제
-		try {
-			List<MostDto> list = apiDao.apigetMost(summonerId);
-			mostDao.insertMost(list);
-			map.put("most", list);
-			map.put("success", "true");
-		} catch (RiotApiException e) {
-			System.out.println("getChallenger" + e);
-			map.put("success", "false");
-			map.put("error", e.getMessage());
-			map.put("errorCode", e.getErrorCode());
-		}
-		/*
+
+		
 		MostDto most = mostDao.getMost(summonerId).get(0);
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm");
 		Date date = null;
@@ -67,7 +56,7 @@ public class MostManager {
 			map.put("entry", list);
 			map.put("success", "true");
 		}
-		*/
+		
 		return map;
 	}
 }
