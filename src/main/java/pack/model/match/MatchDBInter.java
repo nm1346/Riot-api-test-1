@@ -13,6 +13,9 @@ public interface MatchDBInter {
 	@Select("select lane, banChampionId1, banChampionId2, banChampionId3, neutralMinionsKilled, neutralMinionsKilledTeamjungle, neutralMinionsKilledEnemyjungle, matchteam.matchId as matchId, matchteam.teamId as teamId, baronkills, dragonkills, towerkills, spell1Id, spell2Id, championId, champion.name as championNameK, champion.kee as championNameE, mastery, kills, deaths, assists, item0, item1, item2, item3, item4, item5, totalDamageDealt, totalDamageTaken, wardsPlaced, wardsKilled, minionskilled, goldEarned, matchparticipant.participantId as participantId, summonerId, summonerName from matchparticipant inner join matchparticipantIdentities on matchparticipant.participantId = matchparticipantIdentities.participantId inner join matchteam on matchparticipant.teamId = matchteam.teamId left join champion on matchparticipant.championId = champion.id where matchteam.matchId=#{matchId} and matchparticipant.matchId=#{matchId} and matchparticipantidentities.matchId=#{matchId}")
 	public List<MatchDto> getMatch(long matchId);
 	
+	@Select("select * from summonerspell")
+	public List<SpellDto> getSpell();
+	
 	@Insert("insert into matchteam(banChampionId1, banChampionId2, banChampionId3, matchId, teamId, baronkills, dragonkills) values(#{banChampionId1}, #{banChampionId2}, #{banChampionId3}, #{matchId},#{teamId},#{baronkills},#{dragonkills})")
 	public int insertMatchTeam(MatchTeamDto dto);
 	

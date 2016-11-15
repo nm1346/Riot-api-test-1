@@ -11,6 +11,7 @@ import pack.model.match.AvgDto;
 import pack.model.match.MatchApiDao;
 import pack.model.match.MatchDao;
 import pack.model.match.MatchDto;
+import pack.model.match.SpellDto;
 import pack.model.match.MatchBean;
 
 @Service
@@ -27,9 +28,11 @@ public class MatchManager {
 		List<MatchDto> list = matchDao.selectMatch(matchId);
 		if(list.size()>5){
 			System.out.println("DB");
+			List<AvgDto> list1 = matchDao.selectAvg();
+			List<SpellDto> dto = matchDao.getspell();
+			map.put("spell", dto);
 			map.put("match", list);
 			map.put("success", "true");
-			List<AvgDto> list1 = matchDao.selectAvg();
 			map.put("success", "true");
 			map.put("avg", list1);
 			return map;   
@@ -45,6 +48,8 @@ public class MatchManager {
 			List<AvgDto> list1 = matchDao.selectAvg();
 			map.put("success", "true");
 			map.put("avg", list1);
+			List<SpellDto> dto = matchDao.getspell();
+			map.put("spell", dto);
 		} catch (RiotApiException e) {
 			System.out.println("getMatch err " + e);
 			map.put("success", "false");

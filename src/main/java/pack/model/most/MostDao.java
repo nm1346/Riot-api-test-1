@@ -25,15 +25,14 @@ public class MostDao {
 				mostDBInter.insertMost(list.get(i));
 			}
 			success = true;
-			/*
+			mostDBInter.deleteMost(list.get(0).getSummonerId());
 			//두번째부터
-			if(mostDBInter.deleteMost(list.get(0).getSummonerId()) > 0){
+			
 				for (int i = 0; i < list.size(); i++) {
 					mostDBInter.insertMost(list.get(i));
 				}
 				success = true;
-			}
-			*/
+			
 		} catch (Exception e) {
 			return success;
 		}

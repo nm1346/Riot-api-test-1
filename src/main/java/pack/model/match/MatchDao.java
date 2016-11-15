@@ -18,14 +18,17 @@ public class MatchDao {
 		boolean success=false;
 		try{
 			for (int i = 0; i < bean.getTeam().size(); i++) {
+				System.out.println("A");
 				matchDBInter.insertMatchTeam(bean.getTeam().get(i));
 			}
-			System.out.println(bean.getParticipant().size());
+			
 			for (int i = 0; i < bean.getParticipant().size(); i++) {	
+				System.out.println("a");
 				matchDBInter.insertMatchParticipantIdentities(bean.getParticipantIdentities().get(i));
 			}
 			
 			for (int i = 0; i < bean.getParticipantIdentities().size(); i++) {
+				System.out.println("b");
 				matchDBInter.insertMatchParticipant(bean.getParticipant().get(i));				
 			}
 			
@@ -57,6 +60,10 @@ public class MatchDao {
 	
 	public List<AvgDto> selectAvg(){
 		return matchDBInter.getAvg();
+	}
+	
+	public List<SpellDto> getspell(){
+		return matchDBInter.getSpell();
 	}
 
 }

@@ -14,28 +14,30 @@ import pack.model.RiotApiKeyRotate;
 public class MatchApiDao {
 	@Autowired
 	RiotApiKeyRotate api;
-	
 	public MatchBean apigetMatch(long matchId) throws RiotApiException{
 		MatchBean dto = new MatchBean();	//통합match
 		MatchDetail detail = api.getMatch(matchId);			//match
-		
 		//팀정보
 		List<MatchTeamDto> tlist = new ArrayList<MatchTeamDto>();
 		for (int i = 0; i < detail.getTeams().size(); i++) {
 			MatchTeamDto teamDto = new MatchTeamDto();
 			teamDto.setMatchId(matchId);
-			teamDto.setBanChampionId1(detail.getTeams().get(i).getBans().get(0).getChampionId());
-			teamDto.setBanChampionId2(detail.getTeams().get(i).getBans().get(1).getChampionId());
-			teamDto.setBanChampionId3(detail.getTeams().get(i).getBans().get(2).getChampionId());
+			try {
+				teamDto.setBanChampionId1(detail.getTeams().get(i).getBans().get(0).getChampionId());	
+				teamDto.setBanChampionId2(detail.getTeams().get(i).getBans().get(1).getChampionId());
+				teamDto.setBanChampionId3(detail.getTeams().get(i).getBans().get(2).getChampionId());
+			} catch (NullPointerException e) {
+				
+			}
 			teamDto.setTeamId(detail.getTeams().get(i).getTeamId());
 			teamDto.setBaronkills(detail.getTeams().get(i).getBaronKills());
 			teamDto.setDragonkills(detail.getTeams().get(i).getDragonKills());
 			tlist.add(teamDto);
+			
 		}
 		
 		//소환사 게임 정보
 		List<MatchParticipantDto> plist = new ArrayList<MatchParticipantDto>();
-		System.out.println(detail.getParticipants().size());
 		for (int i = 0; i < detail.getParticipants().size(); i++) {
 			MatchParticipantDto pDto = new MatchParticipantDto();
 			pDto.setMatchId(matchId);
@@ -84,9 +86,14 @@ public class MatchApiDao {
 		for (int i = 0; i < detail.getParticipantIdentities().size(); i++) {
 			MatchParticipantIdentitiesDto piDto = new MatchParticipantIdentitiesDto();
 			piDto.setMatchId(matchId);
-			piDto.setParticipantId(detail.getParticipantIdentities().get(i).getParticipantId());
-			piDto.setSummonerId(detail.getParticipantIdentities().get(i).getPlayer().getSummonerId());
-			piDto.setSummonerName(detail.getParticipantIdentities().get(i).getPlayer().getSummonerName());
+			try {
+				piDto.setParticipantId(detail.getParticipantIdentities().get(i).getParticipantId());
+				piDto.setSummonerId(detail.getParticipantIdentities().get(i).getPlayer().getSummonerId());
+				piDto.setSummonerName(detail.getParticipantIdentities().get(i).getPlayer().getSummonerName());
+			} catch (NullPointerException e) {
+				// TODO: handle exception
+			}
+			
 			pilist.add(piDto);
 		}
 		
