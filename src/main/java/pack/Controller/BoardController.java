@@ -119,11 +119,16 @@ public class BoardController {
 	
 	@RequestMapping(value="/reply",method=RequestMethod.PUT)
 	@ResponseBody
-	public Object insertReply(@RequestBody ReplyBean bean){
+	public Object insertReply(@RequestBody ReplyBean bean,HttpServletRequest request){
+		bean.setReply_ip(request.getLocalAddr());
 		return boardManager.InsertReply(bean);
 	}
-
-	
+	@RequestMapping(value="/reply/{num}",method=RequestMethod.DELETE)
+	@ResponseBody
+	public Object insertReply(@PathVariable("num")int num,@ModelAttribute ReplyBean bean){
+		bean.setReply_num(num);
+		return boardManager.InsertReply(bean);
+	}
 	
 	
 }
