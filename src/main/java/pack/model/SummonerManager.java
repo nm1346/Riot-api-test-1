@@ -43,7 +43,9 @@ public class SummonerManager {
 	MostApiDao mostapiDao;
 	@Autowired
 	MostDao mostDao;
-
+	
+	private StringBuffer summonerIds;
+	
 	public Map<String, Object> getSummonerAndLeague(SummonerBean bean) {
 		HashMap<String, Object> map = new HashMap<>();
 		RecentGames games = null;
@@ -94,29 +96,27 @@ public class SummonerManager {
 			} else {
 				map.put("leagueData", "집계된 리그데이터는 존재하지않습니다.");
 			}
-			String summonerIds = "";
+			summonerIds = new StringBuffer();
 			List<GameDto> gamelist = gameDao.selectRecentGames(summoner.getId());
 			for (int i = 0; i < gamelist.size(); i++) {
 				gamelist.get(i).setFellowPlayers(gameDao.selectFellowPlayer(gamelist.get(i).getGameId()));
 				gamelist.get(i).setRawstats(gameDao.selectRawstats(gamelist.get(i).getGameId()));
 				for (int j = 0; j < gamelist.get(i).getFellowPlayers().size(); j++) {
-					summonerIds += gamelist.get(i).getFellowPlayers().get(j).getSummonerId() + ",";
+					summonerIds.append(gamelist.get(i).getFellowPlayers().get(j).getSummonerId() + ",");
 				}
-				summonerIds = summonerIds.substring(0, summonerIds.length() - 1);
-				System.out.println(summonerIds);
+				summonerIds.substring(0, summonerIds.length() - 1);
 				Map<String, String> nameMap = null;
 				try {
-					nameMap = summonerapiDao.ApigetSummonerByNames(summonerIds);
+					nameMap = summonerapiDao.ApigetSummonerByNames(summonerIds.toString());
 					for (int j = 0; j < gamelist.get(i).getFellowPlayers().size(); j++) {
 						String key = gamelist.get(i).getFellowPlayers().get(j).getSummonerId().toString();
-						System.out.println(key);
 						gamelist.get(i).getFellowPlayers().get(j).setSummonerName(nameMap.get(key));
 					}
 					gamelist.get(i).setSummonerNameMap(nameMap);
 				} catch (RiotApiException e) {
 					System.out.println(e);
 				}
-				summonerIds = "";
+				summonerIds.setLength(0);
 			}
 			map.put("recentgamelist", gamelist);
 			map.put("most", mostDao.getMost(summoner.getId()));
@@ -140,29 +140,27 @@ public class SummonerManager {
 				} else {
 					map.put("leagueData", "집계된 리그데이터는 존재하지않습니다.");
 				}
-				String summonerIds = "";
+				summonerIds = new StringBuffer();
 				List<GameDto> gamelist = gameDao.selectRecentGames(summoner.getId());
 				for (int i = 0; i < gamelist.size(); i++) {
 					gamelist.get(i).setFellowPlayers(gameDao.selectFellowPlayer(gamelist.get(i).getGameId()));
 					gamelist.get(i).setRawstats(gameDao.selectRawstats(gamelist.get(i).getGameId()));
 					for (int j = 0; j < gamelist.get(i).getFellowPlayers().size(); j++) {
-						summonerIds += gamelist.get(i).getFellowPlayers().get(j).getSummonerId() + ",";
+						summonerIds.append(gamelist.get(i).getFellowPlayers().get(j).getSummonerId() + ",");
 					}
-					summonerIds = summonerIds.substring(0, summonerIds.length() - 1);
-					System.out.println(summonerIds);
+					summonerIds.substring(0, summonerIds.length() - 1);
 					Map<String, String> nameMap = null;
 					try {
-						nameMap = summonerapiDao.ApigetSummonerByNames(summonerIds);
+						nameMap = summonerapiDao.ApigetSummonerByNames(summonerIds.toString());
 						for (int j = 0; j < gamelist.get(i).getFellowPlayers().size(); j++) {
 							String key = gamelist.get(i).getFellowPlayers().get(j).getSummonerId().toString();
-							System.out.println(key);
 							gamelist.get(i).getFellowPlayers().get(j).setSummonerName(nameMap.get(key));
 						}
 						gamelist.get(i).setSummonerNameMap(nameMap);
 					} catch (RiotApiException e) {
 						System.out.println(e);
 					}
-					summonerIds = "";
+					summonerIds.setLength(0);
 				}
 				List<MostDto> list = mostapiDao.apigetMost(summoner.getId());
 				mostDao.insertMost(list);
