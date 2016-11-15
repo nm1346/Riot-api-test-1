@@ -3,6 +3,7 @@ package pack.model;
 import pack.Controller.BoardBean;
 import pack.Controller.ReplyBean;
 import pack.model.board.BoardDBInter;
+import pack.model.board.BoardDto;
 import pack.model.board.ReplyDBInter;
 import pack.model.board.ReplyDto;
 
@@ -20,7 +21,7 @@ public class BoardManager {
 	BoardDBInter dbinter;
 	@Autowired
 	ReplyDBInter replyInter;
-	private int pagesize=10;
+	private int pagesize=7;
 	
 	public Map<String, Object> getBoardList(BoardBean bean){
 		HashMap<String, Object> map=new HashMap<>();
@@ -42,6 +43,9 @@ public class BoardManager {
 		int page=bean.getPage();
 		bean.setPage((page-1)*pagesize);
 		bean.setPagesize(pagesize);
+		if(bean.getBoard_category().equals("all")){
+			bean.setBoard_category("");
+		}
 		try {
 			map.put("board_list", dbinter.getBoardSearchList(bean));
 			map.put("board_count", dbinter.getBoardSearchListCount(bean));
@@ -99,8 +103,8 @@ public class BoardManager {
 		HashMap<String,Object> map=new HashMap<>();
 		try {
 			String selectgnum=bean.getSelectgnum();
+			List<ReplyDto> list= replyInter.getReplyList(bean.getBoard_num());
 			if(selectgnum==null){
-				List<ReplyDto> list= replyInter.getReplyList(bean.getBoard_num());
 				String gnum=Integer.toString(list.size()+1);
 				bean.setReply_gnum(gnum);
 				map.put("success", replyInter.insertReply(bean));
@@ -110,15 +114,51 @@ public class BoardManager {
 				String[] gnumArr=selectgnum.split("-");
 				int nest=gnumArr.length;
 				if(nest<2){
-					selectgnum+="-1";
-				}else{
-					int i=Integer.parseInt(gnumArr[nest]);
-					i+=1;
-					selectgnum=gnumArr[0]+"-"+i;
+					int index=0;
+					int i=Integer.parseInt(gnumArr[0]);
+					
+					for(ReplyDto r:list){
+					  String[] gnumsplit=r.getReply_gnum().split("-");
+					  int j=Integer.parseInt(gnumsplit[0]);
+					  if(i>j){
+						continue;
+					  }else if(i==j){
+						  index++;
+					  }else{
+						break;  
+					  }
+					}
+					selectgnum+="-"+index;
+					bean.setReply_gnum(selectgnum);
+					map.put("success", replyInter.insertReply(bean));
 				}
-				bean.setReply_gnum(selectgnum);
-				map.put("success", replyInter.insertReply(bean));
 			}
+		} catch (DataAccessException e) {
+			map.put("success", false);
+			map.put("errorMessage", e.getMessage());
+		}
+		return map;
+	}
+	
+	public Map<String,Object> confirmPassword(BoardBean bean){
+		HashMap<String,Object> map=new HashMap<>();
+		try {
+			BoardDto dto=dbinter.ConfirmPassword(bean);
+			if(dto==null){
+				map.put("success", false);
+			}else{
+				map.put("success", true);
+			}
+		} catch (DataAccessException e) {
+			map.put("success", false);
+			map.put("errorMessage", e.getMessage());
+		}
+		return map;
+	}
+	public Map<String,Object> deleteReply(ReplyBean bean){
+		HashMap<String,Object> map=new HashMap<>();
+		try {
+			map.put("success",replyInter.deleteReply(bean));
 		} catch (DataAccessException e) {
 			map.put("success", false);
 			map.put("errorMessage", e.getMessage());
