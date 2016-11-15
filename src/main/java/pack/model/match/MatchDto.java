@@ -4,10 +4,10 @@ public class MatchDto {
 	private long matchId, participantId, mastery, item0, item1, item2, item3, item4, item5, totalDamageDealt,
 			totalDamageTaken, wardsPlaced, wardsKilled, minionskilled, neutralMinionsKilled,
 			neutralMinionsKilledTeamjungle, neutralMinionsKilledEnemyjungle, goldEarned, kills, deaths, assists,
-			summonerId;
+			summonerId, towerkills;
 	private String summonerName, championNameK, championNameE;
-	private int teamId, baronkills, dragonkills, towerkills, spell1Id, spell2Id, championId, banChampionId1,
-			banChampionId2, banChampionId3;
+	private int teamId, baronkills, dragonkills, spell1Id, spell2Id, championId, banChampionId1, banChampionId2,
+			banChampionId3;
 
 	public String getChampionNameK() {
 		return championNameK;
@@ -265,11 +265,11 @@ public class MatchDto {
 		this.dragonkills = dragonkills;
 	}
 
-	public int getTowerkills() {
+	public long getTowerkills() {
 		return towerkills;
 	}
 
-	public void setTowerkills(int towerkills) {
+	public void setTowerkills(long towerkills) {
 		this.towerkills = towerkills;
 	}
 
