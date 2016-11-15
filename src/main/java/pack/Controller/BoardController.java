@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -91,20 +92,28 @@ public class BoardController {
 		bean.setBoard_num(num);
 		return boardManager.getBoardBynum(bean);
 	}
+	@RequestMapping(value="/boarddetail/{num}",method=RequestMethod.POST)
+	@ResponseBody
+	public Object confirmPassword(@PathVariable("num") int num,@RequestBody BoardBean bean) {
+		bean.setBoard_num(num);
+		return boardManager.confirmPassword(bean);
+	}
 	@RequestMapping(value="/boarddetail",method=RequestMethod.PUT)
 	@ResponseBody
 	public Object insertBoard(@RequestBody BoardBean bean,HttpServletRequest request) {
 		bean.setBoard_ip(request.getLocalAddr());
 		return boardManager.InsertBoard(bean);
 	}
-	@RequestMapping(value="/boarddetail/{num}",method=RequestMethod.PATCH)
+	@RequestMapping(value="/boarddetail/{num}",method=RequestMethod.PUT)
 	@ResponseBody
-	public Object updateBoard(@RequestBody BoardBean bean) {
+	public Object updateBoard(@PathVariable("num") int num,@RequestBody BoardBean bean) {
+		bean.setBoard_num(num);
 		return boardManager.updateBoard(bean);
 	}
 	@RequestMapping(value="/boarddetail/{num}",method=RequestMethod.DELETE)
 	@ResponseBody
-	public Object deleteBoard(@RequestBody BoardBean bean) {
+	public Object deleteBoard(@PathVariable("num") int num,@ModelAttribute BoardBean bean) {
+		bean.setBoard_num(num);
 		return boardManager.deleteBoard(bean);
 	}
 	
