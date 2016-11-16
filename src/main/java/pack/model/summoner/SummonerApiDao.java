@@ -29,6 +29,12 @@ public class SummonerApiDao {
 		dto.setSummonerLevel(summoner.getSummonerLevel());
 		return dto;
 	}
+	
+	public Map<String, String> ApigetSummonerByNames(String summonerIds) throws RiotApiException{
+		api.getSummonerNames(summonerIds);
+		return api.getSummonerNames(summonerIds);
+	}
+	
 	public LeagueDto ApigetLeagueData(Long id){
 		LeagueDto leagueDto=new LeagueDto();
 		try {

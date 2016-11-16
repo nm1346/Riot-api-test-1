@@ -1,6 +1,8 @@
 package pack.model.recentgame;
 
 import java.util.List;
+import java.util.Map;
+
 import net.rithms.riot.dto.Game.Player;
 import net.rithms.riot.dto.Game.RawStats;
 
@@ -24,7 +26,14 @@ public class GameDto {
 	private int championId ,teamId , spell1,spell2,level ,mapId,ipEarned;
 	private RawStats rawstats;
 	private List<PlayerDto> fellowPlayers;
+	private Map<String, String> SummonerNameMap;
 
+	public Map<String, String> getSummonerNameMap() {
+		return SummonerNameMap;
+	}
+	public void setSummonerNameMap(Map<String, String> summonerNameMap) {
+		SummonerNameMap = summonerNameMap;
+	}
 	public String getChamName1() {
 		return chamName1;
 	}
@@ -133,5 +142,6 @@ public class GameDto {
 	public void setFellowPlayers(List<PlayerDto> fellowPlayers) {
 		this.fellowPlayers = fellowPlayers;
 	}
+	
 	
 }
