@@ -75,6 +75,12 @@ public class SummonerManager {
 					games = RecentapiDao.ApigetRecentGame(summoner.getId());
 					game = new ArrayList<>(games.getGames());
 					gameDao.insertRecentGame(summoner.getId(), game);
+					try {
+					List<MostDto> list = mostapiDao.apigetMost(summoner.getId());
+						mostDao.insertMost(list);
+					} catch (Exception e) {
+						System.out.println(e);
+					}
 				} catch (RiotApiException e) {
 					System.out.println("getSummonerAndLeague ApiGetUpdate Error" + e);
 					map.put("success", "0");
@@ -113,14 +119,12 @@ public class SummonerManager {
 				summonerIds.setLength(0);
 			  }
 			}
-			List<MostDto> list = null;
-			try {
-				list = mostapiDao.apigetMost(summoner.getId());
-				mostDao.insertMost(list);
-				map.put("most", mostDao.getWostList(summoner.getId()));
-			} catch (RiotApiException e) {
+			List<MostDto> mostlist = mostDao.getWostList(summoner.getId());
+			if(mostlist != null){
+				map.put("most", mostlist);
+			}else{
 				map.put("most", "most 데이터가 없습니다.");
-			}		
+			}
 			map.put("recentgamelist", gamelist);
 			map.put("success", "1");
 		} else {
