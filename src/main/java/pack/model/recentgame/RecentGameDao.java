@@ -1,7 +1,10 @@
 package pack.model.recentgame;
 
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
@@ -23,21 +26,17 @@ public class RecentGameDao {
 	 * Long.toString(playerlist.get(i).getSummonerId()); summonerIds = new
 	 * String[game.size() * game.get(0).getFellowPlayers().size()]; 이름 뽑기 보류.
 	 */
-	
 	@Transactional(isolation=Isolation.DEFAULT, propagation=Propagation.REQUIRES_NEW)
 	public boolean insertRecentGame(Long summonerId, List<Game> game) {
 		boolean b = false;
 		try {
-			
 			for (int i = 0; i < game.size(); i++) {
 				System.out.println(game.get(i).getGameId());
 				if (gameDBInter.checkGame(game.get(i).getGameId(),summonerId) == null){
 					gameDBInter.insertGame(summonerId, game.get(i));
-					insertPlayer(game.get(i).getGameId(), game.get(i).getFellowPlayers());
-					insertRawstats(game.get(i).getGameId(), game.get(i).getStats());
-					System.out.println("들어갔다" + i);
+					insertPlayer(game.get(i).getGameId(), game.get(i).getFellowPlayers() , summonerId);
+					insertRawstats(game.get(i).getGameId(), game.get(i).getStats(),summonerId);
 				}else{
-					System.out.println("왜한경기만뜨는거니");
 					continue;
 				}
 			}
@@ -49,23 +48,26 @@ public class RecentGameDao {
 		return b;
 	}
 	@Transactional(isolation=Isolation.DEFAULT, propagation=Propagation.REQUIRES_NEW)
-	public void insertPlayer(Long gameId, List<Player> playerlist) throws DataAccessException {
+	public void insertPlayer(Long gameId, List<Player> playerlist,Long summonerId) throws DataAccessException {
 		for (int i = 0; i < playerlist.size(); i++) {
-			gameDBInter.insertFellowPlayers(gameId, playerlist.get(i));
+			gameDBInter.insertFellowPlayers(gameId, playerlist.get(i) ,summonerId);
 		}
 	}
 	@Transactional(isolation=Isolation.DEFAULT, propagation=Propagation.REQUIRES_NEW)
-	public void insertRawstats(Long gameId, RawStats rawStats) throws DataAccessException {
-		gameDBInter.insertRawStats(gameId, rawStats);
+	public void insertRawstats(Long gameId, RawStats rawStats, Long summonerId) throws DataAccessException {
+		gameDBInter.insertRawStats(gameId, rawStats , summonerId);
 	}
 	public List<GameDto> selectRecentGames(Long summonerId) throws DataAccessException {
 		return gameDBInter.selectRecentGames(summonerId);
 	}
-	public List<PlayerDto> selectFellowPlayer(Long gameId) throws DataAccessException {
-		return gameDBInter.selectFellowPlayers(gameId);
+	public List<PlayerDto> selectFellowPlayer(Long gameId,Long SummonerId) throws DataAccessException {
+		System.out.println(gameId + " " + SummonerId);
+		return gameDBInter.selectFellowPlayers(gameId,SummonerId);
+		
 	}
-	public RawStats selectRawstats(Long gameId) throws DataAccessException {
-		return gameDBInter.selectRawstats(gameId);
+	public RawStats selectRawstats(Long gameId,Long SummonerId) throws DataAccessException {
+		System.out.println(gameId + " " + SummonerId);
+		return gameDBInter.selectRawstats(gameId,SummonerId);
 	}
 	public boolean insertspell(SummonerSpell spell){
 		return gameDBInter.insertSummonerSpell(spell);

@@ -1,7 +1,13 @@
 package pack.model.recentgame;
 
 public class PlayerDto {
-	private Long gameId,summonerId;
+	private Long gameId,summonerId ,searchuserId;
+	public Long getSearchuserId() {
+		return searchuserId;
+	}
+	public void setSearchuserId(Long searchuserId) {
+		this.searchuserId = searchuserId;
+	}
 	private int teamId,championId;
 	private String chamName1,chamName2,summonerName;
 	public String getChamName1() {

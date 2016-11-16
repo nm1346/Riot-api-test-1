@@ -1,6 +1,7 @@
 package pack.model.recentgame;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
@@ -15,12 +16,13 @@ public interface RecentGameDBInter {
 	@Select("select gameId from recentgames where gameId=#{gameId} and summonerId=#{summonerId} ")
 	public Long checkGame(@Param("gameId")Long gameId,@Param("summonerId")Long summonerId);
 	
-	@Select("select * from rawstats where gameId=#{gameId} ")
-	public RawStats selectRawstats(@Param("gameId")Long gameId);
-	
-	@Select("select gameId, summonerId, teamId , championId, "
-			+ "kee as chamName1 , name as chamName2 from fellowplayers inner join champion on championId = id where gameId=#{gameId} order by teamId asc;")
-	public List<PlayerDto> selectFellowPlayers(@Param("gameId")Long gameId);
+	@Select("select * from rawstats where gameId=#{gameId} and searchuserId=#{summonerId}")
+	public RawStats selectRawstats(@Param("gameId")Long gameId,@Param("summonerId")Long summonerId);
+
+	@Select("select searchuserId, gameId, summonerId, teamId , championId, "
+			+ "kee as chamName1 , name as chamName2 from fellowplayers inner join champion on championId = id "
+			+ " where gameId=${gameId} and searchuserId=${summonerId} order by teamId asc;")
+	public List<PlayerDto> selectFellowPlayers(@Param("gameId")Long gameId,@Param("summonerId")Long summonerId);
 
 	@Select("select summonerId , gameId, gameMode , gameType , invalid, ipEarned , createDate, "
 			+"championId , mapId , spell1 , spell2 , subType , teamId, champion.kee as chamName1, "
@@ -36,10 +38,10 @@ public interface RecentGameDBInter {
 			+ "#{game.createDate},#{game.championId},"
 			+ "#{game.mapId},#{game.spell1},#{game.spell2},#{game.subType},#{game.teamId})")
 	public boolean insertGame(@Param("summonerId")Long summonerId,@Param("game")Game game);
-	@Insert("insert into fellowplayers values(#{gameId},"
+	@Insert("insert into fellowplayers values(#{searchuserId},#{gameId},"
 			+ "#{player.summonerId},#{player.teamId},#{player.championId})")
-	public boolean insertFellowPlayers(@Param("gameId")Long gameId,@Param("player")Player player);
-	@Insert("insert into rawstats values(#{gameId},"
+	public boolean insertFellowPlayers(@Param("gameId")Long gameId,@Param("player")Player player , @Param("searchuserId")Long summonerId);
+	@Insert("insert into rawstats values(#{searchuserId},#{gameId},"
 			+ "#{stats.assists},#{stats.barracksKilled},#{stats.championsKilled},"
 			+ "#{stats.combatPlayerScore},#{stats.consumablesPurchased},"
 			+ "#{stats.damageDealtPlayer},#{stats.doubleKills},#{stats.firstBlood},#{stats.gold},#{stats.goldEarned},"
@@ -62,7 +64,7 @@ public interface RecentGameDBInter {
 			+ "#{stats.trueDamageDealtToChampions},#{stats.trueDamageTaken},#{stats.turretsKilled},"
 			+ "#{stats.unrealKills},#{stats.victoryPointTotal},#{stats.visionWardsBought},#{stats.wardKilled},"
 			+ "#{stats.wardPlaced},#{stats.win})")
-	public boolean insertRawStats(@Param("gameId")Long gameId,@Param("stats")RawStats player);
+	public boolean insertRawStats(@Param("gameId")Long gameId,@Param("stats")RawStats player,@Param("searchuserId")Long summonerId);
 	
 	@Insert("insert into summonerspell values(#{id}, #{key})")
 	public boolean insertSummonerSpell(SummonerSpell spell);
