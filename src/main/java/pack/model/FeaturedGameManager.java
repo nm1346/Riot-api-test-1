@@ -8,12 +8,14 @@ import org.springframework.stereotype.Service;
 
 import net.rithms.riot.api.RiotApiException;
 import net.rithms.riot.dto.FeaturedGames.FeaturedGames;
+import net.rithms.riot.dto.Static.ChampionList;
 import pack.model.featuredgames.FeaturedGamesApiDao;
 
 @Service
 public class FeaturedGameManager {
 	@Autowired
 	FeaturedGamesApiDao api;
+
 	
 	public Map<String,Object> getFeaturedGame(){
 		HashMap<String, Object> map=new HashMap<>();

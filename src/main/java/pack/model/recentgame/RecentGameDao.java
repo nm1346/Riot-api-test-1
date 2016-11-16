@@ -31,7 +31,6 @@ public class RecentGameDao {
 		boolean b = false;
 		try {
 			for (int i = 0; i < game.size(); i++) {
-				System.out.println(game.get(i).getGameId());
 				if (gameDBInter.checkGame(game.get(i).getGameId(),summonerId) == null){
 					gameDBInter.insertGame(summonerId, game.get(i));
 					insertPlayer(game.get(i).getGameId(), game.get(i).getFellowPlayers() , summonerId);
@@ -61,12 +60,10 @@ public class RecentGameDao {
 		return gameDBInter.selectRecentGames(summonerId);
 	}
 	public List<PlayerDto> selectFellowPlayer(Long gameId,Long SummonerId) throws DataAccessException {
-		System.out.println(gameId + " " + SummonerId);
 		return gameDBInter.selectFellowPlayers(gameId,SummonerId);
 		
 	}
 	public RawStats selectRawstats(Long gameId,Long SummonerId) throws DataAccessException {
-		System.out.println(gameId + " " + SummonerId);
 		return gameDBInter.selectRawstats(gameId,SummonerId);
 	}
 	public boolean insertspell(SummonerSpell spell){
