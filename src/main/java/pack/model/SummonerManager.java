@@ -5,17 +5,13 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import net.rithms.riot.api.RiotApiException;
 import net.rithms.riot.dto.Game.Game;
 import net.rithms.riot.dto.Game.RecentGames;
-import net.rithms.riot.dto.Static.SummonerSpell;
-import net.rithms.riot.dto.Static.SummonerSpellList;
 import pack.Controller.SummonerBean;
 import pack.model.most.MostApiDao;
 import pack.model.most.MostDao;
@@ -79,8 +75,6 @@ public class SummonerManager {
 					games = RecentapiDao.ApigetRecentGame(summoner.getId());
 					game = new ArrayList<>(games.getGames());
 					gameDao.insertRecentGame(summoner.getId(), game);
-					List<MostDto> list = mostapiDao.apigetMost(summoner.getId());
-					mostDao.insertMost(list);
 				} catch (RiotApiException e) {
 					System.out.println("getSummonerAndLeague ApiGetUpdate Error" + e);
 					map.put("success", "0");
@@ -104,10 +98,10 @@ public class SummonerManager {
 				for (int j = 0; j < gamelist.get(i).getFellowPlayers().size(); j++) {
 					summonerIds.append(gamelist.get(i).getFellowPlayers().get(j).getSummonerId() + ",");
 				}
-				summonerIds.substring(0, summonerIds.length() - 1);
+				if (summonerIds.length() > 0) {
 				Map<String, String> nameMap = null;
 				try {
-					nameMap = summonerapiDao.ApigetSummonerByNames(summonerIds.toString());
+					nameMap = summonerapiDao.ApigetSummonerByNames(summonerIds.substring(0, summonerIds.length() - 1));
 					for (int j = 0; j < gamelist.get(i).getFellowPlayers().size(); j++) {
 						String key = gamelist.get(i).getFellowPlayers().get(j).getSummonerId().toString();
 						gamelist.get(i).getFellowPlayers().get(j).setSummonerName(nameMap.get(key));
@@ -117,7 +111,16 @@ public class SummonerManager {
 					System.out.println(e);
 				}
 				summonerIds.setLength(0);
+			  }
 			}
+			List<MostDto> list = null;
+			try {
+				list = mostapiDao.apigetMost(summoner.getId());
+				mostDao.insertMost(list);
+				map.put("most", mostDao.getMost(summoner.getId()));
+			} catch (RiotApiException e) {
+				map.put("most", "most 데이터가 없습니다.");
+			}		
 			map.put("recentgamelist", gamelist);
 			map.put("most", mostDao.getMost(summoner.getId()));
 			map.put("success", "1");
@@ -148,23 +151,29 @@ public class SummonerManager {
 					for (int j = 0; j < gamelist.get(i).getFellowPlayers().size(); j++) {
 						summonerIds.append(gamelist.get(i).getFellowPlayers().get(j).getSummonerId() + ",");
 					}
-					summonerIds.substring(0, summonerIds.length() - 1);
-					Map<String, String> nameMap = null;
-					try {
-						nameMap = summonerapiDao.ApigetSummonerByNames(summonerIds.toString());
-						for (int j = 0; j < gamelist.get(i).getFellowPlayers().size(); j++) {
-							String key = gamelist.get(i).getFellowPlayers().get(j).getSummonerId().toString();
-							gamelist.get(i).getFellowPlayers().get(j).setSummonerName(nameMap.get(key));
+					if (summonerIds.length() > 0) {
+						Map<String, String> nameMap = null;
+						try {
+							nameMap = summonerapiDao.ApigetSummonerByNames(summonerIds.substring(0, summonerIds.length() - 1));
+							for (int j = 0; j < gamelist.get(i).getFellowPlayers().size(); j++) {
+								String key = gamelist.get(i).getFellowPlayers().get(j).getSummonerId().toString();
+								gamelist.get(i).getFellowPlayers().get(j).setSummonerName(nameMap.get(key));
+							}
+							gamelist.get(i).setSummonerNameMap(nameMap);
+						} catch (RiotApiException e) {
+							System.out.println(e);
 						}
-						gamelist.get(i).setSummonerNameMap(nameMap);
-					} catch (RiotApiException e) {
-						System.out.println(e);
-					}
-					summonerIds.setLength(0);
+						summonerIds.setLength(0);
+				    }
 				}
-				List<MostDto> list = mostapiDao.apigetMost(summoner.getId());
-				mostDao.insertMost(list);
-				map.put("most", mostDao.getMost(summoner.getId()));
+				List<MostDto> list = null;
+				try {
+					list = mostapiDao.apigetMost(summoner.getId());
+					mostDao.insertMost(list);
+					map.put("most", mostDao.getMost(summoner.getId()));
+				} catch (RiotApiException e) {
+					map.put("most", "most 데이터가 없습니다.");
+				}		
 				map.put("recentgamelist", gamelist);
 				map.put("success", "1");
 			} catch (RiotApiException e) {

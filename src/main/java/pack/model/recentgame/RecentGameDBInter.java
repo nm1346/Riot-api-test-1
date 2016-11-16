@@ -12,14 +12,14 @@ import net.rithms.riot.dto.Game.RawStats;
 import net.rithms.riot.dto.Static.SummonerSpell;
 
 public interface RecentGameDBInter {
-	@Select("select gameId from recentgames where gameId=#{gameId} ")
-	public Long checkGame(@Param("gameId")Long gameId);
+	@Select("select gameId from recentgames where gameId=#{gameId} and summonerId=#{summonerId} ")
+	public Long checkGame(@Param("gameId")Long gameId,@Param("summonerId")Long summonerId);
 	
 	@Select("select * from rawstats where gameId=#{gameId} ")
 	public RawStats selectRawstats(@Param("gameId")Long gameId);
 	
 	@Select("select gameId, summonerId, teamId , championId, "
-			+ "kee as chamName1 , name as chamName2 from fellowplayers inner join champion on championId = id where gameId=#{gameId};")
+			+ "kee as chamName1 , name as chamName2 from fellowplayers inner join champion on championId = id where gameId=#{gameId} order by teamId asc;")
 	public List<PlayerDto> selectFellowPlayers(@Param("gameId")Long gameId);
 
 	@Select("select summonerId , gameId, gameMode , gameType , invalid, ipEarned , createDate, "
