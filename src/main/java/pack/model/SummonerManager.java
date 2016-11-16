@@ -116,14 +116,14 @@ public class SummonerManager {
 				summonerIds.setLength(0);
 			  }
 			}
-			/*List<MostDto> list = null;
+			List<MostDto> list = null;
 			try {
 				list = mostapiDao.apigetMost(summoner.getId());
 				mostDao.insertMost(list);
 				map.put("most", mostDao.getMost(summoner.getId()));
 			} catch (RiotApiException e) {
 				map.put("most", "most 데이터가 없습니다.");
-			}		*/
+			}		
 			map.put("recentgamelist", gamelist);
 			map.put("success", "1");
 		} else {
@@ -171,14 +171,14 @@ public class SummonerManager {
 						summonerIds.setLength(0);
 				    }
 				}
-			/*	List<MostDto> list = null;
+				List<MostDto> list = null;
 				try {
 					list = mostapiDao.apigetMost(summoner.getId());
 					mostDao.insertMost(list);
 					map.put("most", mostDao.getMost(summoner.getId()));
 				} catch (RiotApiException e) {
 					map.put("most", "most 데이터가 없습니다.");
-				}		*/
+				}		
 				map.put("recentgamelist", gamelist);
 				map.put("success", "1");
 			} catch (RiotApiException e) {
