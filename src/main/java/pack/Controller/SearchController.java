@@ -14,7 +14,8 @@ import pack.model.SummonerManager;
 public class SearchController {
 	
 	@Autowired
-	SummonerManager summonerManager;	
+	SummonerManager summonerManager;
+		
 	@Autowired
 	MatchManager matchManager;
 	
@@ -25,7 +26,7 @@ public class SearchController {
 		bean.setName(username);
 		return summonerManager.getSummonerAndLeague(bean);
 	}
-	
+
 	@RequestMapping("match/{matchId}")
 	@ResponseBody
 	public Object getMatch(@PathVariable("matchId") long matchId){

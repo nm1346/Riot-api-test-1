@@ -21,7 +21,13 @@ public class BoardController {
 	BoardManager boardManager;
 	
 	
-	
+	@RequestMapping(value="/board/{id}/category",method=RequestMethod.GET)
+	@ResponseBody
+	public Object getBoardcategory(@PathVariable("id") long id) {
+		BoardBean bean=new BoardBean();
+		bean.setId(id);
+		return boardManager.getCategory(bean);
+	}
 	@RequestMapping(value="/board/{id}",method=RequestMethod.GET)
 	@ResponseBody
 	public Object getBoardList(@PathVariable("id") long id) {
@@ -119,10 +125,16 @@ public class BoardController {
 	
 	@RequestMapping(value="/reply",method=RequestMethod.PUT)
 	@ResponseBody
-	public Object insertReply(@RequestBody ReplyBean bean){
+	public Object insertReply(@RequestBody ReplyBean bean,HttpServletRequest request){
+		bean.setReply_ip(request.getLocalAddr());
 		return boardManager.InsertReply(bean);
 	}
-
+	@RequestMapping(value="/reply/{num}",method=RequestMethod.DELETE)
+	@ResponseBody
+	public Object insertReply(@PathVariable("num")int num,@ModelAttribute ReplyBean bean){
+		bean.setReply_num(num);
+		return boardManager.deleteReply(bean);
+	}
 	
 	
 	

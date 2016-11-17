@@ -1,10 +1,16 @@
 package pack.model.board;
 
 public class BoardDto {
-	private int board_num,board_delete,board_report;
+	private int board_num,board_delete,board_report,count;
 	private String board_writer,board_password,board_subject,board_content,board_ip,board_wdate,board_category;
 	private long id;
 	
+	public int getCount() {
+		return count;
+	}
+	public void setCount(int count) {
+		this.count = count;
+	}
 	public int getBoard_report() {
 		return board_report;
 	}
