@@ -11,7 +11,6 @@ import pack.Controller.ReplyBean;
 public interface ReplyDBInter {
 	@Select("select * from reply where board_num=#{board_num} and reply_delete=0 order by reply_gnum")
 	public List<ReplyDto> getReplyList(int board_num);
-	
 	@Insert("insert into reply"
 			+ "(reply_writer,reply_password,reply_content,reply_ip,"
 			+ "reply_wdate,board_num,reply_gnum)"
