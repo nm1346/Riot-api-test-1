@@ -101,7 +101,7 @@ public class SummonerManager {
 			for (int i = 0; i < gamelist.size(); i++) {
 				gamelist.get(i).setFellowPlayers(gameDao.selectFellowPlayer(gamelist.get(i).getGameId(),summoner.getId()));
 				gamelist.get(i).setRawstats(gameDao.selectRawstats(gamelist.get(i).getGameId(),summoner.getId()));
-				for (int j = 0; j < gamelist.get(i).getFellowPlayers().size(); j++) {
+				/*for (int j = 0; j < gamelist.get(i).getFellowPlayers().size(); j++) {
 					summonerIds.append(gamelist.get(i).getFellowPlayers().get(j).getSummonerId() + ",");
 				}
 				if (summonerIds.length() > 0) {
@@ -117,7 +117,7 @@ public class SummonerManager {
 					System.out.println(e);
 				}
 				summonerIds.setLength(0);
-			  }
+			  }*/
 			}
 			List<MostDto> mostlist = mostDao.getWostList(summoner.getId());
 			if(mostlist != null){
@@ -149,10 +149,9 @@ public class SummonerManager {
 				summonerIds = new StringBuffer();
 				List<GameDto> gamelist = gameDao.selectRecentGames(summoner.getId());
 				for (int i = 0; i < gamelist.size(); i++) {
-					
 					gamelist.get(i).setFellowPlayers(gameDao.selectFellowPlayer(gamelist.get(i).getGameId(),summoner.getId()));
 					gamelist.get(i).setRawstats(gameDao.selectRawstats(gamelist.get(i).getGameId(),summoner.getId()));
-					for (int j = 0; j < gamelist.get(i).getFellowPlayers().size(); j++) {
+					/*for (int j = 0; j < gamelist.get(i).getFellowPlayers().size(); j++) {
 						summonerIds.append(gamelist.get(i).getFellowPlayers().get(j).getSummonerId() + ",");
 					}
 					if (summonerIds.length() > 0) {
@@ -168,7 +167,7 @@ public class SummonerManager {
 							System.out.println(e);
 						}
 						summonerIds.setLength(0);
-				    }
+				    }*/
 				}
 				List<MostDto> list = null;
 				try {
