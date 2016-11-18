@@ -34,11 +34,9 @@ public class FeaturedGameManager {
 				ArrayList<String> nameList=new ArrayList<>();
 				for(CurrentGameInfo g:list.getGameList()){
 					for(Participant p:g.getParticipants()){
-						System.out.println(p.getSummonerName());
 						nameList.add(p.getSummonerName());
 					}
 				}
-				System.out.println(nameList.get(0));
 				map.put("success", true);
 				map.put("featuredList", list);
 				map.put("leagueIdList",dbinter.selectLeagueSummoner(nameList));
