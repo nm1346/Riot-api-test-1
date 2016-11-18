@@ -16,9 +16,10 @@ public class MostApiDao {
 	RiotApiKeyRotate api;
 	
 	public List<MostDto> apigetMost(long SummonerId) throws RiotApiException{
-		List<MostDto> list = new ArrayList<MostDto>();
-		try {
+		List<MostDto> list = null;
 			RankedStats rs = api.getRankedStats(SummonerId);
+			if (rs != null) {
+				list = new ArrayList<>();
 			for (int i = 0; i < rs.getChampions().size(); i++) {
 				if(rs.getChampions().get(i).getId() != 0){
 					MostDto dto = new MostDto();
@@ -32,7 +33,7 @@ public class MostApiDao {
 					dto.setKills(rs.getChampions().get(i).getStats().getTotalChampionKills());//kills
 					dto.setAssists(rs.getChampions().get(i).getStats().getTotalAssists());//assists
 					dto.setDeaths(rs.getChampions().get(i).getStats().getTotalDeathsPerSession());//deaths
-					dto.setDeaths(rs.getChampions().get(i).getStats().getMaxChampionsKilled());//maxkills
+					dto.setMaxKills(rs.getChampions().get(i).getStats().getMaxChampionsKilled());//maxkills
 					dto.setMaxAssists(rs.getChampions().get(i).getStats().getMaxAssists());//maxassists
 					dto.setMaxDeaths(rs.getChampions().get(i).getStats().getMaxNumDeaths());//maxdeaths
 					dto.setDamageDealt(rs.getChampions().get(i).getStats().getTotalDamageDealt());//damagedealt
@@ -44,9 +45,6 @@ public class MostApiDao {
 					list.add(dto);
 				}		
 			}
-		} catch (RiotApiException e) {
-			System.out.println("apigetMost " + e);
-			return null;
 		}
 		return list;
 	}

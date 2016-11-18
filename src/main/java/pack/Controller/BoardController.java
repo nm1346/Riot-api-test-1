@@ -21,7 +21,13 @@ public class BoardController {
 	BoardManager boardManager;
 	
 	
-	
+	@RequestMapping(value="/board/{id}/category",method=RequestMethod.GET)
+	@ResponseBody
+	public Object getBoardcategory(@PathVariable("id") long id) {
+		BoardBean bean=new BoardBean();
+		bean.setId(id);
+		return boardManager.getCategory(bean);
+	}
 	@RequestMapping(value="/board/{id}",method=RequestMethod.GET)
 	@ResponseBody
 	public Object getBoardList(@PathVariable("id") long id) {
@@ -127,8 +133,9 @@ public class BoardController {
 	@ResponseBody
 	public Object insertReply(@PathVariable("num")int num,@ModelAttribute ReplyBean bean){
 		bean.setReply_num(num);
-		return boardManager.InsertReply(bean);
+		return boardManager.deleteReply(bean);
 	}
+	
 	
 	
 }

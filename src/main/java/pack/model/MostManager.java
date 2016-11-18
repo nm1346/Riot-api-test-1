@@ -55,7 +55,6 @@ public class MostManager {
 			map.put("entry", list);
 			map.put("success", "true");
 		}
-
 		return map;
 	}
 }

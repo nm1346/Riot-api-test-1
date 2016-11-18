@@ -165,5 +165,23 @@ public class BoardManager {
 		}
 		return map;
 	}
+	public Map<String,Object> getCategory(BoardBean bean){
+		HashMap<String,Object> map=new HashMap<>();
+		try {
+			List<BoardDto> list=dbinter.getBoardCategoryGroup(bean);
+			if(list==null){
+				map.put("errorMessage", "게시글이 없습니다");
+				map.put("success",false);
+			}else{
+				map.put("success", true);
+				map.put("categoryList", list);
+			}
+			
+		} catch (DataAccessException e) {
+			map.put("success", false);
+			map.put("errorMessage", e.getMessage());
+		}
+		return map;
+	}
 	
 }

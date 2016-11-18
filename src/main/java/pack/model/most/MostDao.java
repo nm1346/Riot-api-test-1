@@ -15,23 +15,28 @@ import net.rithms.riot.api.RiotApiException;
 public class MostDao {
 	@Autowired
 	MostDBInter mostDBInter;
-	
+
 	@Transactional(isolation = Isolation.DEFAULT, propagation = Propagation.REQUIRES_NEW)
 	public boolean insertMost(List<MostDto> list) throws DataAccessException {
 		boolean success = false;
 		try {
 			mostDBInter.deleteMost(list.get(0).getSummonerId());
-				for (int i = 0; i < list.size(); i++) {
-					mostDBInter.insertMost(list.get(i));
-				}
-				success = true;		
+			for (int i = 0; i < list.size(); i++) {
+				mostDBInter.insertMost(list.get(i));
+			}
+			success = true;
+
 		} catch (Exception e) {
 			return success;
 		}
 		return success;
 	}
-	
-	public List<MostDto> getMost(long summonerId){
+
+	public List<MostDto> getMost(long summonerId) {
 		return mostDBInter.selectMost(summonerId);
+	}
+
+	public List<MostDto> getWostList(long summonerId) {
+		return mostDBInter.selectMostWost(summonerId);
 	}
 }
