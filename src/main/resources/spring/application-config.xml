@@ -63,6 +63,10 @@
 		<property name="mapperInterface" value="pack.model.board.ReplyDBInter" />
 		<property name="sqlSessionFactory" ref="sqlSessionFactoryBean" />
 	</bean>
+	<bean class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="pack.model.featuredgames.FeaturedDBInter" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactoryBean" />
+	</bean>
 
 	<bean id="transactionManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
