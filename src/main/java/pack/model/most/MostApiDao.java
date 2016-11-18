@@ -33,7 +33,7 @@ public class MostApiDao {
 					dto.setKills(rs.getChampions().get(i).getStats().getTotalChampionKills());//kills
 					dto.setAssists(rs.getChampions().get(i).getStats().getTotalAssists());//assists
 					dto.setDeaths(rs.getChampions().get(i).getStats().getTotalDeathsPerSession());//deaths
-					dto.setDeaths(rs.getChampions().get(i).getStats().getMaxChampionsKilled());//maxkills
+					dto.setMaxKills(rs.getChampions().get(i).getStats().getMaxChampionsKilled());//maxkills
 					dto.setMaxAssists(rs.getChampions().get(i).getStats().getMaxAssists());//maxassists
 					dto.setMaxDeaths(rs.getChampions().get(i).getStats().getMaxNumDeaths());//maxdeaths
 					dto.setDamageDealt(rs.getChampions().get(i).getStats().getTotalDamageDealt());//damagedealt

@@ -35,4 +35,7 @@ public class MostDao {
 	public List<MostDto> getMost(long summonerId){
 		return mostDBInter.selectMost(summonerId);
 	}
+	public List<MostDto> getWostList(long summonerId){
+		return mostDBInter.selectMostWost(summonerId);
+	}
 }
