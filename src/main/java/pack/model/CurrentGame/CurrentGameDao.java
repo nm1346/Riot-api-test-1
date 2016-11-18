@@ -27,4 +27,8 @@ public class CurrentGameDao  {
 		return summonerDBInter.gamename(queueType);
 	}
 	
+	public String tier(Long id) throws DataAccessException{
+		return summonerDBInter.Tier(id);
+	}
+	
 }

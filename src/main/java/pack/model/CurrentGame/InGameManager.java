@@ -39,6 +39,10 @@ public class InGameManager {
 		List<String> summonerName_list2 = new ArrayList<>();
 		List<Integer> mastery1 = new ArrayList<>();
 		List<Integer> mastery2 = new ArrayList<>();
+		List<String> tier1 = new ArrayList<>();
+		List<String> tier2 = new ArrayList<>();
+		List<String> championName1 = new ArrayList<>();
+		List<String> championName2 = new ArrayList<>();
 		List<String> gametype = new ArrayList<>();
 		try {
 
@@ -71,8 +75,16 @@ public class InGameManager {
 
 				long spell = gameInfo.getParticipants().get(i).getSpell1Id();
 				long spel2 = gameInfo.getParticipants().get(i).getSpell2Id();
+				Long summonerId = gameInfo.getParticipants().get(i).getSummonerId();
 				
 				if (gameInfo.getParticipants().get(i).getTeamId() == 100) {
+					if(summonerDao.tier(summonerId) == null){
+						tier1.add("red");
+					}else{
+						tier1.add(summonerDao.tier(summonerId));
+					}
+					
+					championName1.add(summonerDao.selectchampionName(chamid));
 					list1.add(summonerDao.selectchampionKey(chamid));
 					spell_list1.add(summonerDao.selectSummonerSpell(spell));
 					spell_list2.add(summonerDao.selectSummonerSpell(spel2));
@@ -88,6 +100,13 @@ public class InGameManager {
 					}
 
 				} else if (gameInfo.getParticipants().get(i).getTeamId() == 200) {
+					if(summonerDao.tier(summonerId) == null){
+						tier2.add("blue");
+					}else{
+						tier2.add(summonerDao.tier(summonerId));
+					}
+					
+					championName2.add(summonerDao.selectchampionName(chamid));
 					list2.add(summonerDao.selectchampionKey(chamid));
 					spell_list3.add(summonerDao.selectSummonerSpell(spell));
 					spell_list4.add(summonerDao.selectSummonerSpell(spel2));
@@ -122,6 +141,10 @@ public class InGameManager {
 			map.put("summonerName_list2", summonerName_list2);
 			map.put("mastery1", mastery1);
 			map.put("mastery2", mastery2);
+			map.put("tier1", tier1);
+			map.put("tier2", tier2);
+			map.put("championName1", championName1);
+			map.put("championName2", championName2);
 			map.put("gametype", gametype);
 			map.put("success", true);
 		} catch (RiotApiException e) {
