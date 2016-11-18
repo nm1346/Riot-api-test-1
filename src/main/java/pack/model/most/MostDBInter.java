@@ -16,7 +16,7 @@ public interface MostDBInter {
 			+ "(select round(avg((100 / (win + lose) * win)),0) "
 			+ "from most where played >= (select avg(played) from most) and summonerId=#{summonerId}) as avgwinlate "
 			+ "from most inner join champion on most.championId = champion.id "
-			+ "where played >= (select avg(played) from most where summonerId=#{summonerId}) and summonerId=#{summonerId} order by winlate desc")
+			+ "where played >= (select avg(played) from most where summonerId=#{summonerId}) and summonerId=#{summonerId} order by played desc")
 	public List<MostDto> selectMostWost(@Param("summonerId")long summonerId);
 	
 	@Insert("insert into most(summonerId, championId, played, win, lose, goldEarned,"
