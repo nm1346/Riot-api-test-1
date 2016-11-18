@@ -18,29 +18,17 @@ public class MatchDao {
 		boolean success=false;
 		try{
 			for (int i = 0; i < bean.getTeam().size(); i++) {
-				System.out.println("A");
 				matchDBInter.insertMatchTeam(bean.getTeam().get(i));
 			}
-			
 			for (int i = 0; i < bean.getParticipant().size(); i++) {	
-				System.out.println("a");
 				matchDBInter.insertMatchParticipantIdentities(bean.getParticipantIdentities().get(i));
+				matchDBInter.insertMatchParticipant(bean.getParticipant().get(i));
 			}
-			
-			for (int i = 0; i < bean.getParticipantIdentities().size(); i++) {
-				System.out.println("b");
-				matchDBInter.insertMatchParticipant(bean.getParticipant().get(i));				
-			}
-			
 			success=true;
 		}catch(Exception e){
 			return success;
 		}
 		return success;
-	}
-	
-	public List<MatchDto> selectMatch(long matchId){
-		return matchDBInter.getMatch(matchId);
 	}
 	
 	@Transactional(isolation=Isolation.DEFAULT, propagation=Propagation.REQUIRES_NEW)
@@ -56,6 +44,10 @@ public class MatchDao {
 			return success;
 		}
 		return success;
+	}
+	
+	public List<MatchDto> selectMatch(long matchId){
+		return matchDBInter.getMatch(matchId);
 	}
 	
 	public List<AvgDto> selectAvg(){

@@ -23,25 +23,7 @@ public class ChallengerManager {
 
 	public Map<String, Object> getChallenger() {
 		HashMap<String, Object> map = new HashMap<>();		
-		
-		//처음할때만사용하고 삭제
-		try {
-			List<ChallengerDto> list = apiDao.apigetChallenger();
-			challengerDao.insertChallenger(list);
-			map.put("challenger", list);
-			List<ChallengerDto> mlist = apiDao.apigetMaster();
-			challengerDao.insertMaster(mlist);
-			map.put("master", mlist);
-			map.put("success", "true");
-		} catch (RiotApiException e) {
-			System.out.println("getChallenger" + e);
-			map.put("success", "false");
-			map.put("error", e.getMessage());
-			map.put("errorCode", e.getErrorCode());
-		}
-		
-		//두번째부터
-		/*
+
 		ChallengerDto challenger = challengerDao.getChallenger().get(0);
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm");
 		Date date = null;
@@ -56,13 +38,13 @@ public class ChallengerManager {
 		searchDate.add(Calendar.HOUR_OF_DAY, 1); 
 		 
 		if (searchDate.getTime().before(new Date())) {
-			// 갱신용
+			// api
 			try {
 			List<ChallengerDto> list = apiDao.apigetChallenger();
 			challengerDao.insertChallenger(list);
-			map.put("challenger", list);
 			List<ChallengerDto> mlist = apiDao.apigetMaster();
 			challengerDao.insertMaster(mlist);
+			map.put("challenger", list);
 			map.put("master", mlist);
 			map.put("success", "true");
 		} catch (RiotApiException e) {
@@ -77,7 +59,7 @@ public class ChallengerManager {
 			map.put("entry", list);
 			map.put("success", "true");
 		}
-		*/
+
 			
 		return map;
 	}
