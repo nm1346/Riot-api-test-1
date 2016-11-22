@@ -75,7 +75,11 @@ public class MatchApiDao {
 			if(detail.getParticipants().get(i).getTimeline().getLane().equals("BOTTOM")){
 				pDto.setLane(detail.getParticipants().get(i).getTimeline().getRole());
 			}else{
-				pDto.setLane(detail.getParticipants().get(i).getTimeline().getLane());				
+				if(detail.getParticipants().get(i).getTimeline().getRole().equals("DUO")){
+					pDto.setLane("DUO_CARRY");
+				}else{
+					pDto.setLane(detail.getParticipants().get(i).getTimeline().getLane());				
+				}
 			}
 			pDto.setTowerkills(detail.getParticipants().get(i).getStats().getTowerKills());
 			plist.add(pDto);

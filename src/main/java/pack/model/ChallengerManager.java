@@ -22,9 +22,10 @@ public class ChallengerManager {
 	ChallengerDao challengerDao; // db
 
 	public Map<String, Object> getChallenger() {
-		HashMap<String, Object> map = new HashMap<>();		
+		HashMap<String, Object> map = new HashMap<>();	
 
 		ChallengerDto challenger = challengerDao.getChallenger().get(0);
+		
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm");
 		Date date = null;
 		try {
