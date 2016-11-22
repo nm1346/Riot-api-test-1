@@ -36,12 +36,12 @@ public class FeaturedGameController {
 	public byte[] getDownloadfile(HttpServletResponse response,@RequestParam("encryptionKey") String encryptionKey,@PathVariable("gameId") String gameId)throws IOException{
 		//System.out.println("filename:"+filename);
 		
-		BufferedWriter fw = new BufferedWriter(new FileWriter("c:/my/upload/"+encryptionKey+".bat", false));
-		fw.write("@cd \"C:\\Riot Games\\League of Legends\\RADS\\solutions\\lol_game_client_sln\\releases\\0.0.0.218\\deploy\\\" "
-				+ " @start \"League of Legends.exe\" \"8394\" \"LoLLauncher.exe\" \"\" \"spectator spectator.na.lol.riotgames.com:80 "+encryptionKey+" "+gameId+" KR\"");
+		BufferedWriter fw = new BufferedWriter(new FileWriter("c:/my/upload/"+gameId+".bat", false));
+		fw.write("cd \"C:\\Riot Games\\League of Legends\\RADS\\solutions\\lol_game_client_sln\\releases\\0.0.0.218\\deploy\\\" "
+				+ " \n \"League of Legends.exe\" \"8394\" \"LoLLauncher.exe\" \"\" \"spectator spectator.na.lol.riotgames.com:80 "+encryptionKey+" "+gameId+" KR\"");
 		fw.flush();
 		fw.close();
-		File newFile =new File("c:/my/upload/"+encryptionKey+".bat");
+		File newFile =new File("c:/my/upload/"+gameId+".bat");
 		
 		byte[] bytes=FileCopyUtils.copyToByteArray(newFile);
 		String fn=new String(newFile.getName().getBytes(),"iso_8859_1");
