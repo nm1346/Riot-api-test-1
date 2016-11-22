@@ -61,6 +61,7 @@ public class SummonerManager {
 			searchDate.setTime(date);
 			searchDate.add(Calendar.MINUTE, 2);
 			if (searchDate.getTime().before(new Date())) {
+				System.out.println("들어옴");
 				try {
 					summoner = summonerapiDao.ApigetSummonerByName(bean.getName());
 					dto = summonerapiDao.ApigetLeagueData(summoner.getId());
