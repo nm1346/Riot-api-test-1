@@ -32,13 +32,7 @@ public class SearchController {
 	public Object getMatch(@PathVariable("matchId") long matchId){
 		return matchManager.getMatch(matchId);
 	}
-	
-	@RequestMapping("avg")
-	@ResponseBody
-	public Object getRealAvg(){
-		return matchManager.getRealAvg();
-	}
-	
+
 	@RequestMapping("avg/{matchId}")
 	@ResponseBody
 	public Object getAvg(@PathVariable("matchId") long matchId){

@@ -23,7 +23,6 @@ public class MostManager {
 	public Map<String, Object> getMost(long summonerId) {
 		HashMap<String, Object> map = new HashMap<>();
 
-		
 		MostDto most = mostDao.getMost(summonerId).get(0);
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm");
 		Date date = null;
@@ -38,7 +37,7 @@ public class MostManager {
 		searchDate.add(Calendar.HOUR_OF_DAY, 1); 
 		 
 		if (searchDate.getTime().before(new Date())) {
-			// 갱신용
+			// api
 			try {
 				List<MostDto> list = apiDao.apigetMost(summonerId);
 				mostDao.insertMost(list);
@@ -56,7 +55,6 @@ public class MostManager {
 			map.put("entry", list);
 			map.put("success", "true");
 		}
-		
 		return map;
 	}
 }
