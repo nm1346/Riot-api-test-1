@@ -14,64 +14,32 @@ import pack.model.RiotApiKeyRotate;
 public class MatchApiDao {
 	@Autowired
 	RiotApiKeyRotate api;
-	
 	public MatchBean apigetMatch(long matchId) throws RiotApiException{
 		MatchBean dto = new MatchBean();	//통합match
 		MatchDetail detail = api.getMatch(matchId);			//match
-		
 		//팀정보
 		List<MatchTeamDto> tlist = new ArrayList<MatchTeamDto>();
 		for (int i = 0; i < detail.getTeams().size(); i++) {
 			MatchTeamDto teamDto = new MatchTeamDto();
 			teamDto.setMatchId(matchId);
-			teamDto.setBanChampionId1(detail.getTeams().get(i).getBans().get(0).getChampionId());
-			teamDto.setBanChampionId2(detail.getTeams().get(i).getBans().get(1).getChampionId());
-			teamDto.setBanChampionId3(detail.getTeams().get(i).getBans().get(2).getChampionId());
+			try {
+				teamDto.setBanChampionId1(detail.getTeams().get(i).getBans().get(0).getChampionId());	
+				teamDto.setBanChampionId2(detail.getTeams().get(i).getBans().get(1).getChampionId());
+				teamDto.setBanChampionId3(detail.getTeams().get(i).getBans().get(2).getChampionId());
+			} catch (NullPointerException e) {
+				
+			}
 			teamDto.setTeamId(detail.getTeams().get(i).getTeamId());
 			teamDto.setBaronkills(detail.getTeams().get(i).getBaronKills());
 			teamDto.setDragonkills(detail.getTeams().get(i).getDragonKills());
 			tlist.add(teamDto);
+			
 		}
 		
 		//소환사 게임 정보
 		List<MatchParticipantDto> plist = new ArrayList<MatchParticipantDto>();
-		System.out.println(detail.getParticipants().size());
 		for (int i = 0; i < detail.getParticipants().size(); i++) {
 			MatchParticipantDto pDto = new MatchParticipantDto();
-			/*
-			System.out.println(matchId);
-			System.out.println(detail.getParticipants().get(i).getStats().getNeutralMinionsKilled());
-			System.out.println(detail.getParticipants().get(i).getStats().getNeutralMinionsKilledTeamJungle());
-			System.out.println(detail.getParticipants().get(i).getStats().getNeutralMinionsKilledEnemyJungle());
-			System.out.println(detail.getParticipants().get(i).getTeamId());
-			System.out.println(detail.getParticipants().get(i).getParticipantId());
-			System.out.println(detail.getParticipants().get(i).getSpell1Id());
-			System.out.println(detail.getParticipants().get(i).getSpell2Id());
-			System.out.println(detail.getParticipants().get(i).getChampionId());
-			System.out.println(detail.getParticipants().get(i).getMasteries().get(9).getMasteryId());
-			System.out.println(detail.getParticipants().get(i).getStats().getKills());
-			System.out.println(detail.getParticipants().get(i).getStats().getDeaths());
-			System.out.println(detail.getParticipants().get(i).getStats().getAssists());
-			System.out.println(detail.getParticipants().get(i).getStats().getItem0());
-			System.out.println(detail.getParticipants().get(i).getStats().getItem1());
-			System.out.println(detail.getParticipants().get(i).getStats().getItem2());
-			System.out.println(detail.getParticipants().get(i).getStats().getItem3());
-			System.out.println(detail.getParticipants().get(i).getStats().getItem4());
-			System.out.println(detail.getParticipants().get(i).getStats().getItem5());
-			System.out.println(detail.getParticipants().get(i).getStats().getTotalDamageDealt());
-			System.out.println(detail.getParticipants().get(i).getStats().getTotalDamageTaken());
-			System.out.println(detail.getParticipants().get(i).getStats().getWardsPlaced());
-			System.out.println(detail.getParticipants().get(i).getStats().getWardsKilled());
-			System.out.println(detail.getParticipants().get(i).getStats().getMinionsKilled());
-			System.out.println(detail.getParticipants().get(i).getStats().getGoldEarned());
-			if(detail.getParticipants().get(i).getTimeline().getLane().equals("BOTTOM")){
-				System.out.println(detail.getParticipants().get(i).getTimeline().getRole());
-			}else{
-				System.out.println(detail.getParticipants().get(i).getTimeline().getLane());				
-			}
-			System.out.println(detail.getParticipants().get(i).getStats().getTowerKills());
-			System.out.println();
-			*/
 			pDto.setMatchId(matchId);
 			pDto.setNeutralMinionsKilled(detail.getParticipants().get(i).getStats().getNeutralMinionsKilled());
 			pDto.setNeutralMinionsKilledTeamjungle(detail.getParticipants().get(i).getStats().getNeutralMinionsKilledTeamJungle());
@@ -98,7 +66,7 @@ public class MatchApiDao {
 			pDto.setItem3(detail.getParticipants().get(i).getStats().getItem3());
 			pDto.setItem4(detail.getParticipants().get(i).getStats().getItem4());
 			pDto.setItem5(detail.getParticipants().get(i).getStats().getItem5());
-			pDto.setTotalDamageDealt(detail.getParticipants().get(i).getStats().getTotalDamageDealt());
+			pDto.setTotalDamageDealt(detail.getParticipants().get(i).getStats().getTotalDamageDealtToChampions());
 			pDto.setTotalDamageTaken(detail.getParticipants().get(i).getStats().getTotalDamageTaken());
 			pDto.setWardsPlaced(detail.getParticipants().get(i).getStats().getWardsPlaced());
 			pDto.setWardsKilled(detail.getParticipants().get(i).getStats().getWardsKilled());
@@ -107,7 +75,11 @@ public class MatchApiDao {
 			if(detail.getParticipants().get(i).getTimeline().getLane().equals("BOTTOM")){
 				pDto.setLane(detail.getParticipants().get(i).getTimeline().getRole());
 			}else{
-				pDto.setLane(detail.getParticipants().get(i).getTimeline().getLane());				
+				if(detail.getParticipants().get(i).getTimeline().getRole().equals("DUO")){
+					pDto.setLane("DUO_CARRY");
+				}else{
+					pDto.setLane(detail.getParticipants().get(i).getTimeline().getLane());				
+				}
 			}
 			pDto.setTowerkills(detail.getParticipants().get(i).getStats().getTowerKills());
 			plist.add(pDto);
@@ -118,9 +90,14 @@ public class MatchApiDao {
 		for (int i = 0; i < detail.getParticipantIdentities().size(); i++) {
 			MatchParticipantIdentitiesDto piDto = new MatchParticipantIdentitiesDto();
 			piDto.setMatchId(matchId);
-			piDto.setParticipantId(detail.getParticipantIdentities().get(i).getParticipantId());
-			piDto.setSummonerId(detail.getParticipantIdentities().get(i).getPlayer().getSummonerId());
-			piDto.setSummonerName(detail.getParticipantIdentities().get(i).getPlayer().getSummonerName());
+			try {
+				piDto.setParticipantId(detail.getParticipantIdentities().get(i).getParticipantId());
+				piDto.setSummonerId(detail.getParticipantIdentities().get(i).getPlayer().getSummonerId());
+				piDto.setSummonerName(detail.getParticipantIdentities().get(i).getPlayer().getSummonerName());
+			} catch (NullPointerException e) {
+				// TODO: handle exception
+			}
+			
 			pilist.add(piDto);
 		}
 		
