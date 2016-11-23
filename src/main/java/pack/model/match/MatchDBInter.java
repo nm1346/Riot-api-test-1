@@ -36,7 +36,7 @@ public interface MatchDBInter {
 	@Insert("insert into avg(tier, lane, neutralMinionsKilled, neutralMinionsKilledTeamjungle,"
 			+ " neutralMinionsKilledEnemyjungle, kills, deaths, assists, totalDamageDealt, totalDamageTaken,"
 			+ " wardsPlaced, wardsKilled, minionskilled, goldEarned, towerkills)"
-			+ " values('Bronze', #{lane}, #{neutralMinionsKilled}, #{neutralMinionsKilledTeamjungle},"
+			+ " values('Challenger', #{lane}, #{neutralMinionsKilled}, #{neutralMinionsKilledTeamjungle},"
 			+ " #{neutralMinionsKilledEnemyjungle}, #{kills}, #{deaths}, #{assists}, #{totalDamageDealt}, #{totalDamageTaken},"
 			+ " #{wardsPlaced}, #{wardsKilled}, #{minionskilled}, #{goldEarned}, #{towerkills})")
 	public int insertAvg(MatchParticipantDto dto);
