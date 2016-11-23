@@ -66,7 +66,7 @@ public class MatchApiDao {
 			pDto.setItem3(detail.getParticipants().get(i).getStats().getItem3());
 			pDto.setItem4(detail.getParticipants().get(i).getStats().getItem4());
 			pDto.setItem5(detail.getParticipants().get(i).getStats().getItem5());
-			pDto.setTotalDamageDealt(detail.getParticipants().get(i).getStats().getTotalDamageDealt());
+			pDto.setTotalDamageDealt(detail.getParticipants().get(i).getStats().getTotalDamageDealtToChampions());
 			pDto.setTotalDamageTaken(detail.getParticipants().get(i).getStats().getTotalDamageTaken());
 			pDto.setWardsPlaced(detail.getParticipants().get(i).getStats().getWardsPlaced());
 			pDto.setWardsKilled(detail.getParticipants().get(i).getStats().getWardsKilled());
