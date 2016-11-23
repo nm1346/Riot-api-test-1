@@ -18,7 +18,11 @@ public interface RecentGameDBInter {
 	
 	@Select("select * from rawstats where gameId=#{gameId} and searchuserId=#{summonerId}")
 	public RawStats selectRawstats(@Param("gameId")Long gameId,@Param("summonerId")Long summonerId);
-
+	
+	
+	@Select("select achampionId ,  playcou, summonerId,name,kee from (select DISTINCT championId as achampionId ,summonerId , (select count(championId) from recentgames where summonerId = #{summonerId} and championId = achampionId) as playcou, name,kee from recentgames inner join  champion on championId = id) as recentgames  where summonerId = #{summonerId} and playcou >= 2")
+	public List<RecentchamDto> selectrecentchamp(@Param("summonerId")Long summonerId);
+	
 	@Select("select searchuserId, gameId, summonerId, teamId , championId, "
 			+ "kee as chamName1 , name as chamName2 from fellowplayers inner join champion on championId = id "
 			+ " where gameId=${gameId} and searchuserId=${summonerId} order by teamId asc;")

@@ -29,14 +29,17 @@ public class RecentGameDao {
 	@Transactional(isolation=Isolation.DEFAULT, propagation=Propagation.REQUIRES_NEW)
 	public boolean insertRecentGame(Long summonerId, List<Game> game) {
 		boolean b = false;
+		System.out.println("recentinsert 들어옴");
 		try {
 			for (int i = 0; i < game.size(); i++) {
 				if (gameDBInter.checkGame(game.get(i).getGameId(),summonerId) == null){
 					gameDBInter.insertGame(summonerId, game.get(i));
-					insertPlayer(game.get(i).getGameId(), game.get(i).getFellowPlayers() , summonerId);
+				}
+				if(gameDBInter.selectRawstats(game.get(i).getGameId(), summonerId) == null){
 					insertRawstats(game.get(i).getGameId(), game.get(i).getStats(),summonerId);
-				}else{
-					continue;
+				}
+				if (gameDBInter.selectFellowPlayers(game.get(i).getGameId(),summonerId).size() == 0) {
+					insertPlayer(game.get(i).getGameId(), game.get(i).getFellowPlayers() , summonerId);
 				}
 			}
 			b = true;
@@ -61,12 +64,14 @@ public class RecentGameDao {
 	}
 	public List<PlayerDto> selectFellowPlayer(Long gameId,Long SummonerId) throws DataAccessException {
 		return gameDBInter.selectFellowPlayers(gameId,SummonerId);
-		
 	}
 	public RawStats selectRawstats(Long gameId,Long SummonerId) throws DataAccessException {
 		return gameDBInter.selectRawstats(gameId,SummonerId);
 	}
-	public boolean insertspell(SummonerSpell spell){
+	public boolean insertspell(SummonerSpell spell) throws DataAccessException {
 		return gameDBInter.insertSummonerSpell(spell);
+	}
+	public List<RecentchamDto> getrecentChamplist(Long summonerId) throws DataAccessException{
+		return gameDBInter.selectrecentchamp(summonerId);
 	}
 }
