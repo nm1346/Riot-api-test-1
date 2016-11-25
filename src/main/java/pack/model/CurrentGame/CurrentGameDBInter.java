@@ -13,4 +13,12 @@ public interface CurrentGameDBInter {
 	
 	@Select("select kee from summonerspell where id=#{id}")
 	public String selectSummonerSpell(Long id);
+	
+	@Select("select name from gamename where queueType=#{queueType}")
+	public String gamename(Long queueType);
+	
+	@Select("select tier from league where id=#{id}")
+	public String Tier(Long id);
+	
+	
 }

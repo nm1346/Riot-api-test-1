@@ -11,6 +11,8 @@ import org.springframework.stereotype.Repository;
 
 import net.rithms.riot.api.RiotApiException;
 import net.rithms.riot.dto.CurrentGame.CurrentGameInfo;
+import net.rithms.riot.dto.Static.MasteryList;
+import net.rithms.riot.dto.Static.SummonerSpellList;
 
 @Repository
 public class InGameManager {
@@ -24,6 +26,7 @@ public class InGameManager {
 	public Object process(String username) {
 		Map<String, Object> map = new HashMap<>();
 		Map<String, String> championmap = new HashMap<>();
+		Map<String, String> championmap2 = new HashMap<>();
 		List<String> list1 = new ArrayList<>();
 		List<String> list2 = new ArrayList<>();
 		List<String> spell_list1 = new ArrayList<>();
@@ -36,33 +39,52 @@ public class InGameManager {
 		List<String> summonerName_list2 = new ArrayList<>();
 		List<Integer> mastery1 = new ArrayList<>();
 		List<Integer> mastery2 = new ArrayList<>();
-
 		List<String> tier1 = new ArrayList<>();
 		List<String> tier2 = new ArrayList<>();
-		Object object = new Object();
+		List<String> championName1 = new ArrayList<>();
+		List<String> championName2 = new ArrayList<>();
+		List<String> gametype = new ArrayList<>();
 		try {
 
 			Long id = riotApiManager.ApigetSummonerByName(username).getId();
 			CurrentGameInfo gameInfo = riotApiManager.ApiGameInfo(id);
-
-
+			gametype.add(summonerDao.gameName(gameInfo.getGameQueueConfigId()));
+			
+			SummonerSpellList spellinfo = riotApiManager.getSummonerSpell();
+			MasteryList masteryinfo = riotApiManager.getmastery();
 			for (int i = 0; i < gameInfo.getBannedChampions().size(); i++) {
 				Long chamid = gameInfo.getBannedChampions().get(i).getChampionId();
-				championmap.put("ban" + i, summonerDao.selectchampionKey(chamid));
-
+				if(gameInfo.getBannedChampions().get(i).getTeamId() == 100){
+					
+					championmap.put("ban" + i, summonerDao.selectchampionKey(chamid));
+				}else if(gameInfo.getBannedChampions().get(i).getTeamId() == 200){
+					championmap2.put("ban" + i, summonerDao.selectchampionKey(chamid));
+				}
+				
+				
 			}
 
 			for (int i = 0; i < gameInfo.getParticipants().size(); i++) {
 				Long chamid = gameInfo.getParticipants().get(i).getChampionId();
+
 				// System.out.println(summonerDao.selectTier(chamid));
 				// if(summonerDao.selectTier(chamid) == null){
 				//
 				// }
 
+
 				long spell = gameInfo.getParticipants().get(i).getSpell1Id();
 				long spel2 = gameInfo.getParticipants().get(i).getSpell2Id();
-
+				Long summonerId = gameInfo.getParticipants().get(i).getSummonerId();
+				
 				if (gameInfo.getParticipants().get(i).getTeamId() == 100) {
+					if(summonerDao.tier(summonerId) == null){
+						tier1.add("red");
+					}else{
+						tier1.add(summonerDao.tier(summonerId));
+					}
+					
+					championName1.add(summonerDao.selectchampionName(chamid));
 					list1.add(summonerDao.selectchampionKey(chamid));
 					spell_list1.add(summonerDao.selectSummonerSpell(spell));
 					spell_list2.add(summonerDao.selectSummonerSpell(spel2));
@@ -78,6 +100,13 @@ public class InGameManager {
 					}
 
 				} else if (gameInfo.getParticipants().get(i).getTeamId() == 200) {
+					if(summonerDao.tier(summonerId) == null){
+						tier2.add("blue");
+					}else{
+						tier2.add(summonerDao.tier(summonerId));
+					}
+					
+					championName2.add(summonerDao.selectchampionName(chamid));
 					list2.add(summonerDao.selectchampionKey(chamid));
 					spell_list3.add(summonerDao.selectSummonerSpell(spell));
 					spell_list4.add(summonerDao.selectSummonerSpell(spel2));
@@ -94,9 +123,12 @@ public class InGameManager {
 				}
 
 			}
-
+			
+			map.put("masteryinfo", masteryinfo);
+			map.put("spellinfo", spellinfo);
 			map.put("gameInfo", gameInfo);
 			map.put("banChampionName", championmap);
+			map.put("banChampionName2", championmap2);
 			map.put("summonerSpell1", spell_list1);
 			map.put("summonerSpell2", spell_list2);
 			map.put("summonerSpell3", spell_list3);
@@ -109,12 +141,16 @@ public class InGameManager {
 			map.put("summonerName_list2", summonerName_list2);
 			map.put("mastery1", mastery1);
 			map.put("mastery2", mastery2);
+			map.put("tier1", tier1);
+			map.put("tier2", tier2);
+			map.put("championName1", championName1);
+			map.put("championName2", championName2);
+			map.put("gametype", gametype);
 			map.put("success", true);
 		} catch (RiotApiException e) {
 			map.put("success", false);
 			map.put("errorCode", e.getErrorCode());
 			map.put("errorMessage", e.getMessage());
-
 			return map;
 		}
 		return map;

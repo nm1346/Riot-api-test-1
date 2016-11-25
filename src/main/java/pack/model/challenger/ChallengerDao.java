@@ -17,11 +17,13 @@ public class ChallengerDao {
 	public boolean insertChallenger(List<ChallengerDto> list) {
 		boolean success = false;
 		try {
+
 			challengerDBInter.deleteChallenger();
 			for (int i = 0; i < list.size(); i++) {
 				challengerDBInter.insertChallenger(list.get(i));
 			}
 			success = true;
+
 		} catch (Exception e) {
 			return success;
 		}
@@ -32,11 +34,13 @@ public class ChallengerDao {
 	public boolean insertMaster(List<ChallengerDto> list) {
 		boolean success = false;
 		try {
+
 			challengerDBInter.deleteMaster();
 			for (int i = 0; i < list.size(); i++) {
 				challengerDBInter.insertMaster(list.get(i));
 			}
 			success = true;
+
 		} catch (Exception e) {
 			return success;
 		}

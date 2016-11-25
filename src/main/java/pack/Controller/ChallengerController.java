@@ -14,7 +14,8 @@ public class ChallengerController {
 	@Autowired
 	ChallengerManager challengerManager;
 
-	@RequestMapping("challenger")
+
+	@RequestMapping("/challenger")
 	@ResponseBody
 	public Object getChallenger() {
 		return challengerManager.getChallenger();

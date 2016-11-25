@@ -19,10 +19,8 @@ public class CurrentGameController {
 	@RequestMapping("/currentGame/{username}")
 	@ResponseBody
 	public Object getlist1(@PathVariable("username")String username) {
-		//System.out.println(username);
 		Object object = new Object();
 		object = inGameManager.process(username);
-		
 		return object;
 	}
 	
