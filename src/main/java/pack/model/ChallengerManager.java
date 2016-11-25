@@ -23,7 +23,17 @@ public class ChallengerManager {
 
 	public Map<String, Object> getChallenger() {
 		HashMap<String, Object> map = new HashMap<>();		
-
+		try {
+			List<ChallengerDto> list = apiDao.apigetChallenger();
+			List<ChallengerDto> mlist = apiDao.apigetMaster();
+			challengerDao.insertMaster(mlist);
+			map.put("entry", mlist);
+			challengerDao.insertChallenger(list);
+			map.put("entry", list);
+			map.put("success", "true");
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 		ChallengerDto challenger = challengerDao.getChallenger().get(0);
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm");
 		Date date = null;
@@ -43,7 +53,7 @@ public class ChallengerManager {
 				List<ChallengerDto> list = apiDao.apigetChallenger();
 				List<ChallengerDto> mlist = apiDao.apigetMaster();
 				challengerDao.insertMaster(mlist);
-				map.put("master", mlist);
+				map.put("entry", mlist);
 				challengerDao.insertChallenger(list);
 				map.put("entry", list);
 				map.put("success", "true");

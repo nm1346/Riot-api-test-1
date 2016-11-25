@@ -20,6 +20,7 @@ public class CurrentGameController {
 	@ResponseBody
 	public Object getlist1(@PathVariable("username")String username) {
 		Object object = new Object();
+//		인게임매니저에서 검색한 소환사이름을 인자로 데이터를 받아옴
 		object = inGameManager.process(username);
 		return object;
 	}
