@@ -23,7 +23,17 @@ public class ChallengerManager {
 
 	public Map<String, Object> getChallenger() {
 		HashMap<String, Object> map = new HashMap<>();
-
+		try {
+			List<ChallengerDto> list = apiDao.apigetChallenger();
+			List<ChallengerDto> mlist = apiDao.apigetMaster();
+			challengerDao.insertChallenger(list);
+			challengerDao.insertMaster(mlist);
+			List<ChallengerDto> tlist = challengerDao.getChallenger();
+			map.put("entry", tlist);
+			map.put("success", "true");
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 		// 하루단위로 랭킹 갱신
 		ChallengerDto challenger = challengerDao.getChallenger().get(0);
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm");
@@ -42,11 +52,11 @@ public class ChallengerManager {
 			// 하루가 지나면 api 참조
 			try {
 				List<ChallengerDto> list = apiDao.apigetChallenger();
-				challengerDao.insertChallenger(list);
 				List<ChallengerDto> mlist = apiDao.apigetMaster();
+				challengerDao.insertChallenger(list);
 				challengerDao.insertMaster(mlist);
-				map.put("entry", list);
-				map.put("entry", mlist);
+				List<ChallengerDto> tlist = challengerDao.getChallenger();
+				map.put("entry", tlist);
 				map.put("success", "true");
 			} catch (RiotApiException e) {
 				System.out.println("getChallenger" + e);
@@ -57,10 +67,7 @@ public class ChallengerManager {
 		} else {
 			// db
 			List<ChallengerDto> list = challengerDao.getChallenger();
-			List<ChallengerDto> mlist = challengerDao.getMaster();
-			challengerDao.insertMaster(mlist);
 			map.put("entry", list);
-			map.put("entry", mlist);
 			map.put("success", "true");
 		}
 

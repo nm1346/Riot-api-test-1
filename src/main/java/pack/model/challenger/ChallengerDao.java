@@ -1,7 +1,6 @@
 package pack.model.challenger;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Isolation;
@@ -35,7 +34,6 @@ public class ChallengerDao {
 		boolean success = false;
 		try {
 			// 랭크 순위는 update가 아닌 delete가 용이함
-			challengerDBInter.deleteMaster();
 			for (int i = 0; i < list.size(); i++) {
 				challengerDBInter.insertMaster(list.get(i));
 			}
@@ -50,7 +48,4 @@ public class ChallengerDao {
 		return challengerDBInter.selectChallenger();
 	}
 
-	public List<ChallengerDto> getMaster() {
-		return challengerDBInter.selectMaster();
-	}
 }
