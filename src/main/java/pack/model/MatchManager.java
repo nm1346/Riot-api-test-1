@@ -16,25 +16,28 @@ import pack.model.match.MatchBean;
 
 @Service
 public class MatchManager {
-	
+
 	@Autowired
 	MatchApiDao apiDao;
 	@Autowired
 	MatchDao matchDao;
-	
+
 	public Map<String, Object> getMatch(long matchId) {
-		HashMap<String, Object> map = new HashMap<>();	
-		
+		HashMap<String, Object> map = new HashMap<>();
+
+		// match의 경우 수정할 필요가 없는 정보이기 때문에 존재하면 무조건 DB에서 출력
 		List<MatchDto> list = matchDao.selectMatch(matchId);
-		if(list.size()>5){
+		// DB에 존재하는 경우
+		if (list.size() > 5) {
 			List<AvgDto> list1 = matchDao.selectAvg();
 			List<SpellDto> dto = matchDao.getspell();
 			map.put("spell", dto);
 			map.put("match", list);
 			map.put("avg", list1);
 			map.put("success", "true");
-			return map;   
+			return map;
 		}
+		// DB에 존재하지 않는 경우 api 참조
 		try {
 			MatchBean bean = new MatchBean();
 			bean = apiDao.apigetMatch(matchId);
@@ -51,16 +54,17 @@ public class MatchManager {
 			map.put("success", "false");
 			map.put("error", e.getMessage());
 			map.put("errorCode", e.getErrorCode());
-		}		
+		}
 		return map;
 	}
-	
+
+	// DB(신빙성) 부족으로 인한 avg insert용
 	public Map<String, Object> getAvg(long matchId) {
-		HashMap<String, Object> map = new HashMap<>();	
+		HashMap<String, Object> map = new HashMap<>();
 		try {
 			MatchBean bean = new MatchBean();
 			bean = apiDao.apigetMatch(matchId);
-			//추가 insert 안함~
+			// 추가 insert 안함~
 			matchDao.insertAvg(bean);
 			List<AvgDto> list = matchDao.selectAvg();
 			map.put("success", "true");
@@ -70,7 +74,7 @@ public class MatchManager {
 			map.put("success", "false");
 			map.put("error", e.getMessage());
 			map.put("errorCode", e.getErrorCode());
-		}		
+		}
 		return map;
 	}
 }

@@ -3,7 +3,7 @@ package pack.model.challenger;
 public class ChallengerDto {
 	private String tier, playerOrTeamName, searchDate;
 	private int wins, losses, leaguePoints;
-	
+
 	public String getSearchDate() {
 		return searchDate;
 	}

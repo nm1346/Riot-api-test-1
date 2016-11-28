@@ -1,7 +1,6 @@
 package pack.model.most;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
@@ -9,8 +8,7 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import net.rithms.riot.api.RiotApiException;
-
+//db repository
 @Repository
 public class MostDao {
 	@Autowired
@@ -20,6 +18,7 @@ public class MostDao {
 	public boolean insertMost(List<MostDto> list) throws DataAccessException {
 		boolean success = false;
 		try {
+			// most는 update 보다 delete가 용이함
 			mostDBInter.deleteMost(list.get(0).getSummonerId());
 			for (int i = 0; i < list.size(); i++) {
 				mostDBInter.insertMost(list.get(i));
@@ -32,11 +31,13 @@ public class MostDao {
 		return success;
 	}
 
+	// most 챔피언
 	public List<MostDto> getMost(long summonerId) {
 		return mostDBInter.selectMost(summonerId);
 	}
 
-	public List<MostDto> getWostList(long summonerId) {
-		return mostDBInter.selectMostWost(summonerId);
+	// wost 챔피언
+	public List<MostDto> getWorstList(long summonerId) {
+		return mostDBInter.selectMorstWost(summonerId);
 	}
 }
