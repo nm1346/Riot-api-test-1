@@ -2,7 +2,8 @@ package pack.model.most;
 
 public class MostDto {
 	private int championId, played, win, lose, goldEarned, minionkills, kills, assists, deaths, maxKills, maxAssists,
-			maxDeaths, damageDealt, damageTaken, doubleKills, tripleKills, quadraKills, pentaKills,winlate,avgwinlate;
+			maxDeaths, damageDealt, damageTaken, doubleKills, tripleKills, quadraKills, pentaKills, winlate, avgwinlate;
+
 	public int getWinlate() {
 		return winlate;
 	}
@@ -11,7 +12,6 @@ public class MostDto {
 		this.winlate = winlate;
 	}
 
-	
 	public int getAvgwinlate() {
 		return avgwinlate;
 	}
@@ -19,7 +19,6 @@ public class MostDto {
 	public void setAvgwinlate(int avgwinlate) {
 		this.avgwinlate = avgwinlate;
 	}
-
 
 	private long summonerId;
 	private String championNameK, championNameE, searchDate;

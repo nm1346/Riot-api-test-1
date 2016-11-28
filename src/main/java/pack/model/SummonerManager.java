@@ -121,7 +121,7 @@ public class SummonerManager {
 				summonerIds.setLength(0);
 			  }*/
 			}
-			List<MostDto> mostlist = mostDao.getWostList(summoner.getId());
+			List<MostDto> mostlist = mostDao.getWorstList(summoner.getId());
 			if(mostlist != null){
 				map.put("most", mostlist);
 			}else{
@@ -175,7 +175,7 @@ public class SummonerManager {
 				try {
 					list = mostapiDao.apigetMost(summoner.getId());
 					mostDao.insertMost(list);
-					map.put("most", mostDao.getWostList(summoner.getId()));
+					map.put("most", mostDao.getWorstList(summoner.getId()));
 				} catch (RiotApiException e) {
 					map.put("most", "most 데이터가 없습니다.");
 				}	

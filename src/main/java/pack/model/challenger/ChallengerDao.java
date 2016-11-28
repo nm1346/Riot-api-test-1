@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+//db repository
 @Repository
 public class ChallengerDao {
 	@Autowired
@@ -17,6 +18,8 @@ public class ChallengerDao {
 	public boolean insertChallenger(List<ChallengerDto> list) {
 		boolean success = false;
 		try {
+
+			// 랭크 순위는 update가 아닌 delete가 용이함
 
 			challengerDBInter.deleteChallenger();
 			for (int i = 0; i < list.size(); i++) {
@@ -34,6 +37,8 @@ public class ChallengerDao {
 	public boolean insertMaster(List<ChallengerDto> list) {
 		boolean success = false;
 		try {
+
+			// 랭크 순위는 update가 아닌 delete가 용이함
 
 			challengerDBInter.deleteMaster();
 			for (int i = 0; i < list.size(); i++) {

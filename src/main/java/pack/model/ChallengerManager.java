@@ -23,11 +23,10 @@ public class ChallengerManager {
 
 	public Map<String, Object> getChallenger() {
 
-		HashMap<String, Object> map = new HashMap<>();		
+		HashMap<String, Object> map = new HashMap<>();
 
-
+		// 하루단위로 랭킹 갱신
 		ChallengerDto challenger = challengerDao.getChallenger().get(0);
-		
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm");
 		Date date = null;
 		try {
@@ -38,55 +37,17 @@ public class ChallengerManager {
 		}
 		Calendar searchDate = Calendar.getInstance();
 		searchDate.setTime(date);
-		searchDate.add(Calendar.HOUR_OF_DAY, 1); 
-		 
+		searchDate.add(Calendar.DAY_OF_MONTH, 1);
+
 		if (searchDate.getTime().before(new Date())) {
-			// api
+			// 하루가 지나면 api 참조
 			try {
 
 				List<ChallengerDto> list = apiDao.apigetChallenger();
-				List<ChallengerDto> mlist = apiDao.apigetMaster();
-				challengerDao.insertMaster(mlist);
-				map.put("master", mlist);
 				challengerDao.insertChallenger(list);
-				map.put("entry", list);
-				map.put("success", "true");
-			} catch (RiotApiException e) {
-				System.out.println("getChallenger" + e);
-				map.put("success", "false");
-				map.put("error", e.getMessage());
-				map.put("errorCode", e.getErrorCode());
-			}
-		} else {
-			// db
-			List<ChallengerDto> list = challengerDao.getChallenger();
-			map.put("entry", list);
-			map.put("success", "true");
-		}	
-		
-		return map;
-	}
-
-	public Map<String, Object> getMaster() {
-		HashMap<String, Object> map = new HashMap<>();
-
-		ChallengerDto master = challengerDao.getMaster().get(0);
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm");
-		Date date = null;
-		try {
-			date = format.parse(master.getSearchDate());
-			master.setSearchDate(format.format(date));
-		} catch (Exception e) {
-
-		}
-		Calendar searchDate = Calendar.getInstance();
-		searchDate.setTime(date);
-		searchDate.add(Calendar.HOUR_OF_DAY, 1);
-		if (searchDate.getTime().before(new Date())) {
-			// 갱신용
-			try {
 				List<ChallengerDto> mlist = apiDao.apigetMaster();
 				challengerDao.insertMaster(mlist);
+				map.put("challenger", list);
 				map.put("master", mlist);
 				map.put("success", "true");
 			} catch (RiotApiException e) {

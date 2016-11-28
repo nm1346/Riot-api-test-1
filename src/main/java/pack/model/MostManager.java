@@ -23,6 +23,7 @@ public class MostManager {
 	public Map<String, Object> getMost(long summonerId) {
 		HashMap<String, Object> map = new HashMap<>();
 
+		// 하루단위로 most 챔피언 갱신
 		MostDto most = mostDao.getMost(summonerId).get(0);
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm");
 		Date date = null;
@@ -34,10 +35,10 @@ public class MostManager {
 		}
 		Calendar searchDate = Calendar.getInstance();
 		searchDate.setTime(date);
-		searchDate.add(Calendar.HOUR_OF_DAY, 1); 
-		 
+		searchDate.add(Calendar.DAY_OF_MONTH, 1);
+
 		if (searchDate.getTime().before(new Date())) {
-			// api
+			// 하루가 지나면 api 참조
 			try {
 				List<MostDto> list = apiDao.apigetMost(summonerId);
 				mostDao.insertMost(list);
