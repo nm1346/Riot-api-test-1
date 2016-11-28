@@ -13,7 +13,7 @@ import net.rithms.riot.api.RiotApiException;
 import net.rithms.riot.dto.CurrentGame.CurrentGameInfo;
 import net.rithms.riot.dto.Static.MasteryList;
 import net.rithms.riot.dto.Static.SummonerSpellList;
-
+// api 요청과 DB 요청을 받아서 처리하는 Repository
 @Repository
 public class InGameManager {
 
@@ -45,13 +45,16 @@ public class InGameManager {
 		List<String> championName2 = new ArrayList<>();
 		List<String> gametype = new ArrayList<>();
 		try {
-
+//			소환사 이름을 id로 얻음
 			Long id = riotApiManager.ApigetSummonerByName(username).getId();
 			CurrentGameInfo gameInfo = riotApiManager.ApiGameInfo(id);
+//			게임타입
 			gametype.add(summonerDao.gameName(gameInfo.getGameQueueConfigId()));
-			
+//			스펠정보
 			SummonerSpellList spellinfo = riotApiManager.getSummonerSpell();
+//			마스터리정보			
 			MasteryList masteryinfo = riotApiManager.getmastery();
+//			벤챔피언정보 팀구분
 			for (int i = 0; i < gameInfo.getBannedChampions().size(); i++) {
 				Long chamid = gameInfo.getBannedChampions().get(i).getChampionId();
 				if(gameInfo.getBannedChampions().get(i).getTeamId() == 100){
@@ -63,15 +66,9 @@ public class InGameManager {
 				
 				
 			}
-
+//			레드,블루 팀 나누어서 챔피언,스펠등 데이터 분할
 			for (int i = 0; i < gameInfo.getParticipants().size(); i++) {
 				Long chamid = gameInfo.getParticipants().get(i).getChampionId();
-
-				// System.out.println(summonerDao.selectTier(chamid));
-				// if(summonerDao.selectTier(chamid) == null){
-				//
-				// }
-
 
 				long spell = gameInfo.getParticipants().get(i).getSpell1Id();
 				long spel2 = gameInfo.getParticipants().get(i).getSpell2Id();
