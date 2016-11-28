@@ -16,99 +16,64 @@ import pack.model.challenger.ChallengerDto;
 @Service
 public class ChallengerManager {
 
-	@Autowired
-	ChallengerApiDao apiDao; // api
-	@Autowired
-	ChallengerDao challengerDao; // db
+   @Autowired
+   ChallengerApiDao apiDao; // api
+   @Autowired
+   ChallengerDao challengerDao; // db
 
-	public Map<String, Object> getChallenger() {
-		HashMap<String, Object> map = new HashMap<>();		
-		try {
-			List<ChallengerDto> list = apiDao.apigetChallenger();
-			List<ChallengerDto> mlist = apiDao.apigetMaster();
-			challengerDao.insertMaster(mlist);
-			map.put("entry", mlist);
-			challengerDao.insertChallenger(list);
-			map.put("entry", list);
-			map.put("success", "true");
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		ChallengerDto challenger = challengerDao.getChallenger().get(0);
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm");
-		Date date = null;
-		try {
-			date = format.parse(challenger.getSearchDate());
-			challenger.setSearchDate(format.format(date));
-		} catch (Exception e) {
+   public Map<String, Object> getChallenger() {
+      HashMap<String, Object> map = new HashMap<>();
+      /*
+      최초시도시
+      try {
+         List<ChallengerDto> list = apiDao.apigetChallenger();
+         List<ChallengerDto> mlist = apiDao.apigetMaster();
+         challengerDao.insertChallenger(list);
+         challengerDao.insertMaster(mlist);
+         List<ChallengerDto> tlist = challengerDao.getChallenger();
+         map.put("entry", tlist);
+         map.put("success", "true");
+      } catch (Exception e) {
+         // TODO: handle exception
+      }
+      */
+      // 하루단위로 랭킹 갱신
+      ChallengerDto challenger = challengerDao.getChallenger().get(0);
+      SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+      Date date = null;
+      try {
+         date = format.parse(challenger.getSearchDate());
+         challenger.setSearchDate(format.format(date));
+      } catch (Exception e) {
 
-		}
-		Calendar searchDate = Calendar.getInstance();
-		searchDate.setTime(date);
-		searchDate.add(Calendar.HOUR_OF_DAY, 1); 
-		 
-		if (searchDate.getTime().before(new Date())) {
-			// 갱신용
-			try {
-				List<ChallengerDto> list = apiDao.apigetChallenger();
-				List<ChallengerDto> mlist = apiDao.apigetMaster();
-				challengerDao.insertMaster(mlist);
-				map.put("entry", mlist);
-				challengerDao.insertChallenger(list);
-				map.put("entry", list);
-				map.put("success", "true");
-			} catch (RiotApiException e) {
-				System.out.println("getChallenger" + e);
-				map.put("success", "false");
-				map.put("error", e.getMessage());
-				map.put("errorCode", e.getErrorCode());
-			}
-		} else {
-			// db
-			List<ChallengerDto> list = challengerDao.getChallenger();
-			map.put("entry", list);
-			map.put("success", "true");
-		}	
-		
-		return map;
-	}
+      }
+      Calendar searchDate = Calendar.getInstance();
+      searchDate.setTime(date);
+      searchDate.add(Calendar.DAY_OF_MONTH, 1);
 
-	public Map<String, Object> getMaster() {
-		HashMap<String, Object> map = new HashMap<>();
+      if (searchDate.getTime().before(new Date())) {
+         // 하루가 지나면 api 참조
+         try {
+            List<ChallengerDto> list = apiDao.apigetChallenger();
+            List<ChallengerDto> mlist = apiDao.apigetMaster();
+            challengerDao.insertChallenger(list);
+            challengerDao.insertMaster(mlist);
+            List<ChallengerDto> tlist = challengerDao.getChallenger();
+            map.put("entry", tlist);
+            map.put("success", "true");
+         } catch (RiotApiException e) {
+            System.out.println("getChallenger" + e);
+            map.put("success", "false");
+            map.put("error", e.getMessage());
+            map.put("errorCode", e.getErrorCode());
+         }
+      } else {
+         // db
+         List<ChallengerDto> list = challengerDao.getChallenger();
+         map.put("entry", list);
+         map.put("success", "true");
+      }
 
-		ChallengerDto master = challengerDao.getMaster().get(0);
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm");
-		Date date = null;
-		try {
-			date = format.parse(master.getSearchDate());
-			master.setSearchDate(format.format(date));
-		} catch (Exception e) {
-
-		}
-		Calendar searchDate = Calendar.getInstance();
-		searchDate.setTime(date);
-		searchDate.add(Calendar.HOUR_OF_DAY, 1);
-		if (searchDate.getTime().before(new Date())) {
-			// 갱신용
-			try {
-				List<ChallengerDto> mlist = apiDao.apigetMaster();
-				challengerDao.insertMaster(mlist);
-				map.put("master", mlist);
-				map.put("success", "true");
-			} catch (RiotApiException e) {
-				System.out.println("getChallenger" + e);
-				map.put("success", "false");
-				map.put("error", e.getMessage());
-				map.put("errorCode", e.getErrorCode());
-			}
-		} else {
-			// db
-			List<ChallengerDto> list = challengerDao.getMaster();
-			map.put("entry", list);
-			map.put("success", "true");
-		}
-		
-		return map;
-	}
-
+      return map;
+   }
 }

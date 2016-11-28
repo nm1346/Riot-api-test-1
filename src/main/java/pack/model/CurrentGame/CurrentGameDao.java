@@ -3,7 +3,7 @@ package pack.model.CurrentGame;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
-//DB 요ㅊ처리용 Repository
+//DB 요청처리용 Repository
 @Repository
 public class CurrentGameDao  {
 	
