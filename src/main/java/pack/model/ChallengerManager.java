@@ -45,8 +45,8 @@ public class ChallengerManager {
 				challengerDao.insertChallenger(list);
 				List<ChallengerDto> mlist = apiDao.apigetMaster();
 				challengerDao.insertMaster(mlist);
-				map.put("challenger", list);
-				map.put("master", mlist);
+				map.put("entry", list);
+				map.put("entry", mlist);
 				map.put("success", "true");
 			} catch (RiotApiException e) {
 				System.out.println("getChallenger" + e);
@@ -57,7 +57,10 @@ public class ChallengerManager {
 		} else {
 			// db
 			List<ChallengerDto> list = challengerDao.getChallenger();
+			List<ChallengerDto> mlist = challengerDao.getMaster();
+			challengerDao.insertMaster(mlist);
 			map.put("entry", list);
+			map.put("entry", mlist);
 			map.put("success", "true");
 		}
 
