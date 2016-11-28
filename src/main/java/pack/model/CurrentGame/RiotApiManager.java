@@ -14,6 +14,7 @@ import net.rithms.riot.constant.Region;
 import net.rithms.riot.dto.CurrentGame.CurrentGameInfo;
 import net.rithms.riot.dto.League.League;
 import net.rithms.riot.dto.Static.ChampionList;
+import net.rithms.riot.dto.Static.MasteryList;
 import net.rithms.riot.dto.Static.SummonerSpell;
 import net.rithms.riot.dto.Static.SummonerSpellList;
 import net.rithms.riot.dto.Summoner.Summoner;
@@ -34,11 +35,11 @@ public class RiotApiManager {
 		return gameInfo;
 	}
 
-	//소환사스펠
-	public String getSummonerSpell(int id){
-		String s = "";
+	//스펠정보
+	public SummonerSpellList getSummonerSpell(){
+		SummonerSpellList s = null;
 		try {
-			s = api.getDataSummonerSpell(id).getKey();
+			s = api.getDataSummonerSpellList();
 			
 		} catch (Exception e) {
 			System.out.println(e);
@@ -46,4 +47,16 @@ public class RiotApiManager {
 		return s;
 	}
 
+	//마스터리정보
+	public MasteryList getmastery(){
+		MasteryList s = null;
+		try {
+			s = api.getDataMasteryList();
+			
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return s;
+	}
+	
 }

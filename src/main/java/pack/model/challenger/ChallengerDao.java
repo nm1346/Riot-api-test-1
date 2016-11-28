@@ -23,6 +23,7 @@ public class ChallengerDao {
 				challengerDBInter.insertChallenger(list.get(i));
 			}
 			success = true;
+
 		} catch (Exception e) {
 			return success;
 		}
@@ -33,11 +34,13 @@ public class ChallengerDao {
 	public boolean insertMaster(List<ChallengerDto> list) {
 		boolean success = false;
 		try {
+
 			// 랭크 순위는 update가 아닌 delete가 용이함
 			for (int i = 0; i < list.size(); i++) {
 				challengerDBInter.insertMaster(list.get(i));
 			}
 			success = true;
+
 		} catch (Exception e) {
 			return success;
 		}

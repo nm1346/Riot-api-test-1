@@ -15,7 +15,7 @@ public interface SummonerDBInter {
 	public SummonerDto selectsearchData(SummonerBean bean);
 	
 	@Select("select * from league where id=#{id}")
-	public LeagueDto selectLeagueData(Long id);
+	public LeagueDto selectLeagueData(Long id);	
 	@Select("select * from entries where playerOrTeamId=#{entry}")
 	public List<LeagueEntry> selectEntryData(String entry);
 

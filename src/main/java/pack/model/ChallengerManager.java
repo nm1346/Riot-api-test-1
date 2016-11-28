@@ -22,7 +22,10 @@ public class ChallengerManager {
 	ChallengerDao challengerDao; // db
 
 	public Map<String, Object> getChallenger() {
+
 		HashMap<String, Object> map = new HashMap<>();
+		/*
+		최초 시도 시
 		try {
 			List<ChallengerDto> list = apiDao.apigetChallenger();
 			List<ChallengerDto> mlist = apiDao.apigetMaster();
@@ -34,6 +37,7 @@ public class ChallengerManager {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
+		*/
 		// 하루단위로 랭킹 갱신
 		ChallengerDto challenger = challengerDao.getChallenger().get(0);
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm");
@@ -51,6 +55,7 @@ public class ChallengerManager {
 		if (searchDate.getTime().before(new Date())) {
 			// 하루가 지나면 api 참조
 			try {
+
 				List<ChallengerDto> list = apiDao.apigetChallenger();
 				List<ChallengerDto> mlist = apiDao.apigetMaster();
 				challengerDao.insertChallenger(list);
@@ -64,6 +69,7 @@ public class ChallengerManager {
 				map.put("error", e.getMessage());
 				map.put("errorCode", e.getErrorCode());
 			}
+
 		} else {
 			// db
 			List<ChallengerDto> list = challengerDao.getChallenger();

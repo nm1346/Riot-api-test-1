@@ -6,22 +6,23 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import pack.model.CurrentGame.InGameManager;
+import pack.model.RecentchampManager;
 
 
 @CrossOrigin(origins="*")
 @RestController
-public class CurrentGameController {
+public class RecentchampController {
+	
 	
 	@Autowired
-	InGameManager inGameManager;
+	RecentchampManager champmanager;
 	
-	@RequestMapping("/currentGame/{username}")
+	@RequestMapping("/recentchamp/{summonerId}")
 	@ResponseBody
-	public Object getlist1(@PathVariable("username")String username) {
+	public Object getlist1(@PathVariable("summonerId")Long SummonerId) {
+		System.out.println(SummonerId);
 		Object object = new Object();
-		object = inGameManager.process(username);
+		object = champmanager.getRecentchamplist(SummonerId);
 		return object;
 	}
-	
 }
