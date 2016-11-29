@@ -15,7 +15,7 @@ public class MatchApiDao {
 	@Autowired
 	RiotApiKeyRotate api;
 
-	public MatchBean apigetMatch(long matchId) throws RiotApiException {
+	public MatchBean ApigetMatch(long matchId) throws RiotApiException {
 		MatchBean dto = new MatchBean();
 		MatchDetail detail = api.getMatch(matchId); // match정보
 

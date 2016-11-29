@@ -18,7 +18,7 @@ public class ChallengerApiDao {
 
    // challenger와 master를 구분지어 뽑는 걸로 계획
    // challenger정보
-   public List<ChallengerDto> apigetChallenger() throws RiotApiException {
+   public List<ChallengerDto> ApigetChallenger() throws RiotApiException {
       List<ChallengerDto> list = new ArrayList<ChallengerDto>();
       try {
          League challenger = api.getChallengerLeague(QueueType.RANKED_SOLO_5x5);
@@ -39,7 +39,7 @@ public class ChallengerApiDao {
    }
 
    // master정보
-   public List<ChallengerDto> apigetMaster() throws RiotApiException {
+   public List<ChallengerDto> ApigetMaster() throws RiotApiException {
       List<ChallengerDto> list = new ArrayList<ChallengerDto>();
       try {
          League master = api.getMasterLeague(QueueType.RANKED_SOLO_5x5);

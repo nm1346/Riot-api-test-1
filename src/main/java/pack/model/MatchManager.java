@@ -40,7 +40,7 @@ public class MatchManager {
 		// DB에 존재하지 않는 경우 api 참조
 		try {
 			MatchBean bean = new MatchBean();
-			bean = apiDao.apigetMatch(matchId);
+			bean = apiDao.ApigetMatch(matchId);
 			matchDao.insertMatch(bean);
 			list = matchDao.selectMatch(matchId);
 			List<AvgDto> list1 = matchDao.selectAvg();
@@ -63,7 +63,7 @@ public class MatchManager {
 		HashMap<String, Object> map = new HashMap<>();
 		try {
 			MatchBean bean = new MatchBean();
-			bean = apiDao.apigetMatch(matchId);
+			bean = apiDao.ApigetMatch(matchId);
 			// 추가 insert 안함~
 			matchDao.insertAvg(bean);
 			List<AvgDto> list = matchDao.selectAvg();

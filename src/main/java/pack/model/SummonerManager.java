@@ -77,7 +77,7 @@ public class SummonerManager {
 					game = new ArrayList<>(games.getGames());
 					gameDao.insertRecentGame(summoner.getId(), game);
 					try {
-					List<MostDto> list = mostapiDao.apigetMost(summoner.getId());
+					List<MostDto> list = mostapiDao.ApigetMost(summoner.getId());
 						mostDao.insertMost(list);
 					} catch (Exception e) {
 						System.out.println(e);
@@ -173,7 +173,7 @@ public class SummonerManager {
 				}
 				List<MostDto> list = null;
 				try {
-					list = mostapiDao.apigetMost(summoner.getId());
+					list = mostapiDao.ApigetMost(summoner.getId());
 					mostDao.insertMost(list);
 					map.put("most", mostDao.getWorstList(summoner.getId()));
 				} catch (RiotApiException e) {

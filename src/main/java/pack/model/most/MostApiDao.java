@@ -16,7 +16,7 @@ public class MostApiDao {
 	@Autowired
 	RiotApiKeyRotate api;
 
-	public List<MostDto> apigetMost(long SummonerId) throws RiotApiException {
+	public List<MostDto> ApigetMost(long SummonerId) throws RiotApiException {
 		List<MostDto> list = null;
 		RankedStats rs = api.getRankedStats(SummonerId);
 		// most챔피언이 존재하지 않는 경우 제외

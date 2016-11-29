@@ -40,7 +40,7 @@ public class MostManager {
 		if (searchDate.getTime().before(new Date())) {
 			// 하루가 지나면 api 참조
 			try {
-				List<MostDto> list = apiDao.apigetMost(summonerId);
+				List<MostDto> list = apiDao.ApigetMost(summonerId);
 				mostDao.insertMost(list);
 				map.put("most", list);
 				map.put("success", "true");
