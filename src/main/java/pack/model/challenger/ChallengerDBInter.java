@@ -13,9 +13,9 @@ public interface ChallengerDBInter {
 	public int deleteChallenger();
 
 	@Insert("insert into challenger values(#{tier}, #{playerOrTeamName}, #{leaguePoints}, #{wins}, #{losses}, now())")
-	public int insertChallenger(ChallengerDto dto);
+	public int insertMaster(ChallengerDto dto);
 
 	@Insert("insert into challenger values(#{tier}, #{playerOrTeamName}, #{leaguePoints}, #{wins}, #{losses}, now())")
-	public int insertMaster(ChallengerDto dto);
+	public int insertChallenger(ChallengerDto dto);
 
 }

@@ -2,7 +2,7 @@ package pack.model.CurrentGame;
 
 import org.apache.ibatis.annotations.Select;
 
-
+//Db인터페이스
 public interface CurrentGameDBInter {
 	
 	@Select("select name from champion where id=#{id}")

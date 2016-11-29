@@ -20,12 +20,13 @@ import net.rithms.riot.dto.Static.SummonerSpellList;
 import net.rithms.riot.dto.Summoner.Summoner;
 import pack.model.RiotApiKeyRotate;
 
-
+// ap요청을 처리하는 @Repository
 @Repository
 public class RiotApiManager {
 	@Autowired
 	RiotApiKeyRotate api;
 	
+	//	소환사 id
 	public Summoner ApigetSummonerByName(String name) throws RiotApiException{
 		return api.getSummonerByName(name);
 	}
